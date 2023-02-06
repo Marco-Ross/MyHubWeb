@@ -1,0 +1,17 @@
+<form #login="ngForm" (ngSubmit)="onSubmit(login)">
+  <div class="center-screen">
+    <div>
+      <span class="login-header">My Hub</span>
+
+      <input [(ngModel)]="username" type="text" class="form-control col-12 mb-2" placeholder="Username" name="username">
+      <input [(ngModel)]="password" type="password" class="form-control col-12 mb-2" placeholder="Password" name="password">
+
+      <div class="d-grid col-12">
+        <button class="btn btn-block btn-primary login-button" type="submit">Login</button>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<!-- think about this input and button resizing -->
