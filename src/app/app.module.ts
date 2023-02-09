@@ -7,7 +7,10 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginModule } from './features/login/login.module';
-import { ApiInterceptor } from './core/interceptors/ApiInterceptor';
+import { ApiRouteInterceptor } from './core/interceptors/api-route.interceptor';
+import { HomeModule } from './features/home/home.module';
+import { authInterceptorProviders } from './core/interceptors/authentication.interceptor';
+import { CoreServicesModule } from './core/services/core-services.module';
 
 
 @NgModule({
@@ -19,15 +22,19 @@ import { ApiInterceptor } from './core/interceptors/ApiInterceptor';
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    CoreServicesModule,
 
-    LoginModule
+    LoginModule,
+    HomeModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
+      useClass: ApiRouteInterceptor,
       multi: true
-    }
+    },
+    authInterceptorProviders
+    
   ],
   bootstrap: [AppComponent]
 })

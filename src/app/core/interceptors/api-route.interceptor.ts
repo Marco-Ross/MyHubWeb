@@ -2,9 +2,9 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.development";
 
-export class ApiInterceptor implements HttpInterceptor {
+export class ApiRouteInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const apiRequest = req.clone({ url: environment.API_URL + req.url });
+        const apiRequest = req.clone({ url: environment.API_URL + req.url, withCredentials: true });
         
         return next.handle(apiRequest);
     }

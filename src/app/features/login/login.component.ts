@@ -11,8 +11,21 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent {
   username: string = "";
   password: string = "";
+  testValue: string = "";
 
   constructor(private loginService: LoginService) { }
+
+  test(){
+    this.loginService.Test().subscribe({
+      next: (testReturn) => {
+        //redirect to new page
+        this.testValue = testReturn.number;
+      },
+      error: () => {
+        console.log("error");
+      }
+    });
+  }
 
   onSubmit(form: NgForm) {
     console.log('Your form data : ', form.value);
