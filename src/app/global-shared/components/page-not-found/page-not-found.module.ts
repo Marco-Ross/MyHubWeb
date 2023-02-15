@@ -8,4 +8,4 @@ import { PageNotFoundComponent } from './page-not-found.component';
   imports: [],
   exports:[PageNotFoundComponent]
 })
-export class PageNotFoundComponentModule { }
+export class PageNotFoundModule { }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class LoginService {
+export class AuthenticationService {
   ApiController: string = "Authentication";
 
   constructor(private http: HttpClient) { }
@@ -14,7 +14,11 @@ export class LoginService {
     return this.http.post(this.ApiController + '/Login', loginDetails);
   }
 
-  Test(): Observable<any> {
-    return this.http.get(this.ApiController + '/Test');
+  Logout(): Observable<any> {
+    return this.http.get(this.ApiController + '/Revoke');
+  }
+
+  RefreshToken(): Observable<any> {
+    return this.http.get(this.ApiController + '/Refresh');
   }
 }

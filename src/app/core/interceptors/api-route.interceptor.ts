@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.development";
 
@@ -8,7 +8,11 @@ export class ApiRouteInterceptor implements HttpInterceptor {
         
         return next.handle(apiRequest);
     }
-
 }
+
+export const ApiRouteInterceptorProviders = [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiRouteInterceptor, multi: true }
+];
+
 //Can add a base url identifier if needed in future. 
 //E.g. add @google to initial request and replace that with its baseUrl in here. Default can always be my app.

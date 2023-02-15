@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { LoginModule } from './features/login/login.module';
-import { ApiRouteInterceptor } from './core/interceptors/api-route.interceptor';
-import { HomeModule } from './features/home/home.module';
-import { authInterceptorProviders } from './core/interceptors/authentication.interceptor';
-import { CoreServicesModule } from './core/services/core-services.module';
-
+import { CoreInterceptorsModule } from './core/interceptors/core-interceptors.module';
+import { GuardModule } from './core/guards/guard.module';
+import { CoreAuthServicesModule } from './core/services/authentication-service/core-auth-service.module';
 
 @NgModule({
   declarations: [
@@ -22,20 +19,12 @@ import { CoreServicesModule } from './core/services/core-services.module';
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    CoreServicesModule,
-
-    LoginModule,
-    HomeModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiRouteInterceptor,
-      multi: true
-    },
-    authInterceptorProviders
     
+    CoreInterceptorsModule,
+    CoreAuthServicesModule,
+    GuardModule
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
