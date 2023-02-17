@@ -1,45 +1,46 @@
 import { Component } from '@angular/core';
-import { LoginService } from './services/login.service';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss'],
-  providers: [LoginService]
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent {
-  username: string = "";
-  password: string = "";
-  testValue: string = "";
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
 
-  constructor(private loginService: LoginService) { }
+  loginFG!: FormGroup;
+  invalidLoginError: string = "";
+  loginFormSubmitted: boolean = false;
 
-  test(){
-    this.loginService.Test().subscribe({
-      next: (testReturn) => {
-        //redirect to new page
-        this.testValue = testReturn.number;
-      },
-      error: () => {
-        console.log("error");
-      }
+  ngOnInit() {
+    this.loginFG = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required] //password validator
     });
   }
 
-  onSubmit(form: NgForm) {
-    console.log('Your form data : ', form.value);
-    this.Login();
+  //////
+
+  onSubmit() {
+    this.Login(this.loginFG.value);
   }
 
-  public Login() {
-    this.loginService.Login(this.username, this.password).subscribe({
-      next: (response) => {
-        //redirect to new page
-      },
-      error: () => {
-        console.log("error");
-      }
-    });
+  //come up with a model structure?
+  public Login({ username, password }: { username: string, password: string }) {
+    this.loginFormSubmitted = true;
+
+    if (this.loginFG.valid)
+      this.authenticationService.Login(username, password).subscribe({
+        next: _ => {
+          this.router.navigateByUrl('home');
+        },
+        error: (response) => {
+          this.invalidLoginError = response.error;
+          this.loginFG.markAsPristine();
+        }
+      });
   }
 }

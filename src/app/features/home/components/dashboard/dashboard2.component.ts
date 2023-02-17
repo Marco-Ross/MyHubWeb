@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'dashboard',
-    templateUrl: 'dashboard.component.html',
+    selector: 'dashboard2',
+    templateUrl: 'dashboard2.component.html',
     //styleUrls: ['dashboard.component.scss'],
     providers: []
 })
-export class DashboardComponent {
+export class DashboardComponent2 {
     constructor(private router: Router) { }
 
-    Dash2(){
-        this.router.navigate(['home/dashboard2']);
+    Dash1(){
+        this.router.navigate(['home/dashboard']);
     }
  }
