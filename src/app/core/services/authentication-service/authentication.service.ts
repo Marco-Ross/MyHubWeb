@@ -15,10 +15,10 @@ export class AuthenticationService {
   }
 
   Logout(): Observable<any> {
-    return this.http.get(this.ApiController + '/Revoke');
+    return this.http.post(this.ApiController + '/Revoke', '');
   }
 
   RefreshToken(): Observable<any> {
-    return this.http.get(this.ApiController + '/Refresh');
+    return this.http.post(this.ApiController + '/Refresh', '');
   }
 }

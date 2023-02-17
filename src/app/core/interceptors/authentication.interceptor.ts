@@ -6,6 +6,7 @@ import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication-service/authentication.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -13,10 +14,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     private refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 
-    constructor(private authenticationService: AuthenticationService, private router: Router) { }
+    constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.url.includes('Authentication/Login') || req.url.includes('Authentication/Refresh'))
+        if (req.url.includes('Authentication/Login'))
+            return next.handle(req);
+
+        let forgeryToken = this.cookieService.get('X-Forgery-Token');
+        req.headers.append("X-Forgery-Token", forgeryToken);
+
+        if (req.url.includes('Authentication/Refresh'))
             return next.handle(req);
 
         return next.handle(req).pipe(catchError(error => {
@@ -43,7 +50,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
                 catchError((err) => {
                     this.isRefreshing = false;
 
-                    if(err instanceof HttpErrorResponse && err.status === 401)
+                    if (err instanceof HttpErrorResponse && err.status === 401)
                         this.router.navigateByUrl('');
 
                     //redirect to login if already logged in. signalR to logout? (maybe not needed)

@@ -11,16 +11,17 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
 export class HomeComponent {
     constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
-    Dash(){
-        this.router.navigate(['home/dashboard']);   
+    Dash() {
+        this.router.navigate(['home/dashboard']);
     }
-    Logout(){
+    
+    Logout() {
         this.authenticationService.Logout().subscribe({
             next: _ => {
                 this.router.navigate(['']);
             },
             error: _ => {
             }
-          });
+        });
     }
- }
+}
