@@ -6,7 +6,7 @@ export class AuthGuardHome implements CanActivateChild {
 
     constructor(private router: Router) { };
     canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-         let hasPermission = false;
+         let hasPermission = true;
 
          if (!hasPermission)
          {
