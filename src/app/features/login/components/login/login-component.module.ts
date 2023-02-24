@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { ComponentsModule } from 'src/app/global-shared/modules/components.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
@@ -8,10 +9,7 @@ import { LoginComponent } from './login.component';
     LoginComponent
   ],
   providers: [],
-  imports: [
-    LoginRoutingModule,
-    ComponentsModule
-  ],
-  exports: [LoginComponent]
+  imports: [LoginRoutingModule, ComponentsModule, RouterModule],
+  exports: []
 })
-export class LoginModule { }
+export class LoginComponentModule { }

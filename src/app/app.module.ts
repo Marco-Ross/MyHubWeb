@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreInterceptorsModule } from './core/interceptors/core-interceptors.module';
 import { GuardModule } from './core/guards/guard.module';
 import { CoreAuthServicesModule } from './core/services/authentication-service/core-auth-service.module';
+import { LoginComponentModule } from './features/login/components/login/login-component.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CoreAuthServicesModule } from './core/services/authentication-service/c
     
     CoreInterceptorsModule,
     CoreAuthServicesModule,
-    GuardModule
+    GuardModule,
+    LoginComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

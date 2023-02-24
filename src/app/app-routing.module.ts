@@ -6,25 +6,29 @@ import { UnauthorizedComponent } from './global-shared/components/unauthorized/u
 
 const routes: Routes = [
   {
-    path: 'unauthorized',
-    pathMatch: 'full',
-    component: UnauthorizedComponent
-  },
-  {
     path: '',
     pathMatch: 'full',
-    canMatch: [AuthGuard], //only use canMatch on the parent level for auth, use canActivate for children. 
-    loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule)
+    canMatch: [AuthGuard], //only use canMatch on the parent level for auth, use canActivate for children.
+    loadChildren: () => import('./features/login/components/login/login-component.module').then(m => m.LoginComponentModule)
   },
   {
     path: '',
     canMatch: [AuthGuard],
     children: [
       {
+        path: 'register',
+        loadChildren: () => import('./features/login/components/register/register.module').then(m => m.RegisterModule)
+      },
+      {
         path: 'home',
-        loadChildren: () => import('./features/home/components/home/home.module').then(m => m.HomeModule)
+        loadChildren: () => import('./features/home/components/home.module').then(m => m.HomeModule)
       }
     ]
+  },
+  {
+    path: 'unauthorized',
+    pathMatch: 'full',
+    component: UnauthorizedComponent
   },
   { path: 'notfound', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'notfound' }

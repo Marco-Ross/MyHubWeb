@@ -17,7 +17,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.loginFG = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required] //password validator
     });
   }
@@ -29,13 +29,13 @@ export class LoginComponent {
   }
 
   //come up with a model structure?
-  public Login({ username, password }: { username: string, password: string }) {
+  public Login({ email, password }: { email: string, password: string }) {
     this.loginFormSubmitted = true;
 
     if (this.loginFG.valid)
-      this.authenticationService.Login(username, password).subscribe({
+      this.authenticationService.Login(email, password).subscribe({
         next: _ => {
-          this.router.navigateByUrl('home');
+          this.router.navigate(['home']);
         },
         error: (response) => {
           this.invalidLoginError = response.error;

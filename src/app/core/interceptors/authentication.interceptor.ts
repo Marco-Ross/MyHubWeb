@@ -51,7 +51,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
                     this.isRefreshing = false;
 
                     if (err instanceof HttpErrorResponse && err.status === 401)
-                        this.router.navigateByUrl('');
+                        this.router.navigate(['']);
 
                     //redirect to login if already logged in. signalR to logout? (maybe not needed)
 

@@ -1,0 +1,17 @@
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 90vh;
+  }
+  
+  .login-header {
+    font-size: 6rem;
+    background: linear-gradient(to right, #5b30d0 0%, #800091 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: sans-serif;
+  }
