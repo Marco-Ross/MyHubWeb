@@ -13,8 +13,9 @@ export class RegisterComponent {
   constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
 
   registerFG!: FormGroup;
-  invalidLoginError: string = "";
-  loginFormSubmitted: boolean = false;
+  formSubmitErrors: string = "";
+  registerFormSubmitted: boolean = false;
+  registerLoading: boolean = false;
 
   ngOnInit() {
     this.registerFG = this.formBuilder.group({
@@ -32,17 +33,25 @@ export class RegisterComponent {
   }
 
   public Register(registerUser: RegisterUser) {
-    this.loginFormSubmitted = true;
+    this.registerFormSubmitted = true;
 
-    if (this.registerFG.valid)
-      this.authenticationService.Register(registerUser).subscribe({
-        next: _ => {
-          this.router.navigate(['register/validate-email']);
-        },
-        error: (response) => {
-          this.invalidLoginError = response.error;
-          this.registerFG.markAsPristine();
-        }
-      });
+    if (!this.registerFG.valid)
+      return;
+
+    let loadingTimeout = setTimeout(() => {
+      this.registerLoading = true;
+    }, 200);
+
+    this.authenticationService.Register(registerUser).subscribe({
+      next: _ => {
+        this.router.navigate(['register/validate-email']);
+      },
+      error: (response) => {
+        this.formSubmitErrors = response.error;
+      }
+    }).add(() => {
+      clearTimeout(loadingTimeout);
+      this.registerLoading = false;
+    });
   }
 }

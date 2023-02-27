@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize, Observable } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { LoginUser } from '../../models/loginUser.model';
 
 @Component({
   selector: 'login',
@@ -12,8 +14,9 @@ export class LoginComponent {
   constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
 
   loginFG!: FormGroup;
-  invalidLoginError: string = "";
+  formSubmitErrors: string = "";
   loginFormSubmitted: boolean = false;
+  loginLoading: boolean = false;
 
   ngOnInit() {
     this.loginFG = this.formBuilder.group({
@@ -28,19 +31,26 @@ export class LoginComponent {
     this.Login(this.loginFG.value);
   }
 
-  //come up with a model structure?
-  public Login({ email, password }: { email: string, password: string }) {
+  public Login(loginUser: LoginUser) {
     this.loginFormSubmitted = true;
 
-    if (this.loginFG.valid)
-      this.authenticationService.Login(email, password).subscribe({
-        next: _ => {
-          this.router.navigate(['home']);
-        },
-        error: (response) => {
-          this.invalidLoginError = response.error;
-          this.loginFG.markAsPristine();
-        }
-      });
+    if (!this.loginFG.valid)
+      return;
+
+    let loadingTimeout = setTimeout(() => {
+      this.loginLoading = true;
+    }, 200);
+
+    this.authenticationService.Login(loginUser).subscribe({
+      next: _ => {
+        this.router.navigate(['home']);
+      },
+      error: (response) => {
+        this.formSubmitErrors = response.error;
+      }
+    }).add(() => {
+      clearTimeout(loadingTimeout);
+      this.loginLoading = false;
+    });
   }
 }

@@ -13,11 +13,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     private isRefreshing = false;
     private refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-
     constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.url.includes('Authentication/Login'))
+        if (req.url.includes('Authentication/Login') || req.url.includes('Authentication/Register'))
             return next.handle(req);
 
         let forgeryToken = this.cookieService.get('X-Forgery-Token');

@@ -2,9 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './global-shared/components/page-not-found/page-not-found.component';
+import { ServerOfflineComponent } from './global-shared/components/server-down/server-offline.component';
 import { UnauthorizedComponent } from './global-shared/components/unauthorized/unauthorized.component';
 
 const routes: Routes = [
+  {
+    path: 'server-down',
+    pathMatch: 'full',
+    component: ServerOfflineComponent
+  },
   {
     path: '',
     pathMatch: 'full',
