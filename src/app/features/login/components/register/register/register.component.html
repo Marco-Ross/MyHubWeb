@@ -9,16 +9,19 @@
         Re-Enter Password: <input type="password" class="form-control col-12 mb-2" placeholder="Re-Enter Password" formControlName="passwordReEnter">
   
         <div class="d-grid col-12 mb-2">
-          <button class="btn btn-block btn-primary login-button" type="submit">Register</button>
+          <button class="btn btn-block btn-primary login-button" type="submit" [disabled]="registerLoading">
+            <span class="spinner-border spinner-border-sm" role="status" *ngIf="registerLoading"></span>
+            Register
+          </button>
         </div>
-  
+          
         <div class="position-relative col-12">
           <div
-            *ngIf="(registerFG.get('email')?.hasError('required') || registerFG.get('password')?.hasError('required'))  && loginFormSubmitted"
+            *ngIf="(registerFG.get('email')?.hasError('required') || registerFG.get('password')?.hasError('required'))  && registerFormSubmitted"
             class="alert alert-danger position-absolute col-12" role="alert">Please enter required fields</div>
             
-          <div *ngIf="loginFormSubmitted && invalidLoginError && registerFG.pristine" class="alert alert-danger position-absolute col-12"
-            role="alert">{{invalidLoginError}}</div>
+          <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger position-absolute col-12"
+            role="alert">{{formSubmitErrors}}</div>
         </div>
       </div>
     </div>
