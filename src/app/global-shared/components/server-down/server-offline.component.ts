@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'unauthorized',
-  templateUrl: 'unauthorized.component.html',
+  templateUrl: 'server-offline.component.html',
   providers: []
 })
-export class UnauthorizedComponent {}
+export class ServerOfflineComponent {}
