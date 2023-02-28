@@ -12,15 +12,15 @@ export class AuthGuard implements CanMatch
         if (segments.length > 0 && segments[0].path == 'register')
             return true;
 
-        let isLoggedIn = this.cookieService.get('X-Logged-In');
+        let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
 
-        if (isLoggedIn && segments.length == 0)
+        if (loginDetails && segments.length == 0)
         {
             this.router.navigate(['home']);
             return false;
         }
 
-        if (!isLoggedIn && segments.length > 0)
+        if (!loginDetails && segments.length > 0)
         {
             this.router.navigate(['']);
             return false;
