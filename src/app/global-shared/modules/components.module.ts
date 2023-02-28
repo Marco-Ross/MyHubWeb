@@ -8,4 +8,4 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     imports: [],
     exports: [CommonModule, ReactiveFormsModule, NgbModule]
 })
-export class ComponentsModule{}
+export class ComponentsModule { }

@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['page-not-found.component.scss'],
   providers: []
 })
-export class PageNotFoundComponent {}
+export class PageNotFoundComponent { }

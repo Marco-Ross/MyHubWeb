@@ -1,0 +1,4 @@
+<button class="btn btn-primary load-button" type="{{type}}" [disabled]="loading" (click)="Load()">
+  <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading"></span>
+  {{name}}
+</button>
