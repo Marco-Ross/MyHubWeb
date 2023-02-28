@@ -9,30 +9,36 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
     styleUrls: ['home.component.scss'],
     providers: []
 })
-export class HomeComponent {
+export class HomeComponent
+{
     constructor(private router: Router, private authenticationService: AuthenticationService, private formBuilder: FormBuilder) { }
 
     homeFG!: FormGroup;
     invalidLoginError: string = "";
     loginFormSubmitted: boolean = false;
 
-    ngOnInit() {
+    ngOnInit()
+    {
         this.homeFG = this.formBuilder.group({
             email: ['', Validators.required],
             password: ['', Validators.required] //password validator
         });
     }
 
-    Dash() {
+    Dash()
+    {
         this.router.navigate(['home/dashboard']);
     }
 
-    Logout() {
+    Logout()
+    {
         this.authenticationService.Logout().subscribe({
-            next: _ => {
+            next: _ =>
+            {
                 this.router.navigate(['']);
             },
-            error: _ => {
+            error: _ =>
+            {
             }
         });
     }

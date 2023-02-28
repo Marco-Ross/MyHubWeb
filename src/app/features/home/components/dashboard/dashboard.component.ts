@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html',
-    //styleUrls: ['dashboard.component.scss'],
     providers: []
 })
-export class DashboardComponent {
+export class DashboardComponent
+{
     constructor(private router: Router) { }
 
-    Dash2(){
+    Dash2()
+    {
         this.router.navigate(['home/dashboard2']);
     }
- }
+}
