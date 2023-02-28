@@ -5,24 +5,29 @@ import { RegisterUser } from 'src/app/features/login/models/registerUser.model';
 import { LoginUser } from 'src/app/features/login/models/loginUser.model';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService
+{
   ApiController: string = "Authentication";
 
   constructor(private http: HttpClient) { }
 
-  Register(user: RegisterUser): Observable<any> {
+  Register(user: RegisterUser): Observable<any>
+  {
     return this.http.post(this.ApiController + '/Register', user);
   }
 
-  Login(user: LoginUser): Observable<any> {
+  Login(user: LoginUser): Observable<any>
+  {
     return this.http.post(this.ApiController + '/Login', user);
   }
 
-  Logout(): Observable<any> {
+  Logout(): Observable<any>
+  {
     return this.http.post(this.ApiController + '/Revoke', '');
   }
 
-  RefreshToken(): Observable<any> {
+  RefreshToken(): Observable<any>
+  {
     return this.http.post(this.ApiController + '/Refresh', '');
   }
 }

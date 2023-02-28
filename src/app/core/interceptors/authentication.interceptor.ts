@@ -9,13 +9,15 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
-export class AuthenticationInterceptor implements HttpInterceptor {
+export class AuthenticationInterceptor implements HttpInterceptor
+{
     private isRefreshing = false;
     private refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    {
         if (req.url.includes('Authentication/Login') || req.url.includes('Authentication/Register'))
             return next.handle(req);
 
@@ -25,7 +27,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (req.url.includes('Authentication/Refresh'))
             return next.handle(req);
 
-        return next.handle(req).pipe(catchError(error => {
+        return next.handle(req).pipe(catchError(error =>
+        {
             if (error instanceof HttpErrorResponse && error.status === 401)
                 return from(this.handleUnauthenticatedError(req, next));
 
@@ -33,20 +36,24 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         }));
     }
 
-    private handleUnauthenticatedError(request: HttpRequest<any>, next: HttpHandler) {
-        if (!this.isRefreshing) {
+    private handleUnauthenticatedError(request: HttpRequest<any>, next: HttpHandler)
+    {
+        if (!this.isRefreshing)
+        {
             this.isRefreshing = true;
             this.refreshTokenSubject.next(false);
 
             return this.authenticationService.RefreshToken().pipe(
-                switchMap(() => {
+                switchMap(() =>
+                {
                     this.isRefreshing = false;
 
                     this.refreshTokenSubject.next(true);
 
                     return next.handle(request);
                 }),
-                catchError((err) => {
+                catchError((err) =>
+                {
                     this.isRefreshing = false;
 
                     if (err instanceof HttpErrorResponse && err.status === 401)

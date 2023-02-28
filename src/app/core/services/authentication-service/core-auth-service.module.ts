@@ -4,7 +4,7 @@ import { AuthenticationService } from './authentication.service';
 @NgModule({
   declarations: [],
   imports: [],
-  providers:[AuthenticationService],
-  exports:[]
+  providers: [AuthenticationService],
+  exports: []
 })
 export class CoreAuthServicesModule { }

@@ -6,7 +6,7 @@ import { ServerOfflineInterceptorProviders } from './server-offline.interceptor'
 @NgModule({
   declarations: [],
   imports: [],
-  providers:[ApiRouteInterceptorProviders, ServerOfflineInterceptorProviders, AuthInterceptorProviders],
-  exports:[]
+  providers: [ApiRouteInterceptorProviders, ServerOfflineInterceptorProviders, AuthInterceptorProviders],
+  exports: []
 })
 export class CoreInterceptorsModule { }

@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: 'validate-email.component.html',
   styleUrls: ['validate-email.component.scss']
 })
-export class ValidateEmailComponent {
+export class ValidateEmailComponent
+{
   constructor() { }
 
   //////

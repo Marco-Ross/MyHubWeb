@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: 'server-offline.component.html',
   providers: []
 })
-export class ServerOfflineComponent {}
+export class ServerOfflineComponent { }
