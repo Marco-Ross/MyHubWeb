@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { RegisterUser } from '../../../models/registerUser.model';
+import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
+import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
+import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
+import { faEye } from '@fortawesome/free-regular-svg-icons';
+import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'register',
@@ -12,44 +15,60 @@ import { RegisterUser } from '../../../models/registerUser.model';
 })
 export class RegisterComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, public buttonService: ButtonService) { }
+
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+
+  //
 
   registerFG!: FormGroup;
   formSubmitErrors: string = "";
   registerFormSubmitted: boolean = false;
-  submitSubscription!: Subscription;
+  registerRequested: boolean = false;
+  showPassword: boolean = false;
+  get isLoading(): boolean
+  {
+    return this.buttonService.loading;
+  }
 
   ngOnInit()
   {
     this.registerFG = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required], //password validator
-      passwordReEnter: ['', Validators.required]
-    });
+      password: ['', [Validators.required, Validators.minLength(8), PasswordValidator.Strength]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: PasswordValidator.Matching });
   }
 
   //////
 
-  onSubmit()
+  onSubmit(): void
   {
     this.Register(this.registerFG.value);
   }
 
-  public Register(registerUser: RegisterUser)
+  public Register(registerUser: IRegisterUser): void
   {
     this.registerFormSubmitted = true;
+    this.buttonService.StartLoading(150);
 
     if (!this.registerFG.valid)
+    {
+      this.buttonService.StopLoading();
       return;
+    }
 
-    this.submitSubscription = this.authenticationService.Register(registerUser).subscribe({
+    this.authenticationService.Register(registerUser).subscribe({
       next: _ =>
       {
-        this.router.navigate(['register/validate-email']);
+        this.registerRequested = true;
+        this.buttonService.StopLoading();
       },
       error: (response) =>
       {
+        this.buttonService.StopLoading();
         this.formSubmitErrors = response.error;
       }
     });

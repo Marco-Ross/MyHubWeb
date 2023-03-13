@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { catchError, Observable, throwError } from "rxjs";
 
 @Injectable()
-export class ApiRouteInterceptor implements HttpInterceptor
+export class ApiServerErrorInterceptor implements HttpInterceptor
 {
     constructor(private router: Router) { }
 
@@ -12,14 +12,16 @@ export class ApiRouteInterceptor implements HttpInterceptor
     {
         return next.handle(req).pipe(catchError(errorResponse =>
         {
-            if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 0)
-                this.router.navigate(['server-down']);
+            if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 500){
+                alert('Server error:' + errorResponse.error.Message +'\n Internal error:' + errorResponse.error.InnerMessage);
+                errorResponse = {};
+            }
 
             return throwError(() => errorResponse);
         }));
     }
 }
 
-export const ServerOfflineInterceptorProviders = [
-    { provide: HTTP_INTERCEPTORS, useClass: ApiRouteInterceptor, multi: true }
+export const ApiServerErrorInterceptorProviders = [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiServerErrorInterceptor, multi: true }
 ];

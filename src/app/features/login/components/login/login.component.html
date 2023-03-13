@@ -1,26 +1,50 @@
 <form novalidate [formGroup]="loginFG" (ngSubmit)="onSubmit()">
+  <div class="logo-head">
+    <img class="logo-md" src="../../../../../assets/MH.png">
+    <p class="logo-header">Marco's Hub</p>
+  </div>
   <div class="center-screen">
-    <div>
-      <div class="login-header">My Hub</div>
+    <div class="card shadow center-body">
+      <div class="header text-center">Login</div>
 
-      <input type="email" class="form-control col-12 mb-2" placeholder="Email Address" formControlName="email">
-      <input type="password" class="form-control col-12 mb-2" placeholder="Password" formControlName="password">
+      <div class="input-form">
+        <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email">
 
-      <div class="d-grid col-12 mb-1">
-        <load-button type="submit" [name]="'Login'" [debounce]="200" [subscription]="submitSubscription"></load-button>
-      </div>
+        <div class="col-12 mt-2 password-input">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control " placeholder="Password" formControlName="password">
+          <div class="password-icon">
+            <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="!showPassword" [icon]="faEye"
+              size="lg"></fa-icon>
+            <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="showPassword" [icon]="faEyeSlash"
+              size="lg"></fa-icon>
+          </div>
+        </div>
 
-      <div class="d-grid col-12 mb-2">
-        <button [routerLink]="'/register'" class="btn btn-primary" type="button">Register</button>
-      </div>
+        <div class="d-grid col-12 mt-2">
+          <button class="btn btn-primary load-button" type="submit" [disabled]="isLoading">
+            <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
+            Login
+          </button>
+        </div>
 
-      <div class="position-relative col-12">
-        <div
-          *ngIf="(loginFG.get('email')?.hasError('required') || loginFG.get('password')?.hasError('required')) && loginFormSubmitted"
-          class="alert alert-danger position-absolute col-12" role="alert">Email & Password is required</div>
+        <div class="login-links mt-2">
+          <div class="col-6">
+            <a [routerLink]="'/register'">Don't have an account?</a>
+          </div>
+          <div class="col-6 forgot-password">
+            <a [routerLink]="'/reset-password'">Forgot Password?</a>
+          </div>
+        </div>
 
-        <div *ngIf="loginFormSubmitted && formSubmitErrors" class="alert alert-danger position-absolute col-12"
-          role="alert">{{formSubmitErrors}}</div>
+        <div class="text-center col-12 mt-2">
+          <div
+            *ngIf="(loginFG.get('email')?.hasError('required') || loginFG.get('password')?.hasError('required')) && loginFormSubmitted"
+            class="alert alert-danger col-12" role="alert">Email & Password is required</div>
+
+          <div
+            *ngIf="loginFormSubmitted && formSubmitErrors && !loginFG.get('email')?.dirty && !loginFG.get('password')?.dirty"
+            class="alert alert-danger col-12" role="alert">{{formSubmitErrors}}</div>
+        </div>
       </div>
     </div>
   </div>

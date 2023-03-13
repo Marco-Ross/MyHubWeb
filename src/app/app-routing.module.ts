@@ -15,7 +15,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     canMatch: [AuthGuard], //only use canMatch on the parent level for auth, use canActivate for children.
-    loadChildren: () => import('./features/login/components/login/login-component.module').then(m => m.LoginComponentModule)
+    loadChildren: () => import('./features/login/components/login/login.module').then(m => m.LoginModule)
   },
   {
     path: '',
@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: 'register',
         loadChildren: () => import('./features/login/components/register/register.module').then(m => m.RegisterModule)
+      },
+      {
+        path: 'reset-password',
+        loadChildren: () => import('./features/login/components/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
       },
       {
         path: 'home',
