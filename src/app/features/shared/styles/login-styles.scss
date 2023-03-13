@@ -1,0 +1,74 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.center-body
+{
+  width: 16rem;
+  padding-bottom: 2rem;
+}
+
+.center-screen
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 45vh;
+}
+
+.input-form
+{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 85%;
+}
+
+.logo-head
+{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+
+  .logo-header
+  {
+    display: inline-block;
+    font-size: 2rem;
+    color: #000000;
+    font-family: sans-serif;
+  }
+}
+
+.header
+{
+  font-size: 3rem;
+  background: #010055;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: sans-serif;
+}
+
+@include media-breakpoint-up(sm)
+{
+  .header
+  {
+    font-size: 5.5rem;
+  }
+  .center-body
+  {
+    width: 33rem;
+  }
+}
+
+@include media-breakpoint-only(sm)
+{
+  .header
+  {
+    font-size: 4.5rem;
+  }
+  .center-body
+  {
+    width: 23rem;
+  }
+}

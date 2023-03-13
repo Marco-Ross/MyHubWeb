@@ -1,0 +1,18 @@
+<form novalidate [formGroup]="registerCompleteFG">
+    <div class="center-screen">
+        <div *ngIf="registrationStatus === undefined" class="center-screen">
+            <div class="spinner-border text-primary spinner-size" role="status"></div>
+            <p class="mt-4">Verifying Email Address for <strong> Marco's Hub</strong>. This won't take long.</p>
+        </div>
+
+        <div *ngIf="registrationStatus === true">
+            <p>Email has been verified. You will be redirected shortly...</p>
+        </div>
+
+        <div *ngIf="registrationStatus === false" class="col-5">
+            <div class="text-center">
+                <p class="alert alert-danger" role="alert">{{formSubmitErrors}}</p>
+            </div>
+        </div>
+    </div>
+</form>

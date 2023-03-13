@@ -1,27 +1,64 @@
 <form novalidate [formGroup]="registerFG" (ngSubmit)="onSubmit()">
+  <div class="logo-head">
+    <img class="logo-md" src="../../../../../assets/MH.png">
+    <p class="logo-header ">Marco's Hub</p>
+  </div>
   <div class="center-screen">
-    <div>
-      <div class="login-header">My Hub Register</div>
+    <div class="card shadow center-body">
+      <div *ngIf="!registerRequested">
+        <div class="header text-center">Register</div>
 
-      Email Address: <input type="text" class="form-control col-12 mb-2" placeholder="Email Address"
-        formControlName="email">
-      Username: <input type="text" class="form-control col-12 mb-2" placeholder="Username" formControlName="username">
-      Password: <input type="password" class="form-control col-12 mb-2" placeholder="Password"
-        formControlName="password">
-      Re-Enter Password: <input type="password" class="form-control col-12 mb-2" placeholder="Re-Enter Password"
-        formControlName="passwordReEnter">
+        <div class="input-form">
+          <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
+            [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
+          <div class="error-feedback">Please enter a valid Email Address</div>
 
-      <div class="d-grid col-12 mb-2">
-        <load-button type="submit" [name]="'Register'" [debounce]="200" [subscription]="submitSubscription"></load-button>
+          <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
+            [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
+          <div class="error-feedback">Please enter a valid Username</div>
+
+          <div class="col-12 mt-2 password-input" [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control" placeholder="Password"
+              formControlName="password" [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
+            <div class="password-icon">
+              <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="!showPassword" [icon]="faEye"
+                size="lg"></fa-icon>
+              <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="showPassword" [icon]="faEyeSlash"
+                size="lg"></fa-icon>
+            </div>
+          </div>
+          <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
+          </div>
+          <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
+            Password requirements:
+            <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters. </span>
+            <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
+            <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
+            <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
+            <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in (!@#$%^&*).</span>
+          </div>
+
+          <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
+            formControlName="confirmPassword"
+            [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
+          <div class="error-feedback">Passwords do not match</div>
+
+          <div class="d-grid col-12 mt-2">
+            <button class="btn btn-primary load-button" type="submit" [disabled]="isLoading">
+              <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
+              Register
+            </button>
+          </div>
+
+          <div class="col-12 mt-1 text-center">
+            <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">
+              {{formSubmitErrors}}</div>
+          </div>
+        </div>
       </div>
 
-      <div class="position-relative col-12">
-        <div
-          *ngIf="(registerFG.get('email')?.hasError('required') || registerFG.get('password')?.hasError('required'))  && registerFormSubmitted"
-          class="alert alert-danger position-absolute col-12" role="alert">Please enter required fields</div>
-
-        <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger position-absolute col-12"
-          role="alert">{{formSubmitErrors}}</div>
+      <div class="text-center" *ngIf="registerRequested">
+        <p class="mt-5">Please check your email's inbox and validate your email address to log in.</p>
       </div>
     </div>
   </div>

@@ -9,7 +9,7 @@ export class AuthGuard implements CanMatch
 
     canMatch(route: Route, segments: UrlSegment[]): boolean
     {
-        if (segments.length > 0 && segments[0].path == 'register')
+        if (segments.length > 0 && (segments[0].path == 'register' || segments[0].path == 'reset-password'))
             return true;
 
         let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');

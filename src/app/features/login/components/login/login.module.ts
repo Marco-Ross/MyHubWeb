@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoadButtonModule } from 'src/app/global-shared/components/load-button/load-button.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ComponentsModule } from 'src/app/global-shared/modules/components.module';
+import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 
@@ -9,8 +10,8 @@ import { LoginComponent } from './login.component';
   declarations: [
     LoginComponent
   ],
-  providers: [],
-  imports: [LoginRoutingModule, ComponentsModule, RouterModule, LoadButtonModule],
+  providers: [ButtonService],
+  imports: [FontAwesomeModule, LoginRoutingModule, ComponentsModule, RouterModule],
   exports: []
 })
-export class LoginComponentModule { }
+export class LoginModule { }
