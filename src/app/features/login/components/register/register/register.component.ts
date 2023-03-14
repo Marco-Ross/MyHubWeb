@@ -5,8 +5,6 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
 import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
 import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
-import { faEye } from '@fortawesome/free-regular-svg-icons';
-import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'register',
@@ -16,11 +14,6 @@ import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 export class RegisterComponent
 {
   constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, public buttonService: ButtonService) { }
-
-  faEye = faEye;
-  faEyeSlash = faEyeSlash;
-
-  //
 
   registerFG!: FormGroup;
   formSubmitErrors: string = "";
