@@ -5,8 +5,6 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
 import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
 import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { IResetPasswordComplete } from '../../../models/interfaces/IResetPasswordComplete.interface';
-import { faEye } from '@fortawesome/free-regular-svg-icons';
-import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'reset-password',
@@ -16,11 +14,6 @@ import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 export class ResetPasswordCompleteComponent
 {
   constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private buttonService: ButtonService) { }
-
-  faEye = faEye;
-  faEyeSlash = faEyeSlash;
-
-  //
 
   resetPasswordCompleteFG!: FormGroup;
   formSubmitErrors: string = '';

@@ -5,31 +5,6 @@
   padding-bottom: 2rem;
 }
 
-.password-input
-{
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-
-  input
-  {
-    padding-right: 3.6rem;
-  }
-
-  .password-icon
-  {
-    position: absolute;
-    padding-right: 0.5rem;
-  }
-
-  .is-invalid+.password-icon
-  {
-    position: absolute;
-    padding-right: 1.8rem;
-  }
-}
-
 @include media-breakpoint-up(sm)
 {
   .center-body

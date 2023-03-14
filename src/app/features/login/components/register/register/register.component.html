@@ -17,16 +17,9 @@
             [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
           <div class="error-feedback">Please enter a valid Username</div>
 
-          <div class="col-12 mt-2 password-input" [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
-            <input [type]="showPassword ? 'text' : 'password'" class="form-control" placeholder="Password"
-              formControlName="password" [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
-            <div class="password-icon">
-              <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="!showPassword" [icon]="faEye"
-                size="lg"></fa-icon>
-              <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="showPassword" [icon]="faEyeSlash"
-                size="lg"></fa-icon>
-            </div>
-          </div>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
+            formControlName="password"
+            [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
           <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
           </div>
           <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
