@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IRegisterUser } from 'src/app/features/login/models/interfaces/IRegisterUser.interface';
 import { ILoginUser } from 'src/app/features/login/models/interfaces/ILoginUser.interface';

@@ -1,5 +1,7 @@
 @import "/src/styles/media-breakpoints.scss";
 
+
+
 .center-body
 {
   width: 16rem;
@@ -12,7 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 45vh;
+  min-height: 85vh;
 }
 
 .input-form
@@ -20,40 +22,45 @@
   display: grid;
   justify-content: center;
   grid-template-columns: 85%;
+  grid-row-gap: 0.5rem;
 }
 
 .logo-head
 {
   display: inline-flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
   width: 100%;
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 
   .logo-header
   {
     display: inline-block;
-    font-size: 2rem;
-    color: #000000;
-    font-family: sans-serif;
+    font-size: 3.5rem;
+    color: #224193;
+    font-family: BebasNeue-Regular;
   }
 }
 
 .header
 {
-  font-size: 3rem;
-  background: #010055;
+  font-size: 2rem;
+  background: #2c2c2c;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: sans-serif;
+  padding-top: 0.7rem;
+  padding-bottom: 1rem;
 }
 
 @include media-breakpoint-up(sm)
 {
   .header
   {
-    font-size: 5.5rem;
+    font-size: 3rem;
   }
   .center-body
   {
@@ -65,7 +72,7 @@
 {
   .header
   {
-    font-size: 4.5rem;
+    font-size: 2.5rem;
   }
   .center-body
   {

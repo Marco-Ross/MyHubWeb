@@ -1,9 +1,11 @@
 <form novalidate [formGroup]="loginFG" (ngSubmit)="onSubmit()">
-  <div class="logo-head">
-    <img class="logo-md" src="../../../../../assets/MH.png">
-    <p class="logo-header">Marco's Hub</p>
-  </div>
   <div class="center-screen">
+
+    <div class="logo-head">
+      <img class="logo-sm" src="../../../../../assets/images/MH.png">
+      <span class="logo-header">Marco's Hub</span>
+    </div>
+
     <div class="card shadow center-body">
       <div class="header text-center">Login</div>
 
@@ -11,7 +13,8 @@
         <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email">
 
         <div class="col-12 mt-2 password-input">
-          <input [type]="showPassword ? 'text' : 'password'" class="form-control " placeholder="Password" formControlName="password">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control " placeholder="Password"
+            formControlName="password">
           <div class="password-icon">
             <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="!showPassword" [icon]="faEye"
               size="lg"></fa-icon>
@@ -21,7 +24,7 @@
         </div>
 
         <div class="d-grid col-12 mt-2">
-          <button class="btn btn-primary load-button" type="submit" [disabled]="isLoading">
+          <button class="button btn-blue load-button" type="submit" [disabled]="isLoading">
             <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
             Login
           </button>
