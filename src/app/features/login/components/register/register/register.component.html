@@ -1,43 +1,54 @@
 <form novalidate [formGroup]="registerFG" (ngSubmit)="onSubmit()">
-  <div class="logo-head">
-    <img class="logo-md" src="../../../../../assets/MH.png">
-    <p class="logo-header ">Marco's Hub</p>
-  </div>
   <div class="center-screen">
+
+    <div class="logo-head">
+      <img class="logo-sm" src="../../../../../assets/images/MH.png">
+      <p class="logo-header ">Marco's Hub</p>
+    </div>
+
     <div class="card shadow center-body">
       <div *ngIf="!registerRequested">
         <div class="header text-center">Register</div>
 
         <div class="input-form">
-          <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
-            [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
-          <div class="error-feedback">Please enter a valid Email Address</div>
-
-          <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
-            [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
-          <div class="error-feedback">Please enter a valid Username</div>
-
-          <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
-            formControlName="password"
-            [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
-          <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
-          </div>
-          <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
-            Password requirements:
-            <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters. </span>
-            <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
-            <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
-            <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
-            <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in (!@#$%^&*).</span>
+          <div>
+            <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
+              [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
+            <div class="error-feedback">Please enter a valid Email Address</div>
           </div>
 
-          <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
-            formControlName="confirmPassword"
-            [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
-          <div class="error-feedback">Passwords do not match</div>
+          <div>
+            <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
+              [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
+            <div class="error-feedback">Please enter a valid Username</div>
+          </div>
 
+          <div>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
+              formControlName="password"
+              [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
+            <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
+            </div>
+            <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
+              Password requirements:
+              <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in
+                (!@#$%^&*).</span>
+            </div>
+          </div>
+
+          <div>
+            <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
+            <div class="error-feedback">Passwords do not match</div>
+          </div>
+          
           <div class="d-grid col-12 mt-2">
-            <button class="btn btn-primary load-button" type="submit" [disabled]="isLoading">
+            <button class="button btn-blue load-button" type="submit" [disabled]="isLoading">
               <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
               Register
             </button>
