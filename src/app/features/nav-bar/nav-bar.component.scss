@@ -1,0 +1,28 @@
+.right-nav{
+    display: inline-flex;
+    align-items: center;
+    .portrait{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: aqua;
+    
+        img{
+            width: 100%;
+        }
+        
+    }
+    
+    .dropdown-toggle::after{
+        margin-left: 1.5em;
+    }
+
+    .dropdown-menu[data-bs-popper]{
+        left: unset;
+        right: -1em;
+    }
+
+    .btn-outline-primary {
+        --bs-btn-border-color: unset;
+    }
+}
