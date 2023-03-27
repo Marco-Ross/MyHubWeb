@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { inject, NgModule } from '@angular/core';
+import { Route, RouterModule, Routes, UrlSegment } from '@angular/router';
 import { AuthGuard } from './core/guards/auth-guards/auth.guard';
 import { PageNotFoundComponent } from './global-shared/components/page-not-found/page-not-found.component';
 import { ServerOfflineComponent } from './global-shared/components/server-down/server-offline.component';
@@ -14,12 +14,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    canMatch: [AuthGuard], //only use canMatch on the parent level for auth, use canActivate for children.
+    canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthGuard).canMatch(route, segments)],
     loadChildren: () => import('./features/login/components/login/login.module').then(m => m.LoginModule)
   },
   {
     path: '',
-    canMatch: [AuthGuard],
     children: [
       {
         path: 'register',
@@ -28,12 +27,13 @@ const routes: Routes = [
       {
         path: 'reset-password',
         loadChildren: () => import('./features/login/components/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
-      },
-      {
-        path: 'home',
-        loadChildren: () => import('./features/home/components/home.module').then(m => m.HomeModule)
       }
     ]
+  },
+  {
+    path: '',
+    canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthGuard).canMatch(route, segments)],
+    loadChildren: () => import('./route/nav-layout/nav-layout.module').then(m => m.NavLayoutModule)
   },
   {
     path: 'unauthorized',

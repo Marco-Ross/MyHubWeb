@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router, CanMatch, Route, UrlSegment } from '@angular/router';
+import { Router, Route, UrlSegment } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
-export class AuthGuard implements CanMatch
+export class AuthGuard
 {
-    constructor(private router: Router, private cookieService: CookieService) { }
+    constructor(private router: Router, private cookieService: CookieService) {}
 
     canMatch(route: Route, segments: UrlSegment[]): boolean
     {
-        if (segments.length > 0 && (segments[0].path == 'register' || segments[0].path == 'reset-password'))
-            return true;
-
         let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
 
         if (loginDetails && segments.length == 0)

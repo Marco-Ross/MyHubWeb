@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../src/styles/fonts.scss";
 @import "../src/styles/buttons.scss";
-@import "../src/styles/colours.scss";
 
 body
 {
@@ -37,46 +36,4 @@ body
 .clickable
 {
     cursor: pointer;
-}
-
-//Background colours
-.bg-blue
-{
-    background-color: $blue;
-}
-
-.bg-regal
-{
-    background-color: $regal;
-}
-
-.bg-aqua
-{
-    background-color: $aqua;
-}
-
-.bg-pippin
-{
-    background-color: $pippin;
-}
-
-//Text colours
-.text-blue
-{
-    color: $blue;
-}
-
-.text-regal
-{
-    color: $regal;
-}
-
-.text-aqua
-{
-    color: $aqua;
-}
-
-.text-pippin
-{
-    color: $pippin;
 }
