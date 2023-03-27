@@ -14,6 +14,7 @@ export class NavBarComponent
     constructor(private router: Router, private authenticationService: AuthenticationService, private cookieService: CookieService) { }
 
     Username: string = "";
+    isCollapsed = true;
 
     ngOnInit(){
         let loginData = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');

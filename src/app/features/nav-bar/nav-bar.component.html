@@ -1,10 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-charcoal ps-3 pe-3">
+<nav class="navbar navbar-expand-sm navbar-dark bg-charcoal ps-3 pe-3 col-12">
     <a class="navbar-brand" href="#">ICON</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+    <div class="ms-auto right-nav order-sm-last pe-3">
+        <div ngbDropdown class="portrait btn btn-outline-primary" ngbDropdownToggle>
+            <div ngbDropdownMenu>
+                <div class="ps-3 pt-1 pb-1">
+                    <label>Logged In As:</label>
+                    <br /><b>{{Username}}</b>
+                </div>
+
+                <div class="dropdown-divider"></div>
+
+                <button ngbDropdownItem>Manage Profile</button>
+                <button ngbDropdownItem>Settings</button>
+                <button ngbDropdownItem (click)="Logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="navbar-toggler ms-2" type="button" (click)="isCollapsed = ! isCollapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    
+    <div class="navbar-collapse" [(ngbCollapse)]="isCollapsed">
         <div class="left-nav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
@@ -13,39 +31,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Extras
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                <li class="nav-item">
+                    <div ngbDropdown>
+                        <a class="nav-link clickable" ngbDropdownToggle>
+                            Extras
+                        </a>
+                        <div ngbDropdownMenu>
+                            <button ngbDropdownItem>Action - 1</button>
+                            <button ngbDropdownItem>Another Action</button>
+                            <button ngbDropdownItem>Something else is here</button>
+                        </div>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a routerLinkActive="active" routerLink="home/dashboard" class="nav-link login-button" type="button" >Test Dash</a>
+                    <a routerLinkActive="active" routerLink="home/dashboard" class="nav-link login-button"
+                        type="button">Test Dash</a>
                 </li>
             </ul>
-        </div>
-
-        <div class="ms-auto right-nav pe-3">
-            <div ngbDropdown class="portrait btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-
-                <div ngbDropdownMenu>
-                    <div class="ps-3 pt-1 pb-1">
-                        <label>Logged In As:</label>
-                        <br /><strong>{{Username}}</strong>
-                    </div>
-
-                    <div class="dropdown-divider"></div>
-
-                    <button ngbDropdownItem>Manage Profile</button>
-                    <button ngbDropdownItem>Settings</button>
-                    <button ngbDropdownItem (click)="Logout()">Logout</button>
-                </div>
-            </div>
         </div>
     </div>
 </nav>
