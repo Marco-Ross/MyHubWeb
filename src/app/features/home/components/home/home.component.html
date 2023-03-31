@@ -1,7 +1,63 @@
-<div class="card" style="width: 18rem;">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+<div class="horizontal-divider"></div>
+
+<div class="row">
+  <div class="left col-4">
+    <h3 class="text-charcoal header-left text-center">Work Items</h3>
+    <div class="left-absolute col-4">
+      <div class="left-absolute-inner">
+        <ul>
+          <li class="card" *ngFor="let item of workItems" [ngClass]="{'selected-item': selectedWorkItem == item}">
+            <div class="card-header clickable" (click)="selectedWorkItem = item"><span class="item-header"><b>Hub-{{item.fields.id}}:</b>
+                {{item.fields.title}}</span></div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-11">
+                  <div class="item-state">
+                    <p><b>Type:</b> {{item.fields.workItemType}}</p>
+                    <p><span [ngClass]="{
+                      'text-primary': item.fields.state == 'Doing',
+                      'text-warning': item.fields.state == 'To Do',
+                      'text-success': item.fields.state == 'Done'
+                      }"> <b>{{item.fields.state}}</b></span></p>
+                  </div>
+                  <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
+                  <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
+                </div>
+                <div class="col-1">
+                  <div class="item-link">
+                    <p>
+                      <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
+                        target="_blank">
+                        <fa-icon class="clickable" [icon]="faExternalLink" size="sm" ngbPopover="Open item in DevOps"
+                          triggers="mouseenter:mouseleave"></fa-icon>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="right col-8">
+    <h3 class="text-charcoal header-right text-center">Work Item Description</h3>
+    <div class="right-absolute col-8">
+      <div class="right-absolute-inner">
+        <div class="card">
+          <div class="card-header"><b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b></div>
+          <div class="card-body">
+            <div class="row">
+            </div>
+            <h5 class="card-title">Ticket Description:</h5>
+            <p class="card-text"
+              [innerHTML]="getItemDescription()">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
