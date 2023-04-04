@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-charcoal ps-3 pe-3 col-12">
-    <a class="navbar-brand" href="#">ICON</a>
+<nav class="navbar navbar-expand-sm ps-3 pe-3 col-12">
+    <a class="navbar-brand" [routerLink]="'/'"><div class="logo logo-xs"></div></a>
 
     <div class="ms-auto right-nav order-sm-last pe-3">
         <div ngbDropdown class="portrait btn btn-outline-primary" ngbDropdownToggle>
@@ -11,6 +11,8 @@
 
                 <div class="dropdown-divider"></div>
 
+                <button ngbDropdownItem (click)="SelectTheme(ThemeConstants.LightTheme)">Light Theme</button>
+                <button ngbDropdownItem (click)="SelectTheme(ThemeConstants.DarkTheme)">Dark Theme</button>
                 <button ngbDropdownItem>Manage Profile</button>
                 <button ngbDropdownItem>Settings</button>
                 <button ngbDropdownItem (click)="Logout()">Logout</button>
@@ -21,7 +23,7 @@
     <button class="navbar-toggler ms-2" type="button" (click)="isCollapsed = ! isCollapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="navbar-collapse" [(ngbCollapse)]="isCollapsed">
         <div class="left-nav">
             <ul class="navbar-nav">

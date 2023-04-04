@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreInterceptorsModule } from './core/interceptors/core-interceptors.module';
 import { AuthGuardsModule } from './core/guards/auth-guards/auth-guards.module';
 import { CoreAuthServicesModule } from './core/services/authentication-service/core-auth-service.module';
+import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
+import { WindowRefService } from './global-shared/services/window/WindowRefService.model';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { CoreAuthServicesModule } from './core/services/authentication-service/c
     CoreAuthServicesModule,
     AuthGuardsModule
   ],
-  providers: [],
+  providers: [ThemeRenderer, WindowRefService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

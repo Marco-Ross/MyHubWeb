@@ -2,12 +2,11 @@
   <div class="center-screen">
 
     <div class="logo-head">
-      <img class="logo-sm" src="../../../../../assets/images/MH.png">
-      <span class="logo-header">Marco's Hub</span>
+      <div class="logo logo-md"></div>
     </div>
 
-    <div class="card shadow center-body">
-      <div class="header text-center">Login</div>
+    <div class="card login-shadow center-body">
+      <img class="login-icon" src="../../../../../assets/icons/user-solid.png">
 
       <div class="input-form">
         <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email">
@@ -24,17 +23,17 @@
         </div>
 
         <div class="d-grid col-12 mt-2">
-          <button class="button btn-blue load-button" type="submit" [disabled]="isLoading">
+          <button class="button  load-button login-button" type="submit" [disabled]="isLoading">
             <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
             Login
           </button>
         </div>
 
         <div class="login-links mt-2">
-          <div class="col-6">
+          <div class="col-7">
             <a [routerLink]="'/register'">Don't have an account?</a>
           </div>
-          <div class="col-6 forgot-password">
+          <div class="col-5 forgot-password">
             <a [routerLink]="'/reset-password'">Forgot Password?</a>
           </div>
         </div>
