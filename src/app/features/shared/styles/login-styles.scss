@@ -1,11 +1,9 @@
 @import "/src/styles/media-breakpoints.scss";
 
-
-
 .center-body
 {
-  width: 16rem;
-  padding-bottom: 2rem;
+  width: 16em;
+  padding-bottom: 1.5em;
 }
 
 .center-screen
@@ -22,49 +20,39 @@
   display: grid;
   justify-content: center;
   grid-template-columns: 85%;
-  grid-row-gap: 0.5rem;
+  grid-row-gap: 1em;
 }
 
 .logo-head
 {
   display: inline-flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
-  width: 100%;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-
-  .logo-header
-  {
-    display: inline-block;
-    font-size: 3.5rem;
-    color: #224193;
-    font-family: BebasNeue-Regular;
-  }
+  margin-bottom: 1.2em;
 }
 
 .header
 {
-  font-size: 2rem;
-  background: #2c2c2c;
+  font-size: 2em;
   background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   font-family: sans-serif;
-  padding-top: 0.7rem;
-  padding-bottom: 1rem;
+  padding-top: 0.7em;
+  padding-bottom: 1em;
+}
+
+.login-shadow{
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 @include media-breakpoint-up(sm)
 {
   .header
   {
-    font-size: 3rem;
+    font-size: 3em;
   }
   .center-body
   {
-    width: 33rem;
+    width: 24em;
   }
 }
 
@@ -72,10 +60,10 @@
 {
   .header
   {
-    font-size: 2.5rem;
+    font-size: 2.5em;
   }
   .center-body
   {
-    width: 23rem;
+    width: 23em;
   }
 }

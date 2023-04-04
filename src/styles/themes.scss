@@ -1,0 +1,70 @@
+@import "bootstrap-theme-overrides.scss";
+@import "colors.scss";
+
+:root
+{
+    --background-color: #f1f1f1;
+    --button-text-color: #e4e8ec;
+    --text-color: black;
+    --link-text-color: black;
+    --button-color: #{$dark-color};
+    --theme-logo: url("../assets/images/logo/MH-White.png");
+}
+
+.dark-theme
+{
+    --background-color: #{$dark-color};
+    --button-text-color: #e4e8ec;
+    --text-color: #e4e8ec;  
+    --link-text-color: #e4e8ec;
+    --button-color: #{$dark-color};
+    --card-background: #{$dark-contrast-color};
+    --theme-logo: url("../assets/images/logo/MH-Black.png");
+    
+    nav
+    {
+        @include nav;
+    }
+
+    .dropdown-menu
+    {
+        @include dropdown-menu;
+    }
+}
+
+body
+{
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    .form-control,
+    .form-control:focus
+    {
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    a{
+        color: var(--link-text-color);
+        text-decoration: none;
+    }
+    a:hover{
+        color: var(--link-text-color);
+        text-decoration: underline;
+    }
+    
+    .button
+    {
+        background-color: var(--button-color);
+        color: var(--button-text-color);
+    }
+
+    .card
+    {
+        background-color: var(--card-background);
+    }
+
+    .logo{
+        content: var(--theme-logo);
+    }
+}

@@ -1,60 +1,67 @@
-<div class="horizontal-divider"></div>
+<div class="home">
+  <div class="horizontal-divider"></div>
 
-<div class="row">
-  <div class="left col-4">
-    <h3 class="text-charcoal header-left text-center">Work Items</h3>
-    <div class="left-absolute col-4">
-      <div class="left-absolute-inner">
-        <ul>
-          <li class="card" *ngFor="let item of workItems" [ngClass]="{'selected-item': selectedWorkItem == item}">
-            <div class="card-header clickable" (click)="selectedWorkItem = item"><span class="item-header"><b>Hub-{{item.fields.id}}:</b>
-                {{item.fields.title}}</span></div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-11">
-                  <div class="item-state">
-                    <p><b>Type:</b> {{item.fields.workItemType}}</p>
-                    <p><span [ngClass]="{
+  <div class="row">
+    <div class="left col-4">
+      <div class="left-absolute col-4">
+        <h5 class="header-left">Work Items</h5>
+        <div class="left-absolute-inner">
+          <ul>
+            <li class="card" *ngFor="let item of workItems" [ngClass]="{'selected-item': selectedWorkItem == item}">
+              <div class="card-color-indicator" [ngClass]="{
+              'bg-primary': item.fields.state == 'Doing',
+              'bg-warning': item.fields.state == 'To Do',
+              'bg-success': item.fields.state == 'Done'
+              }"></div>
+              <div class="card-header clickable" (click)="selectedWorkItem = item">
+                <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-11">
+                    <div class="item-state">
+                      <p><b>Type:</b> {{item.fields.workItemType}}</p>
+                      <p><span [ngClass]="{
                       'text-primary': item.fields.state == 'Doing',
                       'text-warning': item.fields.state == 'To Do',
                       'text-success': item.fields.state == 'Done'
-                      }"> <b>{{item.fields.state}}</b></span></p>
+                      }">{{item.fields.state}}</span></p>
+                    </div>
+                    <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
+                    <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
                   </div>
-                  <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
-                  <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
-                </div>
-                <div class="col-1">
-                  <div class="item-link">
-                    <p>
+                  <div class="col-1">
+                    <div class="item-link">
                       <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
                         target="_blank">
-                        <fa-icon class="clickable" [icon]="faExternalLink" size="sm" ngbPopover="Open item in DevOps"
-                          triggers="mouseenter:mouseleave"></fa-icon>
+                        <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
+                          ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
                       </a>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="right col-8">
-    <h3 class="text-charcoal header-right text-center">Work Item Description</h3>
-    <div class="right-absolute col-8">
-      <div class="right-absolute-inner">
-        <div class="card">
-          <div class="card-header"><b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b></div>
-          <div class="card-body">
-            <div class="row">
+    <div class="right col-8">
+      <div class="right-absolute col-8">
+        <h5 class="header-right">Work Item Description</h5>
+        <div class="right-absolute-inner">
+          <div class="card">
+            <div class="card-header">
+              <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
             </div>
-            <h5 class="card-title">Ticket Description:</h5>
-            <p class="card-text"
-              [innerHTML]="getItemDescription()">
-            </p>
+            <div class="card-body">
+              <div class="row">
+                <h5 class="card-title">Ticket Description:</h5>
+                <p class="card-text" [innerHTML]="getItemDescription()">
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 //all global button styles will be in here and imported into styles.scss
-@import "colours.scss";
+@import "colors.scss";
 
 .button {
     display: inline-block;
@@ -14,59 +14,14 @@
     border-radius: .375rem;
   }
   
-  //Blue
-
-  .button.btn-blue {
-    color: #fff;
-    background-color: $blue;
-    border-color: $blue;
-  }
-  
-  .button.btn-blue:hover{
-    background-color: darken($blue, 10%);
-    border-color: darken($blue, 10%);
+  .button:hover{
+    background-color: darken($dark-color, 5%);
+    border-color: darken($dark-color, 5%);
     transition: background-color 0.3s;
   }
 
-  .button.btn-blue:active{
-    background-color: darken($blue, 15%);
-    border-color: darken($blue, 15%);
-    transition: background-color 0.3s;
-  }
-
-  
-  //Regal
-  .button.btn-regal {
-    color: #fff;
-    background-color: $regal;
-    border-color: $regal;
-  }
-  
-  .button.btn-regal:hover {
-    background-color: darken($regal, 10%);
-    border-color: darken($regal, 10%);
-    transition: background-color 0.3s;
-  }
-  .button.btn-regal:active{
-    background-color: darken($blue, 15%);
-    border-color: darken($blue, 15%);
-    transition: background-color 0.3s;
-  }
-  
-  //Aqua
-  .button.btn-aqua {
-    color: #fff;
-    background-color: $aqua;
-    border-color: $aqua;
-  }
-  
-  .button.btn-aqua:hover {
-    background-color: darken($aqua, 10%);
-    border-color: darken($aqua, 10%);
-    transition: background-color 0.3s;
-  }
-  .button.button.btn-aqua:active{
-    background-color: darken($blue, 15%);
-    border-color: darken($blue, 15%);
+  .button:active{
+    background-color: darken($dark-color, 15%);
+    border-color: darken($dark-color, 15%);
     transition: background-color 0.3s;
   }

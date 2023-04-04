@@ -1,5 +1,14 @@
 @import "../../../shared/styles/login-styles.scss";
 
+.login-icon
+{
+    width: 6em;
+    height: 6em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    align-self: center;
+}
+
 .password-input
 {
     position: relative;
@@ -22,11 +31,6 @@
 .login-links
 {
     display: flex;
-
-    a
-    {
-        text-decoration: none;
-    }
 
     .forgot-password
     {
