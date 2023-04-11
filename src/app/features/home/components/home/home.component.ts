@@ -8,6 +8,7 @@ import { faExternalLink } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['home.component.scss'],
     providers: [HomeService]
 })
+
 export class HomeComponent
 {
     constructor(private homeService: HomeService) { }
@@ -16,8 +17,12 @@ export class HomeComponent
 
     //
 
+    private readonly STATES = {
+        Doing: 'Doing',
+        ToDo: 'To Do',
+        Done: 'Done'
+    };
     workItems: any = [];
-
     selectedWorkItem: any;
 
     ngOnInit()
@@ -25,9 +30,25 @@ export class HomeComponent
         this.homeService.GetAllWorkItems().subscribe({
             next: (workItemsQuery) =>
             {
-                this.workItems = workItemsQuery.workItems.sort((x: any, y: any) => new Date(y.fields.changedDate).getTime() - new Date(x.fields.changedDate).getTime());
+                let states = this.groupBy(workItemsQuery.workItems, item => item.fields.state);
+
+                for (let k in states)
+                    states[k].sort((x: any, y: any) => new Date(y.fields.changedDate).getTime() - new Date(x.fields.changedDate).getTime());
+
+                this.workItems = this.workItems.concat(states[this.STATES.Doing]);
+                this.workItems = this.workItems.concat(states[this.STATES.ToDo]);
+                this.workItems = this.workItems.concat(states[this.STATES.Done]);
             }
         });
+    }
+
+    groupBy<T, K extends keyof any>(arr: T[], key: (i: any) => K)
+    {
+        return arr.reduce((groups, item) =>
+        {
+            (groups[key(item)] ||= []).push(item);
+            return groups;
+        }, {} as Record<K, T[]>);
     }
 
     getItemDescription()
@@ -40,5 +61,4 @@ export class HomeComponent
 
         return this.selectedWorkItem?.fields?.description;
     }
-
 }
