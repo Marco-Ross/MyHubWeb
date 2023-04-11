@@ -35,9 +35,12 @@ export class HomeComponent
                 for (let k in states)
                     states[k].sort((x: any, y: any) => new Date(y.fields.changedDate).getTime() - new Date(x.fields.changedDate).getTime());
 
-                this.workItems = this.workItems.concat(states[this.STATES.Doing]);
-                this.workItems = this.workItems.concat(states[this.STATES.ToDo]);
-                this.workItems = this.workItems.concat(states[this.STATES.Done]);
+                if (states[this.STATES.Doing])
+                    this.workItems = this.workItems.concat(states[this.STATES.Doing]);
+                if (states[this.STATES.ToDo])
+                    this.workItems = this.workItems.concat(states[this.STATES.ToDo]);
+                if (states[this.STATES.Done])
+                    this.workItems = this.workItems.concat(states[this.STATES.Done]);
             }
         });
     }
