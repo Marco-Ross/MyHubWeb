@@ -1,65 +1,97 @@
-<div class="home">
-  <div class="horizontal-divider"></div>
+<form novalidate [formGroup]="homeFG">
+  <div class="home">
+    <div class="horizontal-divider"></div>
 
-  <div class="row">
-    <div class="left col-4">
-      <div class="left-absolute col-4">
-        <h5 class="header-left">Work Items</h5>
-        <div class="left-absolute-inner">
-          <ul>
-            <li class="card" *ngFor="let item of workItems" [ngClass]="{'selected-item': selectedWorkItem == item}">
-              <div class="card-color-indicator" [ngClass]="{
-              'bg-primary': item.fields.state == 'Doing',
-              'bg-warning': item.fields.state == 'To Do',
-              'bg-success': item.fields.state == 'Done'
-              }"></div>
-              <div class="card-header clickable" (click)="selectedWorkItem = item">
-                <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
+    <div class="row">
+      <div class="left col-4">
+        <div class="left-absolute col-4">
+          <h5 class="header-left">Work Items</h5>
+          <div class="input-group">
+            <input type="search" class="form-control work-item-search" placeholder="Search For Work Items"
+              formControlName="search" ngbDatepicker #datePicker="ngbDatepicker" [placement]="'bottom-right'">
+            <button class="button button-outline-dark" type="button" (click)="datePicker.toggle()"><fa-icon
+                [icon]="faCalendar"></fa-icon></button>
+          </div>
+
+          <div class="left-absolute-inner">
+            <div class="no-item-results">
+              <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
+                role="status"></div>
+              <h4 *ngIf="homeFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
+                Found
+              </h4>
+              <h4 *ngIf="!homeFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
+            </div>
+            <ul>
+              <ng-container *ngFor="let items of filteredWorkItems">
+                <li *ngIf="items.stateList.length">
+                  <div class="state-heading">
+                    <span class="clickable" (click)="isCollapsed[items.state] =! isCollapsed[items.state]">
+                      <span class="state-title">{{items.state}}</span>
+                      <fa-icon *ngIf="!isCollapsed[items.state]" [icon]="faCaretDown" size="sm"></fa-icon>
+                      <fa-icon *ngIf="isCollapsed[items.state]" [icon]="faCaretUp" size="sm"></fa-icon>
+                    </span>
+                  </div>
+
+                  <div class="card-collapse" [(ngbCollapse)]="isCollapsed[items.state]">
+                    <div class="card" *ngFor="let item of items.stateList"
+                      [ngClass]="{'selected-item': selectedWorkItem == item}">
+                      <div class="card-color-indicator" [ngClass]="{
+                    'bg-primary': item.fields.state == 'Doing',
+                    'bg-warning': item.fields.state == 'To Do',
+                    'bg-success': item.fields.state == 'Done'
+                    }"></div>
+                      <div class="card-header clickable" (click)="selectedWorkItem = item">
+                        <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-11">
+                            <div class="item-state">
+                              <p><b>Type:</b> {{item.fields.workItemType}}</p>
+                              <p><span [ngClass]="{
+                        'text-primary': item.fields.state == 'Doing',
+                        'text-warning': item.fields.state == 'To Do',
+                        'text-success': item.fields.state == 'Done'
+                        }">{{item.fields.state}}</span></p>
+                            </div>
+                            <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
+                            <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
+                          </div>
+                          <div class="col-1">
+                            <div class="item-link">
+                              <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
+                                target="_blank">
+                                <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
+                                  ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="right col-8">
+        <div class="right-absolute col-8">
+          <h5 class="header-right">Work Item Description</h5>
+          <div class="right-absolute-inner">
+            <div class="card">
+              <div class="card-header">
+                <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-11">
-                    <div class="item-state">
-                      <p><b>Type:</b> {{item.fields.workItemType}}</p>
-                      <p><span [ngClass]="{
-                      'text-primary': item.fields.state == 'Doing',
-                      'text-warning': item.fields.state == 'To Do',
-                      'text-success': item.fields.state == 'Done'
-                      }">{{item.fields.state}}</span></p>
-                    </div>
-                    <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
-                    <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
-                  </div>
-                  <div class="col-1">
-                    <div class="item-link">
-                      <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
-                        target="_blank">
-                        <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
-                          ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
-                      </a>
-                    </div>
-                  </div>
+                  <h5 class="card-title">Ticket Description:</h5>
+                  <p class="card-text" [innerHTML]="GetItemDescription()">
+                  </p>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="right col-8">
-      <div class="right-absolute col-8">
-        <h5 class="header-right">Work Item Description</h5>
-        <div class="right-absolute-inner">
-          <div class="card">
-            <div class="card-header">
-              <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <h5 class="card-title">Ticket Description:</h5>
-                <p class="card-text" [innerHTML]="getItemDescription()">
-                </p>
               </div>
             </div>
           </div>
@@ -67,4 +99,4 @@
       </div>
     </div>
   </div>
-</div>
+</form>
