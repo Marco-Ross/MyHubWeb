@@ -12,7 +12,7 @@
         <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email">
 
         <div class="col-12 mt-2 password-input">
-          <input [type]="showPassword ? 'text' : 'password'" class="form-control " placeholder="Password"
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" placeholder="Password"
             formControlName="password">
           <div class="password-icon">
             <fa-icon (click)="showPassword = !showPassword" class="clickable" *ngIf="!showPassword" [icon]="faEye"

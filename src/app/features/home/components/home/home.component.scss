@@ -3,13 +3,15 @@
     position: fixed;
     height: 100%;
     width: 100%;
+    margin-left: -0.8em;
+    margin-right: -0.8em;
 
     .horizontal-divider
     {
         border-left: 1px solid rgb(128, 128, 128, 0.3);
         height: 100%;
         position: fixed;
-        left: 35%;
+        left: 35.56%;
     }
 
     ::-webkit-scrollbar-track
@@ -33,79 +35,147 @@
 
     .left
     {
-        left: 0em;
-        padding-left: 0em;
-        padding-right: 0em;
-
         .header-left
         {
-            margin-top: 1.2em;
-            margin-left: 6%;
+            margin-top: 0.3em;
         }
 
         .left-absolute
         {
             position: absolute;
-            bottom: 7.5em;
+            bottom: 3.5em;
             top: 0em;
+            padding-right: 0.2%;
+            left: 1%;
 
             .left-absolute-inner
             {
-                height: 100%;
-                padding: 0.2em;
+                position: absolute;
+                bottom: 0em;
+                top: 5em;
+                padding-right: 0.2%;
+                width: 100%;
+                margin-top: 0.3em;
                 overflow-y: auto;
-                overflow-x: hidden;
+                overflow-x: hidden;        
+
+                .no-item-results
+                {
+                    text-align: center;
+
+                    .spinner-size
+                    {
+                        width: 5rem;
+                        height: 5rem;
+                        border-width: 0.3rem;
+                    }
+                }
 
                 ul
                 {
-                    padding-left: 5%;
-                }
-            }
-        }
+                    margin-bottom: 0em;
+                    padding-left: unset;
 
-        .card
-        {
-            margin-bottom: 1em;
-
-            .card-color-indicator
-            {
-                width: 5px;
-                height: 100%;
-                position: absolute;
-            }
-
-            .card-body
-            {
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-
-                p
-                {
-                    font-size: 0.9em;
-                    margin-bottom: 0.2em;
-                }
-
-                .item-link
-                {
-                    display: flex;
-                    flex-direction: row-reverse;
-
-                    a
+                    li:first-child
                     {
-                        color: #0d6efd;
+                        .state-heading
+                        {
+                            padding-top: 0em;
+                        }
                     }
 
-                    a:hover
+                    li
                     {
-                        color: #0a58ca;
-                    }
-                }
+                        .state-heading
+                        {
+                            display: flex;
+                            padding-bottom: 0.5em;
+                            padding-top: 0.9em;
 
-                .item-state
-                {
-                    display: inline-flex;
-                    justify-content: space-between;
-                    width: 100%;
+                            .state-title
+                            {
+                                font-size: 1.15em;
+                            }
+
+                            fa-icon
+                            {
+                                padding-left: 0.3em;
+                                margin-top: 0.07em;
+                            }
+                        }
+
+                        .card-collapse
+                        {
+                            .card:last-child
+                            {
+                                margin-bottom: 0em;
+                            }
+
+                            .card
+                            {
+                                margin-bottom: 1em;
+
+                                .card-color-indicator
+                                {
+                                    width: 5px;
+                                    height: 100%;
+                                    position: absolute;
+                                }
+
+                                .card-header
+                                {
+                                    padding-top: 0.4em;
+                                    padding-bottom: 0.4em;
+                                }
+
+                                .card-body
+                                {
+                                    padding-top: 0.3em;
+                                    padding-bottom: 0.3em;
+
+                                    p
+                                    {
+                                        font-size: 0.9em;
+                                        margin-bottom: 0.2em;
+                                    }
+
+                                    .item-link
+                                    {
+                                        display: flex;
+                                        flex-direction: row-reverse;
+
+                                        a
+                                        {
+                                            color: #0d6efd;
+                                        }
+
+                                        a:hover
+                                        {
+                                            color: #0a58ca;
+                                        }
+                                    }
+
+                                    .item-state
+                                    {
+                                        display: inline-flex;
+                                        justify-content: space-between;
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    li:last-child
+                    {
+                        .card-collapse
+                        {
+                            .card:last-child
+                            {
+                                margin-bottom: 0.2em;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -119,34 +189,21 @@
 
     .right
     {
-        right: 0em;
-        padding-left: 0em;
-        padding-right: 0em;
-
-        h3
-        {
-            text-decoration: underline;
-            font-family: CreteRound-Regular;
-        }
-
         .header-right
         {
-            margin-top: 1.2em;
-            margin-left: 1%;
+            margin-top: 0.3em;
         }
 
         .right-absolute
         {
             position: absolute;
-            bottom: 7.5em;
+            bottom: 3.5em;
             top: 0em;
-            padding-left: 3%;
-            padding-right: 3%;
+            right: 1%;
+            width: 62%;
 
             .right-absolute-inner
             {
-                padding-left: 0.5%;
-                padding-right: 0.5%;
                 height: 100%;
                 overflow-y: auto;
                 overflow-x: hidden;

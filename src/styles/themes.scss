@@ -4,23 +4,23 @@
 :root
 {
     --background-color: #f1f1f1;
-    --button-text-color: #e4e8ec;
+    --button-text-color: #{$bg-white};
     --text-color: black;
     --link-text-color: black;
-    --button-color: #{$dark-color};
+    --button-color: #{lighten($dark-color, 10%)};
     --theme-logo: url("../assets/images/logo/MH-White.png");
 }
 
 .dark-theme
 {
     --background-color: #{$dark-color};
-    --button-text-color: #e4e8ec;
-    --text-color: #e4e8ec;  
-    --link-text-color: #e4e8ec;
+    --button-text-color: #{$bg-white};
+    --text-color: #{$bg-white};
+    --link-text-color: #{$bg-white};
     --button-color: #{$dark-color};
     --card-background: #{$dark-contrast-color};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
-    
+
     nav
     {
         @include nav;
@@ -30,6 +30,8 @@
     {
         @include dropdown-menu;
     }
+
+    @include calendar;
 }
 
 body
@@ -44,15 +46,18 @@ body
         color: var(--text-color);
     }
 
-    a{
+    a
+    {
         color: var(--link-text-color);
         text-decoration: none;
     }
-    a:hover{
+
+    a:hover
+    {
         color: var(--link-text-color);
         text-decoration: underline;
     }
-    
+
     .button
     {
         background-color: var(--button-color);
@@ -64,7 +69,19 @@ body
         background-color: var(--card-background);
     }
 
-    .logo{
+    .logo
+    {
         content: var(--theme-logo);
+    }
+
+    .ngb-dp-header
+    {
+        background-color: var(--card-background);
+    }
+
+    .form-select
+    {
+        background-color: var(--card-background);
+        color: var(--text-color);
     }
 }

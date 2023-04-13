@@ -1,27 +1,37 @@
 //all global button styles will be in here and imported into styles.scss
 @import "colors.scss";
 
-.button {
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .375rem;
-  }
-  
-  .button:hover{
-    background-color: darken($dark-color, 5%);
-    border-color: darken($dark-color, 5%);
-    transition: background-color 0.3s;
-  }
+.button
+{
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .375rem;
+}
 
-  .button:active{
-    background-color: darken($dark-color, 15%);
-    border-color: darken($dark-color, 15%);
-    transition: background-color 0.3s;
-  }
+.button:hover
+{
+  background-color: lighten($dark-color, 6%);
+  transition: background-color 0.3s;
+}
+
+.button:active
+{
+  background-color: lighten($dark-color, 8%);
+  transition: background-color 0.3s;
+}
+.button-outline-dark
+{
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  border-color: #{$bg-white};
+  color: #212529;
+}
