@@ -71,14 +71,9 @@ export class HomeComponent
 
     private AssignWorkItemValues(states: any)
     {
-        if (states[this.STATES.Doing].length)
-            this.workItems[0] = new WorkItem(this.STATES.Doing, states[this.STATES.Doing]);
-
-        if (states[this.STATES.ToDo].length)
-            this.workItems[1] = new WorkItem(this.STATES.ToDo, states[this.STATES.ToDo]);
-
-        if (states[this.STATES.Done].length)
-            this.workItems[2] = new WorkItem(this.STATES.Done, states[this.STATES.Done]);
+        this.workItems[0] = new WorkItem(this.STATES.Doing, states[this.STATES.Doing]?.length ? states[this.STATES.Doing] : []);
+        this.workItems[1] = new WorkItem(this.STATES.ToDo, states[this.STATES.ToDo]?.length ? states[this.STATES.ToDo] : []);
+        this.workItems[2] = new WorkItem(this.STATES.Done, states[this.STATES.Done]?.length ? states[this.STATES.Done] : []);
     }
 
     private AssignFilterValues()
