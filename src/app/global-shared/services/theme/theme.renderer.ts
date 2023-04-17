@@ -1,31 +1,126 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { ThemeConstants } from '../../constants/theme.constants';
+import { WindowRefService } from '../window/WindowRefService.model';
+import { ThemeService } from './theme.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ThemeRenderer
 {
+    readonly ThemeKey = 'Theme';
+    currentTheme =  new BehaviorSubject('');
     renderer!: Renderer2;
-    private currentTheme: string = ThemeConstants.LightTheme;
+
+    darkListener: any;
+    lightListener: any;
+
+    constructor(private window: WindowRefService, private themeService: ThemeService)
+    {
+        this.MediaDark = this.MediaDark.bind(this);
+        this.MediaLight = this.MediaLight.bind(this);
+    }
 
     public ChangeTheme(theme: string)
     {
-        let newTheme = Object.values(ThemeConstants).find(x => x == theme) ?? '';
+        let setTheme = this.UpdateTheme(theme);
+        this.themeService.UpdateTheme(setTheme).subscribe();
+        this.currentTheme.next(setTheme);
+    }
 
-        if (newTheme == '')
-            this.UpdateThemeClass(ThemeConstants.LightTheme);
+    public OnLoadTheme()
+    {
+        this.SetPreferredTheme();
+    }
+
+    private UpdateTheme(theme: string)
+    {
+        let newTheme = Object.values(ThemeConstants).find(x => x == theme) ?? ThemeConstants.SystemTheme;
+
+        if (newTheme == ThemeConstants.SystemTheme)
+            this.SetSystemTheme();
         else
+        {
+            this.RemoveSystemListeners();
             this.UpdateThemeClass(newTheme);
+        }
+
+        return newTheme;
     }
 
     private UpdateThemeClass(theme: string)
     {
-        this.renderer.removeClass(document.body, this.currentTheme);
-        this.renderer.addClass(document.body, theme);
-        this.currentTheme = theme;
+        this.RemoveAllThemeClasses();
+        this.AddThemeClass(theme);
+    }
+
+    private RemoveAllThemeClasses()
+    {
+        for (let x in ThemeConstants)
+            this.RemoveThemeClass(ThemeConstants[x as keyof typeof ThemeConstants]);
+    }
+
+    private RemoveThemeClass(theme: string)
+    {
+        this.renderer.selectRootElement('html', true).classList.remove(theme);
+    }
+
+    private AddThemeClass(theme: string)
+    {
+        this.renderer.selectRootElement('html', true).classList.add(theme);
+    }
+
+    public OnThemeChange()
+    {
+        return this.currentTheme;
+    }
+
+    private SetSystemTheme()
+    {
+        this.SetPreferredTheme();
+        this.AddWindowListeners();
+    }
+
+    private SetPreferredTheme()
+    {
+        if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: dark)').matches)
+            this.UpdateThemeClass(ThemeConstants.DarkTheme);
+
+        if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: light)').matches)
+            this.UpdateThemeClass(ThemeConstants.LightTheme);
+    }
+
+    private AddWindowListeners()
+    {
+        this.darkListener = this.window.nativeWindow.matchMedia('(prefers-color-scheme: dark)');
+        this.darkListener.addEventListener('change', this.MediaDark);
+
+        this.lightListener = this.window.nativeWindow.matchMedia('(prefers-color-scheme: light)')
+        this.lightListener.addEventListener('change', this.MediaLight);
+    }
+
+    private MediaDark(mediaQuery: any)
+    {
+        if (mediaQuery.matches)
+            this.UpdateThemeClass(ThemeConstants.DarkTheme);
+    }
+
+    private MediaLight(mediaQuery: any)
+    {
+        if (mediaQuery.matches)
+            this.UpdateThemeClass(ThemeConstants.LightTheme);
+    }
+
+    private RemoveSystemListeners()
+    {
+        if (this.darkListener)
+            this.darkListener.removeEventListener('change', this.MediaDark);
+
+        if (this.lightListener)
+            this.lightListener.removeEventListener('change', this.MediaLight);
     }
 
     ngOnDestroy(): void
     {
-        this.renderer.removeClass(document.body, this.currentTheme);
+        this.RemoveAllThemeClasses();
     }
 }
