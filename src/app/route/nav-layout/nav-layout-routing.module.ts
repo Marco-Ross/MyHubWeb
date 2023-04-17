@@ -10,6 +10,10 @@ const routes: Routes = [
             {
                 path: 'home',
                 loadChildren: () => import('../../features/home/components/home.module').then(m => m.HomeModule)
+            },
+            {
+                path: 'settings',
+                loadChildren: () => import('../../features/settings/components/settings/settings.module').then(m => m.SettingsModule)
             }
         ]
     }
