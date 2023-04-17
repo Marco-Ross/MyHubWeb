@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { ILoginUser } from '../../models/interfaces/ILoginUser.interface';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 
 @Component({
   selector: 'login',
@@ -14,7 +14,7 @@ import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 })
 export class LoginComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private buttonService: ButtonService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private themeRenderer: ThemeRenderer) { }
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -25,10 +25,7 @@ export class LoginComponent
   formSubmitErrors: string = "";
   loginFormSubmitted: boolean = false;
   showPassword: boolean = false;
-  get isLoading(): boolean
-  {
-    return this.buttonService.loading;
-  }
+  isLoading: boolean = false;
 
   ngOnInit()
   {
@@ -48,23 +45,25 @@ export class LoginComponent
   public Login(loginUser: ILoginUser)
   {
     this.loginFormSubmitted = true;
-    this.buttonService.StartLoading(150);
+    this.isLoading = true;
 
     if (!this.loginFG.valid)
     {
-      this.buttonService.StopLoading();
+      this.isLoading = false;
       return;
     }
 
     this.authenticationService.Login(loginUser).subscribe({
       next: _ =>
       {
-        this.buttonService.StopLoading();
+        this.themeRenderer.LoadThemeAndChange();
+
+        this.isLoading = false;
         this.router.navigate(['home']);
       },
       error: (response) =>
       {
-        this.buttonService.StopLoading();
+        this.isLoading = false;
         this.loginFG.get('email')?.markAsPristine();
         this.loginFG.get('password')?.markAsPristine();
         this.formSubmitErrors = response.error;

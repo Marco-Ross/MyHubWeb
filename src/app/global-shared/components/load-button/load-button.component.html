@@ -1,0 +1,6 @@
+<div class="d-grid">
+    <button class="button" [type]="type" [disabled]="disabled || loading" (keyup.enter)="type === 'submit' ? StartLoading() : undefined" (click)="StartLoading()">
+        <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading"></span>
+        {{buttonText}}
+    </button>
+</div>
