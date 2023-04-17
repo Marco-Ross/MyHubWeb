@@ -45,13 +45,8 @@
               [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
             <div class="error-feedback">Passwords do not match</div>
           </div>
-          
-          <div class="d-grid col-12 mt-2">
-            <button class="button load-button" type="submit" [disabled]="isLoading">
-              <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
-              Register
-            </button>
-          </div>
+
+          <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'" [debounce]="150" class="mt-2"></load-button>
 
           <div class="col-12 mt-1 text-center">
             <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">

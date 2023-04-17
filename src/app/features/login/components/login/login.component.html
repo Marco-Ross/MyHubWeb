@@ -22,12 +22,7 @@
           </div>
         </div>
 
-        <div class="d-grid col-12 mt-2">
-          <button class="button  load-button login-button" type="submit" [disabled]="isLoading">
-            <span class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></span>
-            Login
-          </button>
-        </div>
+        <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Login'" [debounce]="150" class="mt-2"></load-button>
 
         <div class="login-links mt-2">
           <div class="col-7">

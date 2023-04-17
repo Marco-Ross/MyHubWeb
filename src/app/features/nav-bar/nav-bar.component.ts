@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 
 @Component({
     selector: 'nav-bar',
@@ -10,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavBarComponent
 {
-    constructor(private router: Router, private authenticationService: AuthenticationService, private cookieService: CookieService) { }
+    constructor(private router: Router, private authenticationService: AuthenticationService, private cookieService: CookieService, private themeRenderer: ThemeRenderer) { }
 
     Username: string = "";
     isCollapsed = true;
@@ -31,6 +32,7 @@ export class NavBarComponent
         this.authenticationService.Logout().subscribe({
             next: _ =>
             {
+                this.themeRenderer.SetSystemTheme();
                 this.router.navigate(['']);
             },
             error: _ =>

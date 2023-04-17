@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeRenderer
 {
     readonly ThemeKey = 'Theme';
-    currentTheme =  new BehaviorSubject('');
+    currentTheme = new BehaviorSubject('');
     renderer!: Renderer2;
 
     darkListener: any;
@@ -18,6 +18,22 @@ export class ThemeRenderer
     {
         this.MediaDark = this.MediaDark.bind(this);
         this.MediaLight = this.MediaLight.bind(this);
+    }
+
+    public LoadThemeAndChange()
+    {
+        this.themeService.GetTheme().subscribe({
+            next: (themeOptions) =>
+            {
+                this.ChangeThemeOnLoad(themeOptions.theme);
+            }
+        });
+    }
+
+    private ChangeThemeOnLoad(theme: string)
+    {
+        let setTheme = this.UpdateTheme(theme);
+        this.currentTheme.next(setTheme);
     }
 
     public ChangeTheme(theme: string)
@@ -74,8 +90,15 @@ export class ThemeRenderer
         return this.currentTheme;
     }
 
-    private SetSystemTheme()
+    public GetCurrentTheme()
     {
+        return this.currentTheme.getValue();
+    }
+
+    public SetSystemTheme()
+    {
+        this.RemoveSystemListeners();
+
         this.SetPreferredTheme();
         this.AddWindowListeners();
     }

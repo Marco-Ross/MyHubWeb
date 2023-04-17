@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
-import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
 
 @Component({
@@ -13,17 +12,14 @@ import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interfac
 })
 export class RegisterComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, public buttonService: ButtonService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
 
   registerFG!: FormGroup;
   formSubmitErrors: string = "";
   registerFormSubmitted: boolean = false;
   registerRequested: boolean = false;
   showPassword: boolean = false;
-  get isLoading(): boolean
-  {
-    return this.buttonService.loading;
-  }
+  isLoading: boolean = false;
 
   ngOnInit()
   {
@@ -45,11 +41,11 @@ export class RegisterComponent
   public Register(registerUser: IRegisterUser): void
   {
     this.registerFormSubmitted = true;
-    this.buttonService.StartLoading(150);
+    this.isLoading = true;
 
     if (!this.registerFG.valid)
     {
-      this.buttonService.StopLoading();
+      this.isLoading = false;
       return;
     }
 
@@ -57,11 +53,11 @@ export class RegisterComponent
       next: _ =>
       {
         this.registerRequested = true;
-        this.buttonService.StopLoading();
+        this.isLoading = false;
       },
       error: (response) =>
       {
-        this.buttonService.StopLoading();
+        this.isLoading = false;
         this.formSubmitErrors = response.error;
       }
     });

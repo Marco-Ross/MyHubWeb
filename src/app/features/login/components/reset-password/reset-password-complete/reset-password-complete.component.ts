@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
-import { ButtonService } from 'src/app/global-shared/services/load-button/load-button.service';
 import { IResetPasswordComplete } from '../../../models/interfaces/IResetPasswordComplete.interface';
 
 @Component({
@@ -13,7 +12,7 @@ import { IResetPasswordComplete } from '../../../models/interfaces/IResetPasswor
 })
 export class ResetPasswordCompleteComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private buttonService: ButtonService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   resetPasswordCompleteFG!: FormGroup;
   formSubmitErrors: string = '';
@@ -22,10 +21,7 @@ export class ResetPasswordCompleteComponent
   resetPasswordToken: string | null = '';
   resetStatus!: boolean | undefined;
   showPassword: boolean = false;
-  get isLoading(): boolean
-  {
-    return this.buttonService.loading;
-  }
+  isLoading: boolean = false;
 
   ngOnInit()
   {
@@ -48,11 +44,11 @@ export class ResetPasswordCompleteComponent
   public ResetPasswordComplete(resetPasswordComplete: IResetPasswordComplete)
   {
     this.resetPasswordFormSubmitted = true;
-    this.buttonService.StartLoading(150);
+    this.isLoading = true;
 
     if (!this.resetPasswordCompleteFG.valid)
     {
-      this.buttonService.StopLoading();
+      this.isLoading = false;
       return;
     }
 
@@ -62,7 +58,7 @@ export class ResetPasswordCompleteComponent
     this.authenticationService.ResetPasswordComplete(resetPasswordComplete).subscribe({
       next: _ =>
       {
-        this.buttonService.StopLoading();
+        this.isLoading = false;
         this.resetStatus = true;
         setTimeout(() =>
         {
@@ -71,7 +67,7 @@ export class ResetPasswordCompleteComponent
       },
       error: (response) =>
       {
-        this.buttonService.StopLoading();
+        this.isLoading = false;
         this.formSubmitErrors = response.error;
       }
     });
