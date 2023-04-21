@@ -145,11 +145,11 @@ export class HomeComponent
 
             if (typeof searchValue === "string" && field.toLowerCase() == 'id')
             {
-                if (('hub-' + item.fields[field].toLowerCase()).includes(searchValue.toLowerCase()))
+                if (('hub-' + item.fields[field].toString().toLowerCase()).includes(searchValue.toLowerCase()))
                     return true;
             }
 
-            if (typeof searchValue === "string" && item.fields[field].toLowerCase().includes(searchValue.toLowerCase()))
+            if (typeof searchValue === "string" && item.fields[field].toString().toLowerCase().includes(searchValue.toLowerCase()))
                 return true;
         }
 
