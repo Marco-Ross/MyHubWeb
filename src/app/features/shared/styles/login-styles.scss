@@ -1,0 +1,69 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.center-body
+{
+  width: 16em;
+  padding-bottom: 1.5em;
+}
+
+.center-screen
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+}
+
+.input-form
+{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 85%;
+  grid-row-gap: 1em;
+}
+
+.logo-head
+{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2em;
+}
+
+.header
+{
+  font-size: 2em;
+  background-clip: text;
+  font-family: sans-serif;
+  padding-top: 0.7em;
+  padding-bottom: 1em;
+}
+
+.login-shadow{
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+@include media-breakpoint-up(sm)
+{
+  .header
+  {
+    font-size: 3em;
+  }
+  .center-body
+  {
+    width: 24em;
+  }
+}
+
+@include media-breakpoint-only(sm)
+{
+  .header
+  {
+    font-size: 2.5em;
+  }
+  .center-body
+  {
+    width: 23em;
+  }
+}

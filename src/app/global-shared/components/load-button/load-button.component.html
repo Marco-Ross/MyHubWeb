@@ -1,4 +1,6 @@
-<button class="btn btn-primary load-button" type="{{type}}" [disabled]="loading" (click)="Load()">
-  <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading"></span>
-  {{name}}
-</button>
+<div class="d-grid">
+    <button class="button" [type]="type" [disabled]="disabled || loading" (keyup.enter)="type === 'submit' ? StartLoading() : undefined" (click)="StartLoading()">
+        <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading"></span>
+        {{buttonText}}
+    </button>
+</div>

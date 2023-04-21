@@ -1,19 +1,39 @@
-.center-screen
+@import "../../../shared/styles/login-styles.scss";
+
+.login-icon
 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 90vh;
+    width: 6em;
+    height: 6em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    align-self: center;
 }
 
-.login-header
+.password-input
 {
-  font-size: 6rem;
-  background: linear-gradient(to right, #5b30d0 0%, #800091 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    input
+    {
+        padding-right: 2.3rem;
+    }
+
+    .password-icon
+    {
+        position: absolute;
+        padding-right: 0.5rem;
+    }
+}
+
+.login-links
+{
+    display: flex;
+
+    .forgot-password
+    {
+        text-align: right;
+    }
 }

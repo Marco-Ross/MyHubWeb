@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ComponentsModule } from '../../modules/components.module';
 import { LoadButtonComponent } from './load-button.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    LoadButtonComponent
-  ],
-  providers: [],
-  imports: [ComponentsModule],
-  exports: [LoadButtonComponent]
+    declarations: [LoadButtonComponent],
+    imports:[CommonModule],
+    exports: [LoadButtonComponent]
 })
 export class LoadButtonModule { }

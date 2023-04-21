@@ -1,0 +1,37 @@
+$dark-color: #161616;
+$dark-contrast-color: #272d32;
+$dark-lightened-color: #5f6e7a;
+$bg-white: #e4e8ec;
+
+//$dark-color
+.text-dark
+{
+    color: $dark-color;
+}
+
+.bg-dark
+{
+    background-color: $dark-color;
+}
+
+//$dark-contrast-color
+.text-dark-contrast
+{
+    color: $dark-contrast-color;
+}
+
+.bg-dark-contrast
+{
+    background-color: $dark-contrast-color;
+}
+
+//$dark-contrast-color
+.text-darkl-contrast
+{
+    color: $dark-lightened-color;
+}
+
+.bg-darkl-contrast
+{
+    background-color: $dark-lightened-color;
+}

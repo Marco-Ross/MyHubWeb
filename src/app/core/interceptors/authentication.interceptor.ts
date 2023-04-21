@@ -27,12 +27,12 @@ export class AuthenticationInterceptor implements HttpInterceptor
         if (req.url.includes('Authentication/Refresh'))
             return next.handle(req);
 
-        return next.handle(req).pipe(catchError(error =>
+        return next.handle(req).pipe(catchError(errorResponse =>
         {
-            if (error instanceof HttpErrorResponse && error.status === 401)
+            if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 401)
                 return from(this.handleUnauthenticatedError(req, next));
 
-            return throwError(() => error);
+            return throwError(() => errorResponse);
         }));
     }
 

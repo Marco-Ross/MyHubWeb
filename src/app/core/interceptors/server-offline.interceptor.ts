@@ -10,14 +10,12 @@ export class ApiRouteInterceptor implements HttpInterceptor
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
-        return next.handle(req).pipe(catchError(error =>
+        return next.handle(req).pipe(catchError(errorResponse =>
         {
-            if (error instanceof HttpErrorResponse && error.status === 0)
-            {
+            if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 0)
                 this.router.navigate(['server-down']);
-            }
 
-            return throwError(() => error);
+            return throwError(() => errorResponse);
         }));
     }
 }

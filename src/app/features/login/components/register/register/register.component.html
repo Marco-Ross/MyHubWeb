@@ -1,27 +1,62 @@
 <form novalidate [formGroup]="registerFG" (ngSubmit)="onSubmit()">
   <div class="center-screen">
-    <div>
-      <div class="login-header">My Hub Register</div>
 
-      Email Address: <input type="text" class="form-control col-12 mb-2" placeholder="Email Address"
-        formControlName="email">
-      Username: <input type="text" class="form-control col-12 mb-2" placeholder="Username" formControlName="username">
-      Password: <input type="password" class="form-control col-12 mb-2" placeholder="Password"
-        formControlName="password">
-      Re-Enter Password: <input type="password" class="form-control col-12 mb-2" placeholder="Re-Enter Password"
-        formControlName="passwordReEnter">
+    <div class="logo-head">
+      <div class="logo logo-md"></div>
+    </div>
 
-      <div class="d-grid col-12 mb-2">
-        <load-button type="submit" [name]="'Register'" [debounce]="200" [subscription]="submitSubscription"></load-button>
+    <div class="card login-shadow center-body">
+      <div *ngIf="!registerRequested">
+        <div class="header text-center">Register</div>
+
+        <div class="input-form">
+          <div>
+            <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
+              [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
+            <div class="error-feedback">Please enter a valid Email Address</div>
+          </div>
+
+          <div>
+            <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
+              [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
+            <div class="error-feedback">Please enter a valid Username</div>
+          </div>
+
+          <div>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
+              formControlName="password"
+              [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
+            <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
+            </div>
+            <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
+              Password requirements:
+              <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
+              <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in
+                (!@#$%^&*).</span>
+            </div>
+          </div>
+
+          <div>
+            <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
+            <div class="error-feedback">Passwords do not match</div>
+          </div>
+
+          <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'" [debounce]="150" class="mt-2"></load-button>
+
+          <div class="col-12 mt-1 text-center">
+            <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">
+              {{formSubmitErrors}}</div>
+          </div>
+        </div>
       </div>
 
-      <div class="position-relative col-12">
-        <div
-          *ngIf="(registerFG.get('email')?.hasError('required') || registerFG.get('password')?.hasError('required'))  && registerFormSubmitted"
-          class="alert alert-danger position-absolute col-12" role="alert">Please enter required fields</div>
-
-        <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger position-absolute col-12"
-          role="alert">{{formSubmitErrors}}</div>
+      <div class="text-center" *ngIf="registerRequested">
+        <p class="mt-5">Please check your email's inbox and validate your email address to log in.</p>
       </div>
     </div>
   </div>

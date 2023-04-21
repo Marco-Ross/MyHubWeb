@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { RegisterUser } from '../../../models/registerUser.model';
+import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
+import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
 
 @Component({
   selector: 'register',
@@ -17,39 +17,47 @@ export class RegisterComponent
   registerFG!: FormGroup;
   formSubmitErrors: string = "";
   registerFormSubmitted: boolean = false;
-  submitSubscription!: Subscription;
+  registerRequested: boolean = false;
+  showPassword: boolean = false;
+  isLoading: boolean = false;
 
   ngOnInit()
   {
     this.registerFG = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required], //password validator
-      passwordReEnter: ['', Validators.required]
-    });
+      password: ['', [Validators.required, Validators.minLength(8), PasswordValidator.Strength]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: PasswordValidator.Matching });
   }
 
   //////
 
-  onSubmit()
+  onSubmit(): void
   {
     this.Register(this.registerFG.value);
   }
 
-  public Register(registerUser: RegisterUser)
+  public Register(registerUser: IRegisterUser): void
   {
     this.registerFormSubmitted = true;
+    this.isLoading = true;
 
     if (!this.registerFG.valid)
+    {
+      this.isLoading = false;
       return;
+    }
 
-    this.submitSubscription = this.authenticationService.Register(registerUser).subscribe({
+    this.authenticationService.Register(registerUser).subscribe({
       next: _ =>
       {
-        this.router.navigate(['register/validate-email']);
+        this.registerRequested = true;
+        this.isLoading = false;
       },
       error: (response) =>
       {
+        this.isLoading = false;
         this.formSubmitErrors = response.error;
       }
     });

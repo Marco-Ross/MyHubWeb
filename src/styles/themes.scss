@@ -1,0 +1,87 @@
+@import "bootstrap-theme-overrides.scss";
+@import "colors.scss";
+
+:root
+{
+    --background-color: #f1f1f1;
+    --button-text-color: #{$bg-white};
+    --text-color: black;
+    --link-text-color: black;
+    --button-color: #{lighten($dark-color, 10%)};
+    --theme-logo: url("../assets/images/logo/MH-White.png");
+}
+
+.dark-theme
+{
+    --background-color: #{$dark-color};
+    --button-text-color: #{$bg-white};
+    --text-color: #{$bg-white};
+    --link-text-color: #{$bg-white};
+    --button-color: #{$dark-color};
+    --card-background: #{$dark-contrast-color};
+    --theme-logo: url("../assets/images/logo/MH-Black.png");
+
+    nav
+    {
+        @include nav;
+    }
+
+    .dropdown-menu
+    {
+        @include dropdown-menu;
+    }
+
+    @include calendar;
+}
+
+body
+{
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    .form-control,
+    .form-control:focus
+    {
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
+    a
+    {
+        color: var(--link-text-color);
+        text-decoration: none;
+    }
+
+    a:hover
+    {
+        color: var(--link-text-color);
+        text-decoration: underline;
+    }
+
+    .button
+    {
+        background-color: var(--button-color);
+        color: var(--button-text-color);
+    }
+
+    .card
+    {
+        background-color: var(--card-background);
+    }
+
+    .logo
+    {
+        content: var(--theme-logo);
+    }
+
+    .ngb-dp-header
+    {
+        background-color: var(--card-background);
+    }
+
+    .form-select
+    {
+        background-color: var(--card-background);
+        color: var(--text-color);
+    }
+}
