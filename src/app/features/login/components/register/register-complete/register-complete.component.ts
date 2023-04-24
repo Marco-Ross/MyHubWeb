@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { RegisterUserComplete } from '../../../models/classes/RegisterUserComplete.class';
@@ -13,7 +12,6 @@ export class RegisterCompleteComponent
 {
   constructor(private authenticationService: AuthenticationService, private router: Router, private route : ActivatedRoute) { }
 
-  registerCompleteFG!: FormGroup;
   formSubmitErrors: string = '';
   registrationStatus!: boolean | undefined;
 
