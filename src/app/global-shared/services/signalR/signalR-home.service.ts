@@ -18,7 +18,7 @@ export class SignalRHomeService extends SignalRService
 
     public override subscribe(callback: (onUpdate: any)=> void): void
     {
-        this.connect('https://localhost/AzureWorkItemsHub');
+        this.connect('AzureWorkItemsHub');
 
         this.hubSubscription = this.hub.subject.subscribe({
             next: callback
