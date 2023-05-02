@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { HomeService } from './home.service';
 import { faExternalLink, faCalendar, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounce, timer } from 'rxjs';
+import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
+import { SignalRHomeService } from 'src/app/global-shared/services/signalR/signalR-home.service';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
     selector: 'home',
@@ -14,7 +16,7 @@ import { WorkItem } from './models/classes/work-item.class';
 
 export class HomeComponent
 {
-    constructor(private homeService: HomeService, private formBuilder: FormBuilder) { }
+    constructor(private homeService: HomeService, private formBuilder: FormBuilder, private signalRHomeService: SignalRHomeService, private router: Router) { }
 
     faExternalLink = faExternalLink;
     faCalendar = faCalendar;
@@ -40,6 +42,8 @@ export class HomeComponent
             search: ''
         });
 
+        this.initializeHomeHub();
+
         this.homeService.GetAllWorkItems().subscribe({
             next: (workItemsQuery) => this.SetWorkItems(workItemsQuery),
             error: () =>
@@ -50,6 +54,60 @@ export class HomeComponent
         });
 
         this.homeFG.get('search')?.valueChanges.pipe(debounce(() => timer(500))).subscribe((searchValue) => this.OnSearchChange(searchValue));
+    }
+
+    private initializeHomeHub()
+    {
+        this.onWorkItemUpdate();
+        this.hubCleanup();
+    }
+
+    private hubCleanup()
+    {
+        let navigateSub = this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe({
+            next: () =>
+            {
+                this.signalRHomeService.unsubscribe();
+                navigateSub.unsubscribe();
+            }
+        });
+    }
+
+    private onWorkItemUpdate()
+    {
+        this.signalRHomeService.subscribe(
+            updatedWorkItem =>
+            {
+                if (!updatedWorkItem || !this.workItems?.length)
+                    return;
+
+                let workItemsQuery = {
+                    workItems: this.setUpdatedFields(updatedWorkItem)
+                };
+
+                this.SetWorkItems(workItemsQuery);
+            }
+        );
+    }
+
+    private setUpdatedFields(updatedWorkItem: any)
+    {
+        let flattenedWorkItems = this.workItems.map((x: any) => x.stateList).flat(1)
+
+        let updatedWorkItemIndex = flattenedWorkItems.findIndex((x: any) => x.id === updatedWorkItem.resource.workItemId);
+
+        if (updatedWorkItemIndex < 0)
+            return;
+
+        Object.keys(updatedWorkItem.resource.fields).forEach(key =>
+        {
+            let updateKey = Object.keys(flattenedWorkItems[updatedWorkItemIndex].fields).find(x => `system.${x}` === key.toLowerCase());
+
+            if (updateKey)
+                flattenedWorkItems[updatedWorkItemIndex].fields[updateKey] = updatedWorkItem.resource.fields[key].newValue;
+        });
+
+        return flattenedWorkItems;
     }
 
     private SetWorkItems(workItemsQuery: any)
