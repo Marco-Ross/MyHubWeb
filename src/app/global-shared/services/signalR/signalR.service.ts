@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { IHub } from './models/interfaces/hub.interface';
 import * as signalR from '@microsoft/signalr';
 
@@ -16,9 +17,9 @@ export abstract class SignalRService
     protected abstract subscribe(next: () => any): void;
     protected abstract unsubscribe(): void;
 
-    protected connect(connectionUri: string)
+    protected connect(connectionEndPoint: string)
     {
-        this.connetion = new signalR.HubConnectionBuilder().withUrl(connectionUri).build();
+        this.connetion = new signalR.HubConnectionBuilder().withUrl(environment.API_URL + connectionEndPoint).build();
 
         this.connetion.start().then(() => console.log('ConnectionS Started')).catch(err => console.log('Error on connection start: ' + err));
 
