@@ -16,6 +16,11 @@ export class AppComponent
 
   ngOnInit()
   {
+    this.SetTheme();
+  }
+
+  private SetTheme()
+  {
     let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
 
     if (loginDetails?.IsLoggedIn)
