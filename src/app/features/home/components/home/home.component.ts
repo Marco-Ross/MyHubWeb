@@ -236,9 +236,6 @@ export class HomeComponent
 
     open(content: any)
     {
-        this.modalService.open(content, { centered: true }).result.then(
-            (result) => { },
-            (reason) => { },
-        );
+        this.modalService.open(content, { centered: true });
     }
 }
