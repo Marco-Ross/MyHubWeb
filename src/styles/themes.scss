@@ -10,7 +10,7 @@
     --link-text-color: black;
     --button-color: #{lighten($dark-color, 10%)};
     --card-background: #{$bg-white};
-    --card-header: #{$bg-white-dark};
+    --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-White.png");
 }
 
@@ -23,7 +23,7 @@
     --link-text-color: #{$bg-white};
     --button-color: #{$dark-color};
     --card-background: #{$dark-contrast-color};
-    --card-header: #{$dark-contrast-color-dark};
+    --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
 
     nav
