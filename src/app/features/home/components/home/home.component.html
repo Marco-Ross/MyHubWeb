@@ -41,31 +41,57 @@
                     'bg-warning': item.fields.state == 'To Do',
                     'bg-success': item.fields.state == 'Done'
                     }"></div>
-                      <div class="card-header clickable" (click)="selectedWorkItem = item">
+
+                      <div class="card-header card-header-md clickable" (click)="selectedWorkItem = item">
                         <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
                       </div>
+                      <div class="card-header card-header-sm clickable"
+                        (click)="selectedWorkItem = item; open(content)">
+
+                        <ng-template #content let-modal>
+                          <div class="modal-header" ngbAutofocus>
+                            <h5 class="modal-title" id="modal-basic-title">{{selectedWorkItem.fields.title}}</h5>
+                            <button type="button" class="btn-close" aria-label="Close"
+                              (click)="modal.dismiss('Cross click')"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form novalidate>
+                              <div class="mb-3">
+                                <h6><b>Ticket Description:</b></h6>
+                                <p [innerHTML]="GetItemDescription()"></p>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="button"
+                              (click)="modal.close('Save click')">Close</button>
+                          </div>
+                        </ng-template>
+
+                        <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
+                      </div>
+
                       <div class="card-body">
                         <div class="row">
-                          <div class="col-11">
-                            <div class="item-state">
-                              <p><b>Type:</b> {{item.fields.workItemType}}</p>
-                              <p><span [ngClass]="{
+                          <div class="col-12">
+                            <div class="item-state col-12 p-0">
+                              <p class="col-3"><b>Type:</b> {{item.fields.workItemType}}</p>
+                              <p class="col-8 text-end"><span [ngClass]="{
                         'text-primary': item.fields.state == 'Doing',
                         'text-warning': item.fields.state == 'To Do',
                         'text-success': item.fields.state == 'Done'
                         }">{{item.fields.state}}</span></p>
+
+                              <div class="item-link col-1 text-end">
+                                <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
+                                  target="_blank">
+                                  <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
+                                    ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
+                                </a>
+                              </div>
                             </div>
                             <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
                             <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
-                          </div>
-                          <div class="col-1">
-                            <div class="item-link">
-                              <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
-                                target="_blank">
-                                <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
-                                  ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
-                              </a>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -82,21 +108,11 @@
         <div class="right-absolute col-8">
           <h5 class="header-right">Work Item Description</h5>
           <div class="right-absolute-inner">
-            <div class="card">
-              <div class="card-header">
-                <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <h5 class="card-title">Ticket Description:</h5>
-                  <p class="card-text" [innerHTML]="GetItemDescription()">
-                  </p>
-                </div>
-              </div>
-            </div>
+            <work-item-description [selectedWorkItem]="selectedWorkItem"></work-item-description>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </form>

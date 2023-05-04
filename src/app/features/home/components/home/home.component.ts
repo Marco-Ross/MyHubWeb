@@ -6,6 +6,7 @@ import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
 import { SignalRHomeService } from 'src/app/global-shared/services/signalR/signalR-home.service';
 import { NavigationStart, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'home',
@@ -16,7 +17,7 @@ import { NavigationStart, Router } from '@angular/router';
 
 export class HomeComponent
 {
-    constructor(private homeService: HomeService, private formBuilder: FormBuilder, private signalRHomeService: SignalRHomeService, private router: Router) { }
+    constructor(private homeService: HomeService, private formBuilder: FormBuilder, private signalRHomeService: SignalRHomeService, private router: Router, private modalService: NgbModal) { }
 
     faExternalLink = faExternalLink;
     faCalendar = faCalendar;
@@ -214,6 +215,14 @@ export class HomeComponent
         return false;
     }
 
+    public IsEmpty(items: any)
+    {
+        return items.every((state: any) =>
+        {
+            return state.stateList.length === 0;
+        });
+    }
+
     public GetItemDescription()
     {
         if (!this.selectedWorkItem)
@@ -225,11 +234,8 @@ export class HomeComponent
         return this.selectedWorkItem?.fields?.description;
     }
 
-    public IsEmpty(items: any)
+    open(content: any)
     {
-        return items.every((state: any) =>
-        {
-            return state.stateList.length === 0;
-        });
+        this.modalService.open(content, { centered: true });
     }
 }
