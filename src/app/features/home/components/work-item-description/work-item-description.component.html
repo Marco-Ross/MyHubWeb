@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-header">
+        <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <h5 class="card-title">Ticket Description:</h5>
+            <p class="card-text" [innerHTML]="GetItemDescription()">
+            </p>
+        </div>
+    </div>
+</div>

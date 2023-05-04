@@ -5,9 +5,12 @@
 {
     --background-color: #f1f1f1;
     --button-text-color: #{$bg-white};
+    --button-focus: #{$dark-color};
     --text-color: black;
     --link-text-color: black;
     --button-color: #{lighten($dark-color, 10%)};
+    --card-background: #{$bg-white};
+    --card-header: #{$bg-white-dark};
     --theme-logo: url("../assets/images/logo/MH-White.png");
 }
 
@@ -15,10 +18,12 @@
 {
     --background-color: #{$dark-color};
     --button-text-color: #{$bg-white};
+    --button-focus: #{$bg-white};
     --text-color: #{$bg-white};
     --link-text-color: #{$bg-white};
     --button-color: #{$dark-color};
     --card-background: #{$dark-contrast-color};
+    --card-header: #{$dark-contrast-color-dark};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
 
     nav
@@ -64,6 +69,13 @@ body
         color: var(--button-text-color);
     }
 
+    button:focus-visible, button:focus
+    {
+        border-color:var(--button-focus);
+        border-width: 1px;
+        outline: 0;
+    }
+
     .card
     {
         background-color: var(--card-background);
@@ -83,5 +95,15 @@ body
     {
         background-color: var(--card-background);
         color: var(--text-color);
+    }
+
+    .modal-content
+    {
+        .modal-header
+        {
+            background-color: var(--card-header);
+        }
+
+        background-color: var(--card-background);
     }
 }
