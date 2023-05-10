@@ -46,7 +46,17 @@
             <div class="error-feedback">Passwords do not match</div>
           </div>
 
-          <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'" [debounce]="150" class="mt-2"></load-button>
+          <div class="row mt-2">
+            <div class="col-10 d-grid">
+              <button type="button" class="button" (click)="uploadImage()">Upload Image</button>
+            </div>
+            <div class="col-2 p-0">
+              <img [src]="profileImage" />
+            </div>
+          </div>
+
+          <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'"
+            [debounce]="150"></load-button>
 
           <div class="col-12 mt-1 text-center">
             <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">

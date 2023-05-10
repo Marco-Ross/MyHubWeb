@@ -1,0 +1,12 @@
+<div class="modal-header" ngbAutofocus>
+    <h5 class="modal-title" id="modal-basic-title">{{options.title}}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+</div>
+<div class="modal-body">
+    <form novalidate>
+        <ng-template popupBodyAnchor></ng-template>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="button" (click)="close()">Save</button>
+</div>

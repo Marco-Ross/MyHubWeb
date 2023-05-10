@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
+import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
 
 @Component({
   selector: 'register',
@@ -12,7 +12,7 @@ import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interfac
 })
 export class RegisterComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private authenticationService: AuthenticationService, private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
   registerFG!: FormGroup;
   formSubmitErrors: string = "";
@@ -20,6 +20,7 @@ export class RegisterComponent
   registerRequested: boolean = false;
   showPassword: boolean = false;
   isLoading: boolean = false;
+  profileImage: string = 'assets/icons/user-thin.png';
 
   ngOnInit()
   {
@@ -38,6 +39,14 @@ export class RegisterComponent
     this.Register(this.registerFG.value);
   }
 
+  uploadImage()
+  {
+    this.uploadService.UploadImageCrop().then((result) =>
+    {
+      this.profileImage = result.croppedImageEvent;
+    }, () => { });
+  }
+
   public Register(registerUser: IRegisterUser): void
   {
     this.registerFormSubmitted = true;
@@ -48,6 +57,8 @@ export class RegisterComponent
       this.isLoading = false;
       return;
     }
+
+    registerUser.profileImage = this.profileImage;
 
     this.authenticationService.Register(registerUser).subscribe({
       next: _ =>

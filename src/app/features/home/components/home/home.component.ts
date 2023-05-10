@@ -4,7 +4,7 @@ import { faExternalLink, faCalendar, faCaretDown, faCaretUp } from '@fortawesome
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
-import { SignalRHomeService } from 'src/app/global-shared/services/signalR/signalR-home.service';
+import { SignalRHomeService } from 'src/app/features/home/services/signalR-home.service';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
