@@ -20,7 +20,7 @@ export class RegisterComponent
   registerRequested: boolean = false;
   showPassword: boolean = false;
   isLoading: boolean = false;
-  profileImage: string = 'assets/icons/user-thin.png';
+  profileImage: string = '';
 
   ngOnInit()
   {

@@ -61,7 +61,7 @@
         <div class="col-sm-5 col-12 right-form">
           <div class="row">
             <div class="col-12 uploaded-image">
-              <img [src]="profileImage" />
+              <img [src]="profileImage || 'assets/icons/user-thin.png'" />
             </div>
           </div>
           <div class="row">
@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <div class="row text-center register-row mt-4">
+      <div *ngIf="!registerRequested" class="row text-center register-row mt-4">
         <div class="register-button">
           <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'"
             [debounce]="150"></load-button>
