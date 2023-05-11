@@ -14,8 +14,9 @@ export class LocalStorageService
 
     public GetData(key: string)
     {
-        return localStorage.getItem(key)
+        return localStorage.getItem(key);
     }
+    
     public RemoveData(key: string)
     {
         localStorage.removeItem(key);

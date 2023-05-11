@@ -1,43 +1,39 @@
-.navbar{
+.navbar
+{
     border-bottom: solid 1px;
-    border-color: rgb(128,128,128, 0.2);
+    border-color: rgb(128, 128, 128, 0.2);
 
-    .logo{
+    .logo
+    {
         margin: -12px;
     }
 }
 
 .right-nav
 {
-    display: inline-flex;
-    align-items: center;
-
-    .portrait
+    .profile-image
     {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        background-color: aqua;
-
-        img
+        .profile-image
         {
-            width: 100%;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
         }
-    }
 
-    .dropdown-toggle::after
-    {
-        margin-left: 1.5em;
-    }
+        .caret
+        {
+            padding-left: 0.2rem;
+        }
 
-    .dropdown-menu[data-bs-popper]
-    {
-        left: unset;
-        right: -1em;
-    }
+        .dropdown-toggle::after
+        {
+            display: none;
+        }
 
-    .btn-outline-primary
-    {
-        --bs-btn-border-color: unset;
+        .dropdown-menu[data-bs-popper]
+        {
+            left: unset;
+            right: -1em;
+        }
     }
 }
