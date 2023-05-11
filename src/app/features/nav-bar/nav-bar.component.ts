@@ -39,7 +39,7 @@ export class NavBarComponent
         this.profileImageService.GetUserProfileImage().subscribe({
             next: (image) =>
             {
-                if (!image)
+                if (!image || !image.size)
                     return;
 
                 this.profileImage = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image));

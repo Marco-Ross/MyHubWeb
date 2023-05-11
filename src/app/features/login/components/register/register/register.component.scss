@@ -10,6 +10,12 @@
   .center-body
   {
     padding-bottom: 2.5rem;
+    width: 42em;
+
+    .right-form
+    {
+      padding-right: 4.5rem;
+    }
   }
 }
 
@@ -18,6 +24,12 @@
   .center-body
   {
     padding-bottom: 2.5rem;
+    width: 42em;
+  }
+
+  .right-form
+  {
+    padding-right: 4.5rem;
   }
 }
 
@@ -29,8 +41,37 @@
   }
 }
 
-img
+
+.left-form
 {
-    border-radius: 50%;
-    width: 2.4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.right-form
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2rem;
+
+  .uploaded-image
+  {
+    img
+    {
+      border-radius: 50%;
+      width: 10rem;
+    }
+  }
+}
+
+.register-row
+{
+  justify-content: center;
+
+  .register-button
+  {
+    width: 45%;
+  }
 }

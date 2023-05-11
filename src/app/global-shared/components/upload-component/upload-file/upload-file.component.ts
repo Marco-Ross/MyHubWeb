@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -15,6 +15,7 @@ export class UploadFileComponent
     //
 
     @Output() uploadFilesEvent = new EventEmitter<File>;
+    @Input() fileTypes: string = '';
     uploadedFile!: File;
 
     ngOnInit()

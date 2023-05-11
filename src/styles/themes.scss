@@ -27,8 +27,8 @@
     --card-background: #{$dark-contrast-color};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
-    --caret: #{$black};
-    --caret-active: #{$bg-white};
+    --caret: #{rgba(255, 255, 255, 0.55)};
+    --caret-active: #{rgba(255, 255, 255, 0.75)};
 
     nav
     {

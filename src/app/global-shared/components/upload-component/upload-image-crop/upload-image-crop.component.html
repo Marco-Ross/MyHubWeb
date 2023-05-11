@@ -1,6 +1,13 @@
-<upload-file [hidden]="!hideCropper" (uploadFilesEvent)="onImageUpload($event)"></upload-file>
+<div *ngIf="incorrectFile" class="upload-error clickable" (click)="incorrectFile = false;">
+    <div  class="alert alert-danger col-6 text-center" role="alert">
+        <p>The file type was not an image.</p>
+        <p>Click anywhere to retry.</p>
+    </div>
+</div>
 
-<div [hidden]="hideCropper" class="row">
+<upload-file [hidden]="!hideCropper || incorrectFile" (uploadFilesEvent)="onImageUpload($event)" [fileTypes]="'image/*'"></upload-file>
+
+<div [hidden]="hideCropper || incorrectFile" class="row">
     <div class="text-center col-md-6">
         <h5>Crop Image</h5>
         <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"

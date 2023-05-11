@@ -6,62 +6,76 @@
     </div>
 
     <div class="card login-shadow center-body">
-      <div *ngIf="!registerRequested">
-        <div class="header text-center">Register</div>
+      <div *ngIf="!registerRequested" class="row">
+        <div class="text-center col-12">
+          <div class="header">Register</div>
+        </div>
 
-        <div class="input-form">
-          <div>
-            <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
-              [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
-            <div class="error-feedback">Please enter a valid Email Address</div>
-          </div>
-
-          <div>
-            <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
-              [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
-            <div class="error-feedback">Please enter a valid Username</div>
-          </div>
-
-          <div>
-            <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
-              formControlName="password"
-              [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
-            <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a Password
+        <div class="col-sm-7 col-12 left-form">
+          <div class="input-form">
+            <div>
+              <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
+                [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
+              <div class="error-feedback">Please enter a valid Email Address</div>
             </div>
-            <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
-              Password requirements:
-              <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters. </span>
-              <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
-              <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
-              <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
-              <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in
-                (!@#$%^&*).</span>
+
+            <div>
+              <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
+                [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
+              <div class="error-feedback">Please enter a valid Username</div>
+            </div>
+
+            <div>
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
+                formControlName="password"
+                [ngClass]="{'is-invalid' : registerFG.get('password')?.errors && registerFormSubmitted}">
+              <div class="error-feedback" *ngIf="registerFG.get('password')?.hasError('required')">Please enter a
+                Password
+              </div>
+              <div class="error-feedback" *ngIf="!registerFG.get('password')?.hasError('required')">
+                Password requirements:
+                <span *ngIf="registerFG.get('password')?.hasError('minlength')">Must be Larger than 8 characters.
+                </span>
+                <span *ngIf="registerFG.get('password')?.hasError('upperCase')">Have 1 upper case. </span>
+                <span *ngIf="registerFG.get('password')?.hasError('lowerCase')">Have 1 lower case. </span>
+                <span *ngIf="registerFG.get('password')?.hasError('number')">Have 1 Number. </span>
+                <span *ngIf="registerFG.get('password')?.hasError('special')">Have 1 Special character in
+                  (!@#$%^&*).</span>
+              </div>
+            </div>
+
+            <div>
+              <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
+                formControlName="confirmPassword"
+                [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
+              <div class="error-feedback">Passwords do not match</div>
+            </div>
+
+            <div class="col-12 mt-1 text-center">
+              <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">
+                {{formSubmitErrors}}</div>
             </div>
           </div>
+        </div>
 
-          <div>
-            <input type="password" class="form-control col-12 mt-2" placeholder="Confirm Password"
-              formControlName="confirmPassword"
-              [ngClass]="{'is-invalid' : (registerFG.hasError('invalidMatchingPassword') || registerFG.get('confirmPassword')?.hasError('required')) && (registerFormSubmitted || registerFG.get('confirmPassword')?.touched)}">
-            <div class="error-feedback">Passwords do not match</div>
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-10 d-grid">
-              <button type="button" class="button" (click)="uploadImage()">Upload Image</button>
-            </div>
-            <div class="col-2 p-0">
+        <div class="col-sm-5 col-12 right-form">
+          <div class="row">
+            <div class="col-12 uploaded-image">
               <img [src]="profileImage" />
             </div>
           </div>
+          <div class="row">
+            <div class="col-12 mt-2">
+              <button type="button" class="button" (click)="uploadImage()">Upload Profile Image</button>
+            </div>
+          </div>         
+        </div>
+      </div>
 
+      <div class="row text-center register-row mt-4">
+        <div class="register-button">
           <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Register'"
             [debounce]="150"></load-button>
-
-          <div class="col-12 mt-1 text-center">
-            <div *ngIf="registerFormSubmitted && formSubmitErrors" class="alert alert-danger col-12" role="alert">
-              {{formSubmitErrors}}</div>
-          </div>
         </div>
       </div>
 

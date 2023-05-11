@@ -4,7 +4,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 @Component({
     selector: 'upload-image-crop',
     templateUrl: 'upload-image-crop.component.html',
-    styleUrls:['upload-image-crop.component.scss']
+    styleUrls: ['upload-image-crop.component.scss']
 })
 export class UploadImageCropComponent
 {
@@ -14,6 +14,7 @@ export class UploadImageCropComponent
     croppedImage: any = '';
     imageChangedEvent: any = '';
     hideCropper: boolean = true;
+    incorrectFile: boolean = false;
 
     ngOnInit()
     {
@@ -23,6 +24,12 @@ export class UploadImageCropComponent
 
     onImageUpload(file: File)
     {
+        if (!file.type.includes('image'))
+        {
+            this.incorrectFile = true;
+            return;
+        }
+
         this.imageChangedEvent = { target: { files: [file] } };
     }
 

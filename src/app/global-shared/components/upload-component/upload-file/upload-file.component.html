@@ -1,10 +1,8 @@
 <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileDrag($event)">
     <div class="text-wrapper">
         <div class="centered">
-            <input type="file" name="file" id="file" (change)="onFileUpload($event)">
-            <label for="file">
-                <span class="textLink"><fa-icon class="clickable" [icon]="faUpload" size="1x"></fa-icon> Select your
-                    file</span> or Drop it here!</label>
+            <input type="file" name="file" id="file" (change)="onFileUpload($event)" [accept]="fileTypes">
+            <label for="file" class="clickable"><span class="textLink"><fa-icon [icon]="faUpload" size="1x"></fa-icon> Select your file</span> or Drop it here!</label>
         </div>
     </div>
 </div>
