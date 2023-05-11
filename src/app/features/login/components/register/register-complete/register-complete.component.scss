@@ -3,11 +3,37 @@
 .center-screen
 {
   min-height: 90vh;
+  text-align: center;
+
+  p
+  {
+    margin-bottom: 0.4em;
+  }
 }
 
-.spinner-size{
+.spinner-size
+{
+  width: 10rem;
+  height: 10rem;
+  border-width: 0.4rem;
+}
+
+@include media-breakpoint-up(sm)
+{
+  .center-body
+  {
     width: 12rem;
     height: 12rem;
     border-width: 0.7rem;
+  }
 }
 
+@include media-breakpoint-only(sm)
+{
+  .center-body
+  {
+    width: 12rem;
+    height: 12rem;
+    border-width: 0.7rem;
+  }
+}

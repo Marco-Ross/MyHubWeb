@@ -6,9 +6,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardComponent2 } from './dashboard/dashboard2.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
+import { WorkItemDescriptionComponent } from './work-item-description/work-item-description.component';
 
 @NgModule({
-  declarations: [HomeComponent, DashboardComponent, DashboardComponent2],
+  declarations: [HomeComponent, DashboardComponent, DashboardComponent2, WorkItemDescriptionComponent],
   imports: [HomeRoutingModule, HomeGuardsModule, ComponentsModule, FontAwesomeModule],
   exports: []
 })

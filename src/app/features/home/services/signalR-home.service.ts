@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SignalRService } from './signalR.service';
-import { HubIds } from './models/constants/hub.constant';
+import { SignalRService } from '../../../global-shared/services/signalR/signalR.service';
+import { HubIds } from '../../../global-shared/services/signalR/models/constants/hub.constant';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { HomeHub } from './models/classes/home-hub.model';
+import { HomeHub } from '../../../global-shared/services/signalR/models/classes/home-hub.model';
 
 @Injectable({
     providedIn: 'root'

@@ -18,19 +18,22 @@ export class AuthenticationInterceptor implements HttpInterceptor
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
-        if (req.url.includes('Authentication/Login') || req.url.includes('Authentication/Register'))
-            return next.handle(req);
+        let modifiedReq = req;
 
         let forgeryToken = this.cookieService.get('X-Forgery-Token');
-        req.headers.append("X-Forgery-Token", forgeryToken);
+        
+        if (forgeryToken)
+            modifiedReq = req.clone({
+                headers: req.headers.set("X-Forgery-Token", forgeryToken),
+            });
 
-        if (req.url.includes('Authentication/Refresh'))
-            return next.handle(req);
+        if (modifiedReq.url.includes('Authentication/Refresh'))
+            return next.handle(modifiedReq);
 
-        return next.handle(req).pipe(catchError(errorResponse =>
+        return next.handle(modifiedReq).pipe(catchError(errorResponse =>
         {
             if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 401)
-                return from(this.handleUnauthenticatedError(req, next));
+                return from(this.handleUnauthenticatedError(modifiedReq, next));
 
             return throwError(() => errorResponse);
         }));
@@ -50,7 +53,7 @@ export class AuthenticationInterceptor implements HttpInterceptor
 
                     this.refreshTokenSubject.next(true);
 
-                    return next.handle(request);
+                    return next.handle(this.updateRequestToken(request));
                 }),
                 catchError((err) =>
                 {
@@ -69,8 +72,17 @@ export class AuthenticationInterceptor implements HttpInterceptor
         return this.refreshTokenSubject.pipe(
             filter(isReady => isReady),
             take(1),
-            switchMap(() => next.handle(request))
+            switchMap(() => next.handle(this.updateRequestToken(request)))
         );
+    }
+
+    private updateRequestToken(request: HttpRequest<any>)
+    {
+        let forgeryToken = this.cookieService.get('X-Forgery-Token');
+
+        return request.clone({
+            headers: request.headers.set("X-Forgery-Token", forgeryToken),
+        });
     }
 }
 

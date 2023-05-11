@@ -1,3 +1,5 @@
+@import "/src/styles/media-breakpoints.scss";
+
 .home
 {
     position: fixed;
@@ -57,7 +59,7 @@
                 width: 100%;
                 margin-top: 0.3em;
                 overflow-y: auto;
-                overflow-x: hidden;        
+                overflow-x: hidden;
 
                 .no-item-results
                 {
@@ -122,7 +124,7 @@
                                     position: absolute;
                                 }
 
-                                .card-header
+                                .card-header-sm, .card-header-md
                                 {
                                     padding-top: 0.4em;
                                     padding-bottom: 0.4em;
@@ -141,9 +143,6 @@
 
                                     .item-link
                                     {
-                                        display: flex;
-                                        flex-direction: row-reverse;
-
                                         a
                                         {
                                             color: #0d6efd;
@@ -158,8 +157,7 @@
                                     .item-state
                                     {
                                         display: inline-flex;
-                                        justify-content: space-between;
-                                        width: 100%;
+                                        padding-right: 0.6em;
                                     }
                                 }
                             }
@@ -209,16 +207,45 @@
                 overflow-x: hidden;
             }
         }
+    }
 
-        .card
+    @include media-breakpoint-down(sm)
+    {
+        .card-header-md
         {
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-            min-height: 70%;
+            display: none;
+        }
 
-            .card-header
+        .horizontal-divider
+        {
+            display: none;
+        }
+
+        .right
+        {
+            display: none;
+        }
+
+        .left
+        {
+            .left-absolute
             {
-                font-size: 1.5em;
+                width: 100%;
+                padding-right: 2%;
+
+                .left-absolute-inner
+                {
+                    width: 99%;
+                }
             }
+        }
+    }
+
+    @include media-breakpoint-up(sm)
+    {
+        .card-header-sm
+        {
+            display: none;
         }
     }
 }
