@@ -1,8 +1,8 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { ThemeConstants } from '../../constants/theme.constants';
 import { WindowRefService } from '../window/WindowRefService.model';
-import { ThemeService } from './theme.service';
 import { BehaviorSubject } from 'rxjs';
+import { ThemeStorageService } from './theme-storage.service';
 
 @Injectable()
 export class ThemeRenderer
@@ -14,41 +14,26 @@ export class ThemeRenderer
     darkListener: any;
     lightListener: any;
 
-    constructor(private window: WindowRefService, private themeService: ThemeService)
+    constructor(private window: WindowRefService, private themeStorage: ThemeStorageService)
     {
         this.MediaDark = this.MediaDark.bind(this);
         this.MediaLight = this.MediaLight.bind(this);
     }
 
-    public LoadThemeAndChange()
+    public SetCurrentTheme()
     {
-        this.themeService.GetTheme().subscribe({
-            next: (themeOptions) =>
-            {
-                this.ChangeThemeOnLoad(themeOptions.theme);
-            }
-        });
-    }
-
-    private ChangeThemeOnLoad(theme: string)
-    {
-        let setTheme = this.UpdateTheme(theme);
+        let setTheme = this.UpdateTheme(this.themeStorage.GetTheme());
         this.currentTheme.next(setTheme);
     }
 
     public ChangeTheme(theme: string)
     {
         let setTheme = this.UpdateTheme(theme);
-        this.themeService.UpdateTheme(setTheme).subscribe();
+        this.themeStorage.UpdateTheme(theme);
         this.currentTheme.next(setTheme);
     }
 
-    public OnLoadTheme()
-    {
-        this.SetPreferredTheme();
-    }
-
-    private UpdateTheme(theme: string)
+    private UpdateTheme(theme: string | null)
     {
         let newTheme = Object.values(ThemeConstants).find(x => x == theme) ?? ThemeConstants.SystemTheme;
 
@@ -88,11 +73,6 @@ export class ThemeRenderer
     public OnThemeChange()
     {
         return this.currentTheme;
-    }
-
-    public GetCurrentTheme()
-    {
-        return this.currentTheme.getValue();
     }
 
     public SetSystemTheme()

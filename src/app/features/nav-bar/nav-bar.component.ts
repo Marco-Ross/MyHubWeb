@@ -72,7 +72,6 @@ export class NavBarComponent
         this.authenticationService.Logout().subscribe({
             next: _ =>
             {
-                this.themeRenderer.SetSystemTheme();
                 this.router.navigate(['']);
             },
             error: _ =>
