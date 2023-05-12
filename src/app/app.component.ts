@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ export class AppComponent
   title = 'my-hub-web';
   readonly ThemeKey = 'Theme';
 
-  constructor(private themeRenderer: ThemeRenderer, private cookieService: CookieService) { }
+  constructor(private themeRenderer: ThemeRenderer) { }
 
   ngOnInit()
   {
@@ -21,11 +20,6 @@ export class AppComponent
 
   private SetTheme()
   {
-    let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
-
-    if (loginDetails?.IsLoggedIn)
-      this.themeRenderer.LoadThemeAndChange();
-    else
-      this.themeRenderer.SetSystemTheme();
+      this.themeRenderer.SetCurrentTheme();
   }
 }
