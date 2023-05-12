@@ -2,7 +2,7 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { ThemeConstants } from '../../constants/theme.constants';
 import { WindowRefService } from '../window/WindowRefService.model';
 import { BehaviorSubject } from 'rxjs';
-import { ThemeService } from './theme.service';
+import { ThemeStorageService } from './theme-storage.service';
 
 @Injectable()
 export class ThemeRenderer
@@ -14,7 +14,7 @@ export class ThemeRenderer
     darkListener: any;
     lightListener: any;
 
-    constructor(private window: WindowRefService, private themeService: ThemeService)
+    constructor(private window: WindowRefService, private themeStorage: ThemeStorageService)
     {
         this.MediaDark = this.MediaDark.bind(this);
         this.MediaLight = this.MediaLight.bind(this);
@@ -22,19 +22,14 @@ export class ThemeRenderer
 
     public SetCurrentTheme()
     {
-        this.themeService.GetTheme().subscribe({
-            next: (themeOptions) =>
-            {
-                let setTheme = this.UpdateTheme(themeOptions.theme);
-                this.currentTheme.next(setTheme);
-            }
-        });
+        let setTheme = this.UpdateTheme(this.themeStorage.GetTheme());
+        this.currentTheme.next(setTheme);
     }
 
     public ChangeTheme(theme: string)
     {
         let setTheme = this.UpdateTheme(theme);
-        this.themeService.UpdateTheme(theme).subscribe();
+        this.themeStorage.UpdateTheme(theme);
         this.currentTheme.next(setTheme);
     }
 
