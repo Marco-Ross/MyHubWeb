@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router, Route, UrlSegment } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
 
 @Injectable()
 export class AuthGuard
 {
-    constructor(private router: Router, private cookieService: CookieService) {}
+    constructor(private router: Router, private loggedInCookie: LoggedInCookie) {}
 
     canMatch(route: Route, segments: UrlSegment[]): boolean
     {
-        let loginDetails = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
+        let loginDetails = this.loggedInCookie.GetLoggedInCookie();
 
-        if (loginDetails && segments.length == 0)
+        if (loginDetails?.IsLoggedIn && segments.length == 0)
         {
             this.router.navigate(['home']);
             return false;
         }
 
-        if (!loginDetails && segments.length > 0)
+        if (!loginDetails?.IsLoggedIn && segments.length > 0)
         {
             this.router.navigate(['']);
             return false;

@@ -11,6 +11,7 @@ import { CoreAuthServicesModule } from './core/services/authentication-service/c
 import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
 import { WindowRefService } from './global-shared/services/window/WindowRefService.model';
 import { AppInitialize } from './app-initialize.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AppInitialize } from './app-initialize.service';
   ],
   providers: [
     ThemeRenderer,
+    CookieService,
     WindowRefService,
     {
       provide: APP_INITIALIZER,
