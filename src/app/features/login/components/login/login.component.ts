@@ -56,7 +56,7 @@ export class LoginComponent
     this.authenticationService.Login(loginUser).subscribe({
       next: _ =>
       {
-        this.themeRenderer.LoadThemeAndChange();
+        this.themeRenderer.SetCurrentTheme();
 
         this.isLoading = false;
         this.router.navigate(['home']);
