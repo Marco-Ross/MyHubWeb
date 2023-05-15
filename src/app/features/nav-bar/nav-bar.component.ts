@@ -7,6 +7,7 @@ import { ProfileImageService } from 'src/app/global-shared/services/profile/prof
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
+import { ThemeStorageService } from 'src/app/global-shared/services/theme/theme-storage.service';
 
 @Component({
     selector: 'nav-bar',
@@ -16,7 +17,7 @@ import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in
 export class NavBarComponent
 {
     constructor(private router: Router, private authenticationService: AuthenticationService, private loggedInCookie: LoggedInCookie, private themeRenderer: ThemeRenderer,
-        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer) { }
+        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer, private themeStorage: ThemeStorageService) { }
 
     faCaretDown = faCaretDown;
 
@@ -73,6 +74,7 @@ export class NavBarComponent
             next: _ =>
             {
                 this.themeRenderer.SetSystemTheme();
+                this.themeStorage.RemoveTheme();
                 this.router.navigate(['']);
             },
             error: _ =>

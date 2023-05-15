@@ -5,15 +5,20 @@ import { LocalStorageService } from '../localStorage/local-storage.service';
 })
 export class ThemeStorageService
 {
-    Key: string = "Theme";
+    Key: string = "theme";
     constructor(private localStorage: LocalStorageService) { }
     GetTheme(): string | null
     {
         return this.localStorage.GetData(this.Key);
     }
-    
+
     UpdateTheme(theme: string): void
     {
         this.localStorage.SaveData(this.Key, theme);
+    }
+
+    RemoveTheme()
+    {
+        this.localStorage.RemoveData(this.Key);
     }
 }
