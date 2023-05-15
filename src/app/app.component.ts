@@ -13,6 +13,8 @@ export class AppComponent
 
   constructor(private themeRenderer: ThemeRenderer) { }
 
+  themeReady: boolean = false;
+
   ngOnInit()
   {
     this.SetTheme();
@@ -20,6 +22,9 @@ export class AppComponent
 
   private SetTheme()
   {
-    this.themeRenderer.SetCurrentTheme();
+    this.themeRenderer.SetCurrentTheme().add(() =>
+    {
+      this.themeReady = true;
+    });
   }
 }
