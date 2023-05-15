@@ -8,11 +8,13 @@ import { ThemeService } from './theme.service';
 @Injectable()
 export class ThemeRenderer
 {
-    currentTheme = new BehaviorSubject('');
-    renderer!: Renderer2;
+    public renderer!: Renderer2;
 
-    darkListener: any;
-    lightListener: any;
+    private currentTheme = new BehaviorSubject('');
+    private isThemeLoading = new BehaviorSubject(false);
+   
+    private darkListener: any;
+    private lightListener: any;
 
     constructor(private window: WindowRefService, private themeStorage: ThemeStorageService, private themeService: ThemeService)
     {
@@ -32,9 +34,24 @@ export class ThemeRenderer
         });
     }
 
+    public SetCurrentThemeLogin()
+    {
+        this.isThemeLoading.next(true);
+
+        this.SetCurrentTheme().add(() =>
+        {
+            this.isThemeLoading.next(false);
+        });
+    }
+
+    public getIsThemeLoading()
+    {
+        return this.isThemeLoading;
+    }
+
     public ChangeTheme(theme: string)
     {
-        let setTheme = this.UpdateTheme(theme);       
+        let setTheme = this.UpdateTheme(theme);
         this.themeService.UpdateTheme(theme).subscribe();
         this.themeStorage.UpdateTheme(setTheme);
         this.currentTheme.next(theme);
