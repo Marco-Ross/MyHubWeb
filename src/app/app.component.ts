@@ -20,6 +20,6 @@ export class AppComponent
 
   private SetTheme()
   {
-      this.themeRenderer.SetCurrentTheme();
+    this.themeRenderer.SetCurrentTheme();
   }
 }
