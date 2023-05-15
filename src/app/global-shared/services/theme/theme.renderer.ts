@@ -27,17 +27,17 @@ export class ThemeRenderer
             {
                 let setTheme = this.UpdateTheme(themeOptions.theme);
                 this.themeStorage.UpdateTheme(setTheme);
-                this.currentTheme.next(setTheme);
+                this.currentTheme.next(themeOptions.theme);
             }
         });
     }
 
     public ChangeTheme(theme: string)
     {
-        let setTheme = this.UpdateTheme(theme);
-        this.themeStorage.UpdateTheme(theme);
+        let setTheme = this.UpdateTheme(theme);       
         this.themeService.UpdateTheme(theme).subscribe();
-        this.currentTheme.next(setTheme);
+        this.themeStorage.UpdateTheme(setTheme);
+        this.currentTheme.next(theme);
     }
 
     private UpdateTheme(theme: string | null)
@@ -45,7 +45,7 @@ export class ThemeRenderer
         let newTheme = Object.values(ThemeConstants).find(x => x == theme) ?? ThemeConstants.SystemTheme;
 
         if (newTheme == ThemeConstants.SystemTheme)
-            this.SetSystemTheme();
+            return this.SetSystemTheme();
         else
         {
             this.RemoveSystemListeners();
@@ -85,18 +85,26 @@ export class ThemeRenderer
     public SetSystemTheme()
     {
         this.RemoveSystemListeners();
-
-        this.SetPreferredTheme();
         this.AddWindowListeners();
+
+        return this.SetPreferredTheme();
     }
 
     private SetPreferredTheme()
     {
         if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: dark)').matches)
+        {
             this.UpdateThemeClass(ThemeConstants.DarkTheme);
+            return ThemeConstants.DarkTheme;
+        }
 
         if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: light)').matches)
+        {
             this.UpdateThemeClass(ThemeConstants.LightTheme);
+            return ThemeConstants.LightTheme;
+        }
+
+        return ThemeConstants.SystemTheme;
     }
 
     private AddWindowListeners()
