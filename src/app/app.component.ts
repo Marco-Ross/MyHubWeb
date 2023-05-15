@@ -13,18 +13,22 @@ export class AppComponent
 
   constructor(private themeRenderer: ThemeRenderer) { }
 
-  themeReady: boolean = false;
+  themeLoading: boolean = false;
 
   ngOnInit()
   {
     this.SetTheme();
+
+    this.themeRenderer.getIsThemeLoading().subscribe({
+      next: (isThemeLoading) =>
+      {
+        this.themeLoading = isThemeLoading;
+      }
+    });
   }
 
   private SetTheme()
   {
-    this.themeRenderer.SetCurrentTheme().add(() =>
-    {
-      this.themeReady = true;
-    });
+    this.themeRenderer.SetCurrentTheme();
   }
 }
