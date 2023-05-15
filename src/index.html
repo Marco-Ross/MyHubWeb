@@ -8,7 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script>
-    document.documentElement.classList.add(localStorage.getItem('theme'));
+    let currentTheme = localStorage.getItem('theme');
+
+    if (!currentTheme)
+    {
+      if (this.window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.classList.add('dark-theme');
+
+      if (this.window.matchMedia('(prefers-color-scheme: light)').matches)
+        document.documentElement.classList.add('light-theme');
+    }
+    else
+      document.documentElement.classList.add(currentTheme);
   </script>
 </head>
 
