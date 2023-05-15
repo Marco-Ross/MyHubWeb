@@ -22,7 +22,7 @@ export class ThemeRenderer
 
     public SetCurrentTheme()
     {
-        this.themeService.GetTheme().subscribe({
+        return this.themeService.GetTheme().subscribe({
             next: (themeOptions) =>
             {
                 let setTheme = this.UpdateTheme(themeOptions.theme);
