@@ -3,18 +3,18 @@ import { ThemeConstants } from '../../constants/theme.constants';
 import { WindowRefService } from '../window/WindowRefService.model';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeStorageService } from './theme-storage.service';
+import { ThemeService } from './theme.service';
 
 @Injectable()
 export class ThemeRenderer
 {
-    readonly ThemeKey = 'Theme';
     currentTheme = new BehaviorSubject('');
     renderer!: Renderer2;
 
     darkListener: any;
     lightListener: any;
 
-    constructor(private window: WindowRefService, private themeStorage: ThemeStorageService)
+    constructor(private window: WindowRefService, private themeStorage: ThemeStorageService, private themeService: ThemeService)
     {
         this.MediaDark = this.MediaDark.bind(this);
         this.MediaLight = this.MediaLight.bind(this);
@@ -22,14 +22,21 @@ export class ThemeRenderer
 
     public SetCurrentTheme()
     {
-        let setTheme = this.UpdateTheme(this.themeStorage.GetTheme());
-        this.currentTheme.next(setTheme);
+        this.themeService.GetTheme().subscribe({
+            next: (themeOptions) =>
+            {
+                let setTheme = this.UpdateTheme(themeOptions.theme);
+                this.themeStorage.UpdateTheme(setTheme);
+                this.currentTheme.next(setTheme);
+            }
+        });
     }
 
     public ChangeTheme(theme: string)
     {
         let setTheme = this.UpdateTheme(theme);
         this.themeStorage.UpdateTheme(theme);
+        this.themeService.UpdateTheme(theme).subscribe();
         this.currentTheme.next(setTheme);
     }
 

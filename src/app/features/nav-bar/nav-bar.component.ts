@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { CookieService } from 'ngx-cookie-service';
 import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
+import { ThemeStorageService } from 'src/app/global-shared/services/theme/theme-storage.service';
 
 @Component({
     selector: 'nav-bar',
@@ -15,8 +16,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class NavBarComponent
 {
-    constructor(private router: Router, private authenticationService: AuthenticationService, private cookieService: CookieService, private themeRenderer: ThemeRenderer,
-        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer) { }
+    constructor(private router: Router, private authenticationService: AuthenticationService, private loggedInCookie: LoggedInCookie, private themeRenderer: ThemeRenderer,
+        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer, private themeStorage: ThemeStorageService) { }
 
     faCaretDown = faCaretDown;
 
@@ -33,7 +34,7 @@ export class NavBarComponent
     {
         this.navFG = this.formBuilder.group({});
 
-        let loginData = JSON.parse(this.cookieService.get('X-Logged-In') || 'null');
+        let loginData = this.loggedInCookie.GetLoggedInCookie();
         this.Username = loginData.Username;
 
         this.profileImageService.GetUserProfileImage().subscribe({
@@ -72,6 +73,8 @@ export class NavBarComponent
         this.authenticationService.Logout().subscribe({
             next: _ =>
             {
+                this.themeRenderer.SetSystemTheme();
+                this.themeStorage.RemoveTheme();
                 this.router.navigate(['']);
             },
             error: _ =>
