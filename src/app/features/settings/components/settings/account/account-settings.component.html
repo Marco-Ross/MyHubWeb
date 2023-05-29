@@ -55,14 +55,14 @@
                 <div class="d-flex justify-content-end pe-3 pe-md-5">
                     <a class="pt-2" [routerLink]="'change-email'">Change email address</a>&nbsp;&nbsp;
                     <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Update Account'"
-                        [debounce]="150" class="mt-1"></load-button>
+                        [debounce]="150"></load-button>
                 </div>
 
                 <div class="text-center d-flex justify-content-end pe-3 pe-md-5 mt-2">
                     <div *ngIf="accountUpdateSubmitted && formSubmitErrors" class="alert alert-danger" role="alert">
                         {{formSubmitErrors}}</div>
 
-                    <div *ngIf="success" class="alert alert-success" role="alert">Password successfully
+                    <div *ngIf="success" class="alert alert-success" role="alert">Account successfully
                         updated</div>
                 </div>
             </div>

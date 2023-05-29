@@ -1,30 +1,28 @@
 <login-continue *ngIf="!hasValidated" [title]="'Login to change email address'"
     (onFromSubmit)="onLoginSubmit($event)"></login-continue>
 
-<form novalidate [formGroup]="changeEmailFG" (ngSubmit)="onSubmit()">
+<form *ngIf="hasValidated" novalidate [formGroup]="changeEmailFG" (ngSubmit)="onSubmit()">
     <div class="center-screen">
         <div class="card login-shadow center-body">
-            <div *ngIf="hasValidated">
-                <div *ngIf="!changeEmailRequested" class="reset-container">
-                    <div class="header text-center">Change Email Address</div>
+            <div *ngIf="!changeEmailRequested" class="reset-container">
+                <div class="header text-center">Change Email Address</div>
 
-                    <p class="text-center">Email address to send your verification link to:</p>
+                <p class="text-center">Email address to send your verification link to:</p>
 
-                    <div class="input-form">
-                        <div>
-                            <input type="email" class="form-control col-12" placeholder="Email Address"
-                                formControlName="email"
-                                [ngClass]="{'is-invalid' : changeEmailFG.get('email')?.errors && changeEmailFromSubmitted}">
-                            <div class="error-feedback">Please enter a valid Email Address</div>
-                        </div>
+                <div class="input-form">
+                    <div>
+                        <input type="email" class="form-control col-12" placeholder="Email Address"
+                            formControlName="email"
+                            [ngClass]="{'is-invalid' : changeEmailFG.get('email')?.errors && changeEmailFromSubmitted}">
+                        <div class="error-feedback">Please enter a valid Email Address</div>
+                    </div>
 
-                        <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Request Reset'"
-                            [debounce]="150" class="mt-2"></load-button>
+                    <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Request Reset'"
+                        [debounce]="150" class="mt-2"></load-button>
 
-                        <div class="col-12 mt-1 text-center">
-                            <div *ngIf="changeEmailFromSubmitted && formSubmitErrors" class="alert alert-danger col-12"
-                                role="alert">{{formSubmitErrors}}</div>
-                        </div>
+                    <div class="col-12 mt-1 text-center">
+                        <div *ngIf="changeEmailFromSubmitted && formSubmitErrors" class="alert alert-danger col-12"
+                            role="alert">{{formSubmitErrors}}</div>
                     </div>
                 </div>
 
