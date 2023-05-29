@@ -1,0 +1,83 @@
+<form *ngIf="accountSettingsFG" novalidate [formGroup]="accountSettingsFG" (ngSubmit)="onSubmit()">
+    <div class="col-12">
+        <h3>User Details</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-7 user-info">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="Username" formControlName="username"
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('username')?.errors && accountUpdateSubmitted}">
+                    </div>
+                    <div class="error-feedback">Username is required</div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Name" formControlName="name"
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('name')?.errors && accountUpdateSubmitted}">
+                        <div class="error-feedback">Name is required</div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <label class="form-label">Surname</label>
+                        <input type="text" class="form-control" placeholder="Surname" formControlName="surname"
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('surname')?.errors && accountUpdateSubmitted}">
+                        <div class="error-feedback">Surname is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-image col-md-5 ps-md-5">
+                <div class="row position-relative">
+                    <label class="pb-2">Profile Image</label>
+                    <div class="col-12 uploaded-image">
+                        <img [src]="profileImage | safeResourceUrl" />
+                    </div>
+                    <div class="position-absolute bottom-0" ngbDropdown>
+                        <button type="button" class="button profile-button" ngbDropdownToggle>
+                            <fa-icon class="clickable" [icon]="faPencil" size="sm"></fa-icon>&nbsp;Edit
+                        </button>
+                        <div ngbDropdownMenu>
+                            <button ngbDropdownItem (click)="uploadImage()" type="button">Upload an Image</button>
+                            <button ngbDropdownItem (click)="removeImage()" type="button">Remove Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="row">
+                <div class="d-flex justify-content-end pe-3 pe-md-5">
+                    <a class="pt-2" [routerLink]="'change-email'">Change email address</a>&nbsp;&nbsp;
+                    <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Update Account'"
+                        [debounce]="150" class="mt-1"></load-button>
+                </div>
+
+                <div class="text-center d-flex justify-content-end pe-3 pe-md-5 mt-2">
+                    <div *ngIf="accountUpdateSubmitted && formSubmitErrors" class="alert alert-danger" role="alert">
+                        {{formSubmitErrors}}</div>
+
+                    <div *ngIf="success" class="alert alert-success" role="alert">Password successfully
+                        updated</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <h3 class="text-danger">Delete Account</h3>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <p class="form-label">Once you delete your account, there is no going back. Please be certain.</p>
+                    <button type="button" class="button delete-account-button" (click)="deleteAccount()">Delete
+                        Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

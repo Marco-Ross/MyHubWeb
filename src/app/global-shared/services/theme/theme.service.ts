@@ -15,6 +15,7 @@ export class ThemeService
     {
         return this.http.get(this.ApiController + '/Theme');
     }
+    
     UpdateTheme(theme: string): Observable<any>
     {
         let themeDto: any = { 'Theme': theme };

@@ -25,6 +25,19 @@
               <div class="error-feedback">Please enter a valid Username</div>
             </div>
 
+            <div class="row">
+              <div class="col-6">
+                <input type="text" class="form-control mt-2" placeholder="Name" formControlName="name"
+                  [ngClass]="{'is-invalid' : registerFG.get('name')?.errors && registerFormSubmitted}">
+                <div class="error-feedback">Name is required</div>
+              </div>
+              <div class="col-6">
+                <input type="text" class="form-control mt-2" placeholder="Surname" formControlName="surname"
+                  [ngClass]="{'is-invalid' : registerFG.get('surname')?.errors && registerFormSubmitted}">
+                <div class="error-feedback">Surname is required</div>
+              </div>
+            </div>
+
             <div>
               <input [type]="showPassword ? 'text' : 'password'" class="form-control col-12 mt-2" placeholder="Password"
                 formControlName="password"
@@ -68,7 +81,7 @@
             <div class="col-12 mt-2">
               <button type="button" class="button" (click)="uploadImage()">Upload Profile Image</button>
             </div>
-          </div>         
+          </div>
         </div>
       </div>
 

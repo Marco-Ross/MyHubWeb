@@ -1,0 +1,20 @@
+<form novalidate>
+    <div class="center-screen">
+        <div *ngIf="emailChangeStatus === undefined">
+            <div class="spinner-border text-darkl-contrast spinner-size" role="status"></div>
+            <p class="mt-4">Updating Email Address for <strong> Marco's Hub</strong>.</p>
+            <p>This won't take long.</p>
+        </div>
+
+        <div *ngIf="emailChangeStatus === true">
+            <p>Email has been updated.</p>
+            <p>You will be redirected to login shortly...</p>
+        </div>
+
+        <div *ngIf="emailChangeStatus === false" class="col-5">
+            <div class="text-center">
+                <p class="alert alert-danger" role="alert">{{formSubmitErrors}}</p>
+            </div>
+        </div>
+    </div>
+</form>

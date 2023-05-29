@@ -1,0 +1,54 @@
+@import "/src/styles/media-breakpoints.scss";
+
+form
+{
+    .user-info
+    {
+        padding-right: 9.5%;
+    }
+
+    .delete-account-button
+    {
+        color: rgb(220, 53, 69);
+    }
+
+    .delete-account-button:hover
+    {
+        color: white;
+        background-color: rgb(220, 53, 69);
+    }
+
+    .uploaded-image
+    {
+        img
+        {
+            border-radius: 50%;
+            width: 12rem;
+            height: 12rem;
+        }
+    }
+
+    .profile-button
+    {
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    @include media-breakpoint-down(md)
+    {
+        .profile-image
+        {
+            padding-left: 4.5rem;
+            padding-top: 1rem;
+        }
+
+        .user-info
+        {
+            padding-right: 4%;
+        }
+
+    }
+
+}

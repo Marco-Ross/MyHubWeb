@@ -3,24 +3,32 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { UploadImageCropComponent } from './upload-image-crop/upload-image-crop.component';
 import { PopupService } from '../bootstrap-modal/popup.service';
+import { UploadFileModule } from './upload-file/upload-file.module';
+import { UploadFilesModule } from './upload-files/upload-files.module';
+import { UploadImageCropModule } from './upload-image-crop/upload-image-crop.module';
 
 @Injectable()
 export class UploadService
 {
     constructor(private popupService: PopupService) { }
 
-    public UploadFile()
+    public UploadFile(options: { title: string })
     {
-        return this.popupService.UploadFile(UploadFileComponent, { title: 'Upload File' });
+        return this.popupService.open(UploadFileComponent, UploadFileModule, { title: options.title });
     }
 
-    public UploadFiles()
+    public RemoveFile(fileId: string)
     {
-        return this.popupService.UploadFile(UploadFilesComponent, { title: 'Upload Files' });
+        //Remove EndPoint
     }
 
-    public UploadImageCrop()
+    public UploadFiles(options: { title: string })
     {
-        return this.popupService.UploadFile(UploadImageCropComponent, { size: 'lg', title: 'Upload A Profile Image' });
+        return this.popupService.open(UploadFilesComponent, UploadFilesModule, { title: options.title });
+    }
+
+    public UploadImageCrop(options: { title: string })
+    {
+        return this.popupService.open(UploadImageCropComponent, UploadImageCropModule, { size: 'lg', title: options.title });
     }
 }

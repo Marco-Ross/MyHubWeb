@@ -29,7 +29,7 @@ export class ThemeRenderer
             {
                 let setTheme = this.UpdateTheme(themeOptions.theme);
                 this.themeStorage.UpdateTheme(setTheme);
-                this.currentTheme.next(themeOptions.theme);
+                this.currentTheme.next(themeOptions.theme || ThemeConstants.SystemTheme);
             }
         });
     }
