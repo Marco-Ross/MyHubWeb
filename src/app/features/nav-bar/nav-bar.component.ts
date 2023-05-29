@@ -5,9 +5,11 @@ import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.render
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
 import { ThemeStorageService } from 'src/app/global-shared/services/theme/theme-storage.service';
+import { NavLayoutService } from './nav-layout.service';
+import { NavDetails } from './class/nav-details.class';
 
 @Component({
     selector: 'nav-bar',
@@ -17,36 +19,47 @@ import { ThemeStorageService } from 'src/app/global-shared/services/theme/theme-
 export class NavBarComponent
 {
     constructor(private router: Router, private authenticationService: AuthenticationService, private loggedInCookie: LoggedInCookie, private themeRenderer: ThemeRenderer,
-        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer, private themeStorage: ThemeStorageService) { }
+        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer, private themeStorage: ThemeStorageService,
+        private navLayoutService: NavLayoutService) { }
 
     faCaretDown = faCaretDown;
 
     //
 
     navFG!: FormGroup;
-    Username: string = "";
     isCollapsed = true;
-    profileImage: string | SafeUrl = 'assets/icons/user-thin.png';
     open: boolean = false;
-
+    defaultProfileImage = 'assets/icons/user-thin.png';
+    navDetails: NavDetails = new NavDetails();
 
     ngOnInit()
     {
         this.navFG = this.formBuilder.group({});
 
+        this.setNavDetails();
+    }
+
+    setNavDetails()
+    {
         let loginData = this.loggedInCookie.GetLoggedInCookie();
-        this.Username = loginData.Username;
+        this.navDetails.username = loginData.Username;
 
         this.profileImageService.GetUserProfileImage().subscribe({
             next: (image) =>
             {
                 if (!image || !image.size)
+                {
+                    this.navDetails.profileImage = this.defaultProfileImage;
                     return;
+                }
 
-                this.profileImage = this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image));
+                this.navDetails.profileImage = URL.createObjectURL(image);
             }
         });
+
+        this.navLayoutService.setNavDetails(this.navDetails);
     }
+
     isOpen(open: boolean)
     {
         this.open = open;

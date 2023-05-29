@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
+import { PasswordValidator } from 'src/app/features/login/components/register/password-matching.validator';
 import { IResetPasswordComplete } from '../../../models/interfaces/IResetPasswordComplete.interface';
 
 @Component({
