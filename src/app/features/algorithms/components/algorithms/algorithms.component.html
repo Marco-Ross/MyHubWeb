@@ -1,0 +1,18 @@
+<form novalidate [formGroup]="algorithmsFG">
+    <h2 class="mt-1">Learn Algorithms</h2>
+
+    <div class="horizontal-divider"></div>
+
+    <div class="row algorithms">
+        <div class="left col-3 mt-2">
+            <h5 class="header-left">Algorithms</h5>
+            <ng-container *ngFor="let algorithm of algorithms">
+                <li></li>
+            </ng-container>
+        </div>
+
+        <div class="right col-9 mt-2">
+            <h5 class="header-right">Algorithm Description</h5>
+        </div>
+    </div>
+</form>

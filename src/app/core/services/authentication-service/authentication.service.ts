@@ -6,7 +6,7 @@ import { ILoginUser } from 'src/app/features/login/models/interfaces/ILoginUser.
 import { IResetPassword } from 'src/app/features/login/models/interfaces/IResetPassword.interface';
 import { IRegisterUserComplete } from 'src/app/features/login/models/interfaces/IRegisterUserComplete.interface';
 import { IResetPasswordComplete } from 'src/app/features/login/models/interfaces/IResetPasswordComplete.interface';
-import { IResetPasswordLoggedIn } from 'src/app/features/settings/components/settings/password-settings/interfaces/IResetPasswordLoggedIn.interface';
+import { IResetPasswordLoggedIn } from 'src/app/features/settings/components/password-settings/interfaces/IResetPasswordLoggedIn.interface';
 
 @Injectable()
 export class AuthenticationService

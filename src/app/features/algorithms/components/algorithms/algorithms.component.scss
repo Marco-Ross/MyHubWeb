@@ -1,0 +1,25 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.algorithms
+{
+    position: fixed;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    top: 7rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .right
+    {
+        display: none;
+    }
+
+    .left
+    {
+        width: 100%;
+        padding-right: 2%;
+    }
+}
