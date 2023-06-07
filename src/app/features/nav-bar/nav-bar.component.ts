@@ -5,7 +5,6 @@ import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.render
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { DomSanitizer } from '@angular/platform-browser';
 import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
 import { ThemeStorageService } from 'src/app/global-shared/services/theme/theme-storage.service';
 import { NavLayoutService } from './nav-layout.service';
@@ -18,8 +17,8 @@ import { NavDetails } from './class/nav-details.class';
 })
 export class NavBarComponent
 {
-    constructor(private router: Router, private authenticationService: AuthenticationService, private loggedInCookie: LoggedInCookie, private themeRenderer: ThemeRenderer,
-        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private domSanitizer: DomSanitizer, private themeStorage: ThemeStorageService,
+    constructor(public router: Router, private authenticationService: AuthenticationService, private loggedInCookie: LoggedInCookie, private themeRenderer: ThemeRenderer,
+        private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private themeStorage: ThemeStorageService,
         private navLayoutService: NavLayoutService) { }
 
     faCaretDown = faCaretDown;

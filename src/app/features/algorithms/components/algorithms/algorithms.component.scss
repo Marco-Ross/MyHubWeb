@@ -1,0 +1,80 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.learn-algorithms
+{
+    white-space: nowrap;
+}
+
+.view-algorithms
+{
+    display: none;
+}
+
+.algorithms
+{
+    display: inline-flex;
+
+    .left
+    {
+        padding-right: 0.8rem;
+
+        .sticky-algorithms
+        {
+            max-height: calc(100vh - 17px);
+            overflow-y: auto;
+            position: sticky;
+            top: 1rem;
+
+            ul
+            {
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    .right
+    {
+        margin-top: 0.8rem;
+        padding-right: 6rem;
+        max-width: 65rem;
+    }
+}
+
+@include media-breakpoint-down(md)
+{
+    .view-algorithms
+    {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .view-algorithms-visible
+    {
+        .right
+        {
+            display: none;
+        }
+
+        .left
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+    }
+
+    .view-algorithm-visible
+    {
+        .right
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+
+        .left
+        {
+
+            display: none;
+        }
+    }
+}

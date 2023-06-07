@@ -1,12 +1,14 @@
-<div class="card">
-    <div class="card-header">
-        <b>{{selectedWorkItem ? selectedWorkItem?.fields?.title : 'No Work Item Selected'}}</b>
+<div [ngClass]="{'no-item': !selectedWorkItem?.fields?.title}">
+    <h3 *ngIf="!selectedWorkItem?.fields?.title">No Work Item Selected</h3>
+</div>
+
+<div *ngIf="selectedWorkItem?.fields?.title">
+    <div class="description-header mt-4">
+        <h3>{{selectedWorkItem?.fields?.title}}</h3>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <h5 class="card-title">Ticket Description:</h5>
-            <p class="card-text" [innerHTML]="GetItemDescription()">
-            </p>
-        </div>
+    <div class="row mt-2">
+        <h5>Work Item Description:</h5>
+        <p class="ms-3" [innerHTML]="GetItemDescription()">
+        </p>
     </div>
 </div>

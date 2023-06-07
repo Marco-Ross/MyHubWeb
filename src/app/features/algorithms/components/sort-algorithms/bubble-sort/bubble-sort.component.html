@@ -1,0 +1,106 @@
+<form novalidate [formGroup]="bubbleSortFG">
+    <div class="d-flex mb-2">
+        <div class="col-7">
+            <h4>Bubble Sort Algorithm</h4>
+        </div>
+        <div class="col-5 d-flex justify-content-end">
+            <h4>Big O:&nbsp;<span class="text-success">O(n<sup>2</sup>)</span></h4>
+        </div>
+    </div>
+
+    <p>
+        Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they
+        are
+        in the wrong order. This algorithm is not suitable for large data sets as its average and worst-case time
+        complexity is quite high.
+    </p>
+
+    <p>The procedures for implementing linear search are as follows:</p>
+
+    <p>
+        <b>Step 1:</b> Traverse from left and compare adjacent elements and the higher one is placed at right side.
+    </p>
+    <p>
+        <b>Step 2:</b> In this way, the largest element is moved to the rightmost end at first.
+    </p>
+    <p>
+        <b>Step 3:</b> This process is then continued to find the second largest and place it and so on until the data
+        is sorted.
+    </p>
+
+    <h4 class="mt-4 mb-2">Visual Example</h4>
+
+    <div class="ms-4 pt-2">
+        <p>
+            <i>Input: arr[] = &#123;6, 3, 0, 5&#125;</i>
+        </p>
+        <p>
+            <i><b>First Pass:</b></i>
+        </p>
+        <p>
+            <i>The largest element is placed in its correct position, i.e., the end of the array.</i>
+        </p>
+
+        <img class="bubble-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/bubble-sort/bubble-sort-1.png" />
+
+        <p>
+            <i><b>Second Pass:</b></i>
+        </p>
+        <p>
+            <i>Place the second largest element at correct position.</i>
+        </p>
+
+        <img class="bubble-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/bubble-sort/bubble-sort-2.png" />
+
+        <p>
+            <i><b>Third Pass:</b></i>
+        </p>
+        <p>
+            <i>Place the remaining two elements at their correct positions.</i>
+        </p>
+
+        <img class="bubble-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/bubble-sort/bubble-sort-3.png" />
+
+    </div>
+
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Binary Search on Country:</div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="bubbleSort()">Bubble Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
+</form>

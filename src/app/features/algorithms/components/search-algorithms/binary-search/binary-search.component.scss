@@ -1,0 +1,16 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.binary-image
+{
+    height: 10rem;
+    width: 35rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .binary-image
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

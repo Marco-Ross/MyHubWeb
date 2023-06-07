@@ -1,6 +1,6 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { ThemeConstants } from '../../constants/theme.constants';
-import { WindowRefService } from '../window/WindowRefService.model';
+import { WindowRefService } from '../window/window-ref.service';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeStorageService } from './theme-storage.service';
 import { ThemeService } from './theme.service';
@@ -25,7 +25,7 @@ export class ThemeRenderer
     public SetCurrentTheme()
     {
         return this.themeService.GetTheme().subscribe({
-            next: (themeOptions) =>
+            next: (themeOptions:any) =>
             {
                 let setTheme = this.UpdateTheme(themeOptions.theme);
                 this.themeStorage.UpdateTheme(setTheme);

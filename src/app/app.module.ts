@@ -9,7 +9,7 @@ import { CoreInterceptorsModule } from './core/interceptors/core-interceptors.mo
 import { AuthGuardsModule } from './core/guards/auth-guards/auth-guards.module';
 import { CoreAuthServicesModule } from './core/services/authentication-service/core-auth-service.module';
 import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
-import { WindowRefService } from './global-shared/services/window/WindowRefService.model';
+import { WindowRefService } from './global-shared/services/window/window-ref.service';
 import { AppInitialize } from './app-initialize.service';
 import { CookieService } from 'ngx-cookie-service';
 
