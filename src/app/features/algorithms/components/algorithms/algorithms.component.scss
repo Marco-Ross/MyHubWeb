@@ -2,12 +2,30 @@
 
 .algorithms
 {
-    position: fixed;
     display: inline-flex;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    top: 7rem;
+
+    .left
+    {
+        padding-right: 0.8rem;
+
+        .sticky-algorithms
+        {
+            max-height: calc(100vh - 17px);
+            overflow-y: auto;
+            position: sticky;
+            top: 1rem;
+
+            ul
+            {
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    .right
+    {
+        padding-right: 6rem;
+    }
 }
 
 @include media-breakpoint-down(md)

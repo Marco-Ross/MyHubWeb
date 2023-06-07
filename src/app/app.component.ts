@@ -21,7 +21,7 @@ export class AppComponent
     this.SetTheme();
 
     this.themeRenderer.getIsThemeLoading().subscribe({
-      next: (isThemeLoading) =>
+      next: (isThemeLoading: any) =>
       {
         this.themeLoading = isThemeLoading;
       }
@@ -31,7 +31,7 @@ export class AppComponent
   private SetTheme()
   {
     let loginDetails = this.loggedInCookie.GetLoggedInCookie();
-    
+
     if (loginDetails?.IsLoggedIn)
       this.themeRenderer.SetCurrentTheme();
   }

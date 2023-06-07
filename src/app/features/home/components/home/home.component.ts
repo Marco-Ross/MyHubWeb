@@ -225,9 +225,6 @@ export class HomeComponent
 
     public GetItemDescription()
     {
-        if (!this.selectedWorkItem)
-            return 'Select a work item on the left to view it\'s details.';
-
         if (!this.selectedWorkItem?.fields?.description)
             return 'A description has not been provided.';
 

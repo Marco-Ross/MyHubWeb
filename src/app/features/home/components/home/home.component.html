@@ -3,110 +3,121 @@
     <div class="horizontal-divider"></div>
 
     <div class="row">
-      <div class="left col-4">
+      <div class="left col-4 hub-scroll">
         <div class="left-absolute col-4">
-          <h5 class="header-left">Work Items</h5>
-          <div class="input-group button-addon">
-            <input type="search" class="form-control work-item-search" placeholder="Search For Work Items"
-              formControlName="search" ngbDatepicker #datePicker="ngbDatepicker" [placement]="'bottom-right'">
-            <button class="button" type="button" (click)="datePicker.toggle()"><fa-icon
-                [icon]="faCalendar"></fa-icon></button>
+          <div class="row">
+            <div class="d-flex mt-3">
+              <div class="col-3">
+                <h6 class="header-left">Work Items</h6>
+              </div>
+              <div class="d-flex col-9">
+                <div class="input-group button-addon align-items-center">
+                  <input type="search" class="form-control work-item-search" placeholder="Search For Work Items"
+                    formControlName="search" ngbDatepicker #datePicker="ngbDatepicker" [placement]="'bottom-right'">
+                  <button class="button calendar-addon" type="button" (click)="datePicker.toggle()">
+                    <!-- <fa-icon [icon]="faCalendar"></fa-icon> -->
+                    <img src="assets/icons/calendar.png" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="left-absolute-inner">
-            <div class="no-item-results">
-              <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
-                role="status"></div>
-              <h4 *ngIf="homeFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
-                Found
-              </h4>
-              <h4 *ngIf="!homeFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
-            </div>
-            <ul>
-              <ng-container *ngFor="let items of filteredWorkItems">
-                <li *ngIf="items.stateList.length">
-                  <div class="state-heading">
-                    <span class="clickable" (click)="isCollapsed[items.state] =! isCollapsed[items.state]">
-                      <span class="state-title">{{items.state}}</span>
-                      <fa-icon *ngIf="!isCollapsed[items.state]" [icon]="faCaretDown" size="sm"></fa-icon>
-                      <fa-icon *ngIf="isCollapsed[items.state]" [icon]="faCaretUp" size="sm"></fa-icon>
-                    </span>
-                  </div>
+          <div class="position-relative h-100">
+            <div class="left-absolute-inner">
+              <div class="no-item-results">
+                <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
+                  role="status"></div>
+                <h4 *ngIf="homeFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
+                  Found
+                </h4>
+                <h4 *ngIf="!homeFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
+              </div>
+              <ul>
+                <ng-container *ngFor="let items of filteredWorkItems">
+                  <li *ngIf="items.stateList.length">
+                    <div class="state-heading">
+                      <span class="clickable" (click)="isCollapsed[items.state] =! isCollapsed[items.state]">
+                        <span [ngClass]="{
+                        'text-primary': items.state == 'Doing',
+                        'text-grey': items.state == 'To Do',
+                        'text-success': items.state == 'Done'
+                        }" class="state-title">{{items.state}}</span>
+                        <fa-icon *ngIf="!isCollapsed[items.state]" [icon]="faCaretDown" size="sm"></fa-icon>
+                        <fa-icon *ngIf="isCollapsed[items.state]" [icon]="faCaretUp" size="sm"></fa-icon>
+                      </span>
+                    </div>
 
-                  <div class="card-collapse" [(ngbCollapse)]="isCollapsed[items.state]">
-                    <div class="card" *ngFor="let item of items.stateList"
-                      [ngClass]="{'selected-item': selectedWorkItem == item}">
-                      <div class="card-color-indicator" [ngClass]="{
-                    'bg-primary': item.fields.state == 'Doing',
-                    'bg-warning': item.fields.state == 'To Do',
-                    'bg-success': item.fields.state == 'Done'
-                    }"></div>
+                    <div class="card-collapse" [(ngbCollapse)]="isCollapsed[items.state]">
+                      <div class="card-container" *ngFor="let item of items.stateList">
 
-                      <div class="card-header card-header-md clickable" (click)="selectedWorkItem = item">
-                        <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
-                      </div>
-                      <div class="card-header card-header-sm clickable"
-                        (click)="selectedWorkItem = item; open(content)">
+                        <div [ngClass]="{'card-color-indicator': selectedWorkItem == item}"></div>
 
-                        <ng-template #content let-modal>
-                          <div class="modal-header" ngbAutofocus>
-                            <h5 class="modal-title" id="modal-basic-title">{{selectedWorkItem.fields.title}}</h5>
-                            <button type="button" class="btn-close" aria-label="Close"
-                              (click)="modal.dismiss('Cross click')"></button>
+                        <div class="card" [ngClass]="{'selected-item': selectedWorkItem == item}">
+                          <div class="card-header card-header-md clickable" (click)="selectedWorkItem = item">
+                            <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
                           </div>
-                          <div class="modal-body">
-                            <form novalidate>
-                              <div class="mb-3">
-                                <h6><b>Ticket Description:</b></h6>
-                                <p [innerHTML]="GetItemDescription()"></p>
+                          <div class="card-header card-header-sm clickable"
+                            (click)="selectedWorkItem = item; open(content)">
+
+                            <ng-template #content let-modal>
+                              <div class="modal-header" ngbAutofocus>
+                                <h5 class="modal-title" id="modal-basic-title">{{selectedWorkItem.fields.title}}</h5>
+                                <button type="button" class="btn-close" aria-label="Close"
+                                  (click)="modal.dismiss('Cross click')"></button>
                               </div>
-                            </form>
+                              <div class="modal-body">
+                                <form novalidate>
+                                  <div class="mb-3">
+                                    <h6><b>Ticket Description:</b></h6>
+                                    <p [innerHTML]="GetItemDescription()"></p>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="button" (click)="modal.close('Save click')">Close</button>
+                              </div>
+                            </ng-template>
+
+                            <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="button"
-                              (click)="modal.close('Save click')">Close</button>
-                          </div>
-                        </ng-template>
 
-                        <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
-                      </div>
-
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="item-state col-12 p-0">
-                              <p class="col-3"><b>Type:</b> {{item.fields.workItemType}}</p>
-                              <p class="col-8 text-end"><span [ngClass]="{
-                        'text-primary': item.fields.state == 'Doing',
-                        'text-warning': item.fields.state == 'To Do',
-                        'text-success': item.fields.state == 'Done'
-                        }">{{item.fields.state}}</span></p>
-
-                              <div class="item-link col-1 text-end">
-                                <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
-                                  target="_blank">
-                                  <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
-                                    ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
-                                </a>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="item-state col-12 p-0">
+                                  <p class="col-11"><b>Type:</b> {{item.fields.workItemType}}</p>
+                                  <div class="item-link col-1 text-end">
+                                    <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
+                                      target="_blank">
+                                      <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
+                                        ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
+                                    </a>
+                                  </div>
+                                </div>
+                                <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
+                                <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
                               </div>
                             </div>
-                            <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
-                            <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              </ng-container>
-            </ul>
+
+                    <div class="d-flex justify-content-center">
+                      <hr class="w-50 m-0" />
+                    </div>
+
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="right col-8">
         <div class="right-absolute col-8">
-          <h5 class="header-right">Work Item Description</h5>
           <div class="right-absolute-inner">
             <work-item-description [selectedWorkItem]="selectedWorkItem"></work-item-description>
           </div>

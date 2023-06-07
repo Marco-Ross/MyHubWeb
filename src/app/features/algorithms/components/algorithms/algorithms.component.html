@@ -1,18 +1,34 @@
 <form novalidate [formGroup]="algorithmsFG">
     <h2 class="mt-1">Learn Algorithms</h2>
 
-    <div class="horizontal-divider"></div>
+    <div class="row">
+        <div class="algorithms">
+            <div class="left col-3 mt-2 hub-scroll">
+                <div class="sticky-algorithms ps-2">
+                    <h5 class="pb-2">Algorithms</h5>
+                    <ul class="p-0">
+                        <ng-container *ngFor="let algorithmCategory of algorithmCategories">
+                            <ul class="action-list-selector">
+                                <h3>{{algorithmCategory.category}}</h3>
 
-    <div class="row algorithms">
-        <div class="left col-3 mt-2">
-            <h5 class="header-left">Algorithms</h5>
-            <ng-container *ngFor="let algorithm of algorithms">
-                <li></li>
-            </ng-container>
-        </div>
+                                <ng-container *ngFor="let algorithm of algorithmCategory.algorithms">
+                                    <li class="mb-2 me-3 ps-3 pt-1 pb-1 list-unstyled"
+                                        [ngClass]="{'selected' : algorithm.id == selected}">
+                                        <span class="clickable" (click)="onAlgorithmSelect(algorithm);"><a
+                                                href="javascript:void(0)">{{algorithm.name}}</a>
+                                        </span>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="right col-9 mt-2">
-            <h5 class="header-right">Algorithm Description</h5>
+            <div class="right col-9 mt-2 mb-2">
+                <h5 class="pb-3">Algorithm Details</h5>
+                <ng-template algorithmComponentAnchor></ng-template>
+            </div>
         </div>
     </div>
 </form>

@@ -1,0 +1,108 @@
+<form novalidate [formGroup]="fuzzySearchFG">
+    <div class="d-flex mb-2">
+        <h3 class="col-6">Fuzzy Search Algorithm</h3>
+        <h3 class="col-6 d-flex justify-content-end">Time Complexity:&nbsp;<span class="text-success">O(n*m)</span>
+        </h3>
+    </div>
+
+    <p>A fuzzy search is a technique that uses search algorithms to find strings that match patterns approximately. It's
+        particularly useful for helping users find webpages without having to know exactly what they're looking for or
+        how a
+        word is spelled. Fuzzy searches are also used for Structured Query Language lookups to help database users find
+        records without having to be sure of the exact spelling of the value they're looking for.
+    </p>
+
+    <p>
+        A fuzzy search is performed using a fuzzy matching algorithm, which returns a list of results based on likely
+        relevance even though search argument words and spellings may not be an exact match. For web lookups, exact and
+        highly relevant matches appear near the top of the list. Subjective relevance ratings may be given, usually as
+        percentages.
+    </p>
+
+    <h4 class="mt-4">What is the Levenshtein distance?</h4>
+    <p>How close the search term is to the exact match is measured in terms of edit distance -- a metric that represents
+        the cost of converting one string to another. The most widely used method for computing the edit distance is to
+        take
+        the minimum number of single-character changes needed to convert the search term to the exact match. This
+        computation results in the Levenshtein distance, which is named after the Russian scientist who invented the
+        method,
+        Vladimir Levenshtein.
+    </p>
+
+    <p>
+        The following single-character changes are used to compute edit distance. Some algorithms use weights to place a
+        higher value on one or more of the primitive operations:
+    </p>
+
+    <ul>
+        <li>Insertion: fuzzy serch → fuzzy search</li>
+        <li>Deletion: fuzzey search → fuzzy search</li>
+        <li>Substitution: fuzzy seerch → fuzzy search</li>
+        <li>Transposition: fuzzy saerch → fuzzy search</li>
+    </ul>
+
+    <h4 class="mt-4">General Example</h4>
+
+    <p>Given two words, hello and hello, the Levenshtein distance is zero because the words are identical.</p>
+
+    <p>For the two words helo and hello, it is obvious that there is a missing character "l". Thus to transform the word
+        helo to hello all we need to do is insert that character. The distance, in this case, is 1 because there is only
+        one
+        edit needed.</p>
+
+    <p>On the other hand, for the two words kelo and hello more than just inserting the character "l" is needed. We
+        also
+        need to substitute the character "k" with "h". After such edits, the word kelo is converted into hello. The
+        distance
+        is therefore 2, because there are two operations applied: substitution and insertion.</p>
+
+    <p>For the two words kel and hello, we must first replace "k" with "h", then add a missing "l" followed by an
+        "o" at
+        the end. As a result, the distance is 3 because there are three operations applied.</p>
+
+    <p>Note that the previous discussion is not strategic. We're following predefined steps that could be applied to
+        any
+        two words to transform one word into another. The strategy that we are going to discuss now is how to calculate
+        a
+        distance matrix using dynamic programming. Given two words A and B, the distance matrix holds the distances
+        between
+        all prefixes of the word A and all prefixes of the word B.</p>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-2 pt-2">Fuzzy Search:</div>
+            <div class="col-4 pe-2">
+                <input type="text" class="form-control" placeholder="Search" formControlName="search">
+            </div>
+            <div class="col-2 pt-2">Distance:</div>
+            <div class="col-4">
+                <input type="text" class="form-control" placeholder="Search" formControlName="distance"> 
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <tbody>
+            <tr *ngFor="let columnWords of words$ | columns:4">
+                <ng-container *ngFor="let word of columnWords">
+                    <td><ngb-highlight [result]="word"></ngb-highlight></td>
+                </ng-container>
+            </tr>
+
+            <ng-container *ngIf="!words$?.length">
+                <div class="text-center">
+                    <p>No results to display</p>
+                </div>
+            </ng-container>
+
+        </tbody>
+    </table>
+</form>

@@ -4,7 +4,7 @@
 
 :root
 {
-    --background-color: #f1f1f1;
+    --background-color: $light-color;
     --button-text-color: #{$bg-white};
     --button-focus: #{$black};
     --text-color: #{$black};
@@ -16,6 +16,7 @@
     --theme-logo: url("../assets/images/logo/MH-White.png");
     --caret: #{lighten($dark-color, 15%)};
     --caret-active: #{$black};
+    --action-list-selected: #{$selected-light};
 }
 
 .dark-theme
@@ -30,8 +31,9 @@
     --card-background: #{$dark-contrast-color};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
-    --caret: #{rgba(255, 255, 255, 0.55)};
-    --caret-active: #{rgba(255, 255, 255, 0.75)};
+    --caret: #{$caret};
+    --caret-active: #{$caret-active};
+    --action-list-selected: #{$selected-dark};
 
     nav
     {
@@ -44,6 +46,7 @@
     }
 
     @include calendar;
+    @include table-theme;
 }
 
 body
@@ -137,5 +140,26 @@ body
     .caret-active
     {
         color: var(--caret-active);
+    }
+
+    .action-list-selector
+    {
+        li
+        {
+            border-radius: 0.3rem;
+        }
+
+        .selected
+        {
+            background-color: var(--action-list-selected);
+        }
+    }
+
+    pre
+    {
+        code
+        {
+            color: $text-white;
+        }
     }
 }
