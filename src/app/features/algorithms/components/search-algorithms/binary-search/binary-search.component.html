@@ -1,8 +1,12 @@
 <form novalidate [formGroup]="linearSearchFG">
     <div class="d-flex mb-2">
-        <h3 class="col-6">Binary Search Algorithm</h3>
-        <h3 class="col-6 d-flex justify-content-end">Time Complexity:&nbsp;<span class="text-success">O(log n)</span>
-        </h3>
+        <div class="col-7">
+            <h4>Binary Search Algorithm</h4>
+        </div>
+        <div class="col-5 d-flex justify-content-end">
+            <h4>Big O:&nbsp;<span class="text-success">O(log n)</span>
+            </h4>
+        </div>
     </div>
 
     <p>
@@ -26,7 +30,8 @@
         <b>Step 1:</b> Divide the search space into two halves by finding the middle index “mid”.
     </p>
 
-    <img class="binary-image mt-2 mb-4" src="assets/images/algorithms/search-algorithms/binary-search/binary-search-algorithm.png" />
+    <img class="binary-image mt-2 mb-4"
+        src="assets/images/algorithms/search-algorithms/binary-search/binary-search-algorithm.png" />
 
     <p>
         <b>Step 2:</b> Compare the middle element of the search space with the key.

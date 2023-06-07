@@ -1,5 +1,15 @@
 @import "/src/styles/media-breakpoints.scss";
 
+.learn-algorithms
+{
+    white-space: nowrap;
+}
+
+.view-algorithms
+{
+    display: none;
+}
+
 .algorithms
 {
     display: inline-flex;
@@ -24,20 +34,47 @@
 
     .right
     {
+        margin-top: 0.8rem;
         padding-right: 6rem;
+        max-width: 65rem;
     }
 }
 
 @include media-breakpoint-down(md)
 {
-    .right
+    .view-algorithms
     {
-        display: none;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 
-    .left
+    .view-algorithms-visible
     {
-        width: 100%;
-        padding-right: 2%;
+        .right
+        {
+            display: none;
+        }
+
+        .left
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+    }
+
+    .view-algorithm-visible
+    {
+        .right
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+
+        .left
+        {
+
+            display: none;
+        }
     }
 }

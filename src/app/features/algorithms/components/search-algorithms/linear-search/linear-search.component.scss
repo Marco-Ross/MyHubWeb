@@ -1,5 +1,16 @@
+@import "/src/styles/media-breakpoints.scss";
+
 .linear-image
 {
     height: 7rem;
     width: 30rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .linear-image
+    {
+        height: 100%;
+        width: 100%;
+    }
 }

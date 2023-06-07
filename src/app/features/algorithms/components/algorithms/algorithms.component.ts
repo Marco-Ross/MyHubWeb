@@ -7,6 +7,7 @@ import { ViewportScroller } from '@angular/common';
 import { ScriptAndStyleLoader } from 'src/app/global-shared/services/script-and-style-loader/script-and-style-loader.service';
 import { ScriptConstants } from 'src/app/global-shared/constants/script-store.constant';
 import { StyleConstants } from 'src/app/global-shared/constants/style-store.constant';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'algorithms',
@@ -17,6 +18,8 @@ export class AlgorithmsComponent
 {
     constructor(private formBuilder: FormBuilder, private injector: Injector, private scroll: ViewportScroller, private scriptAndStyleLoader: ScriptAndStyleLoader) { }
 
+    faArrowRight = faArrowRight;
+
     //
 
     @ViewChild(AlgorithmComponentAnchorDirective, { static: true }) algorithmComponentAnchor!: AlgorithmComponentAnchorDirective;
@@ -24,6 +27,7 @@ export class AlgorithmsComponent
     algorithmsFG!: FormGroup;
     selected: string = '';
     algorithmCategories = algorithmCategories;
+    viewAlgorithms: boolean = false;
 
     ngOnInit()
     {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HomeService } from './home.service';
-import { faExternalLink, faCalendar, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLink, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
@@ -20,7 +20,6 @@ export class HomeComponent
     constructor(private homeService: HomeService, private formBuilder: FormBuilder, private signalRHomeService: SignalRHomeService, private router: Router, private modalService: NgbModal) { }
 
     faExternalLink = faExternalLink;
-    faCalendar = faCalendar;
     faCaretDown = faCaretDown;
     faCaretUp = faCaretUp;
 

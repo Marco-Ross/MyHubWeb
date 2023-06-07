@@ -1,8 +1,11 @@
 <form novalidate [formGroup]="fuzzySearchFG">
     <div class="d-flex mb-2">
-        <h3 class="col-6">Fuzzy Search Algorithm</h3>
-        <h3 class="col-6 d-flex justify-content-end">Time Complexity:&nbsp;<span class="text-success">O(n*m)</span>
-        </h3>
+        <div class="col-7">
+            <h4>Fuzzy Search Algorithm</h4>
+        </div>
+        <div class="col-5 d-flex justify-content-end">
+            <h4>Big O:&nbsp;<span class="text-success">O(n*m)</span></h4>
+        </div>
     </div>
 
     <p>A fuzzy search is a technique that uses search algorithms to find strings that match patterns approximately. It's
@@ -84,7 +87,7 @@
             </div>
             <div class="col-2 pt-2">Distance:</div>
             <div class="col-4">
-                <input type="text" class="form-control" placeholder="Search" formControlName="distance"> 
+                <input type="text" class="form-control" placeholder="Search" formControlName="distance">
             </div>
         </div>
     </div>
