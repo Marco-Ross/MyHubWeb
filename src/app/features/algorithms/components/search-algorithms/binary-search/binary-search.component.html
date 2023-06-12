@@ -1,0 +1,119 @@
+<form novalidate [formGroup]="linearSearchFG">
+    <div class="d-flex mb-2">
+        <div class="col-7">
+            <h4>Binary Search Algorithm</h4>
+        </div>
+        <div class="col-5 d-flex justify-content-end">
+            <h4>Big O:&nbsp;<span class="text-success">O(log n)</span>
+            </h4>
+        </div>
+    </div>
+
+    <p>
+        Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly
+        dividing in half the portion of the list that could contain the item, until you've narrowed down the possible
+        locations to just one.
+    </p>
+
+    <p>To apply Binary Search algorithm:</p>
+
+    <ul>
+        <li>The data structure must be sorted.</li>
+        <li>Access to any element of the data structure takes constant time.</li>
+    </ul>
+
+    <h4 class="mt-4">Steps to follow</h4>
+
+    <p>The procedures for implementing linear search are as follows:</p>
+
+    <p>
+        <b>Step 1:</b> Divide the search space into two halves by finding the middle index “mid”.
+    </p>
+
+    <img class="binary-image mt-2 mb-4"
+        src="assets/images/algorithms/search-algorithms/binary-search/binary-search-algorithm.png" />
+
+    <p>
+        <b>Step 2:</b> Compare the middle element of the search space with the key.
+    </p>
+
+    <p>
+        <b>Step 3:</b> If the key is found at middle element, the process is terminated.
+    </p>
+
+    <p>
+        <b>Step 4:</b> If the key is not found at middle element, choose which half will be used as the next search
+        space.
+    </p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Step 4.1:</b> If the key is smaller than the middle element, then the left side is
+        used for next
+        search.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Step 4.2:</b> If the key is larger than the middle element, then the right side is
+        used for next search.</p>
+
+    <p>
+        <b>Step 5:</b> This process is continued until the key is found or the total search space is exhausted.
+    </p>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+        <li [ngbNavItem]="1">
+            <a ngbNavLink>Iterative</a>
+            <ng-template ngbNavContent>
+                <div class="ps-2 pt-1">
+                    <pre class="code-background">
+                        <code [innerHTML]="highlightedIterativeCode"></code>
+                    </pre>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+            <a ngbNavLink>Recursive</a>
+            <ng-template ngbNavContent>
+                <div class="ps-2 pt-1">
+                    <pre class="code-background">
+                        <code [innerHTML]="highlightedRecursiveCode"></code>
+                    </pre>
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Binary Search on Id:</div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="iterativeSearch(0)">0</button>
+                <button class="button me-2" type="button" (click)="iterativeSearch(1)">1</button>
+                <button class="button me-2" type="button" (click)="iterativeSearch(2)">2</button>
+                <button class="button me-2" type="button" (click)="iterativeSearch(3)">3</button>
+                <button class="button me-2" type="button" (click)="iterativeSearch(4)">4</button>
+                <button class="button me-4" type="button" (click)="iterativeSearch(5)">5</button>
+                <button class="button" type="button" (click)="reset()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
+</form>

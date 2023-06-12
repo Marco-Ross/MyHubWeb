@@ -1,0 +1,42 @@
+<form novalidate [formGroup]="algorithmsFG">
+    <div class="d-flex">
+        <h2 class="mt-2 w-100 learn-algorithms">Learn Algorithms</h2>
+        <div *ngIf="!viewAlgorithms" class="view-algorithms w-100 mt-1">
+            <div class="clickable d-flex" (click)="viewAlgorithms = !viewAlgorithms">
+                <h6 class="mt-2 text-decoration-underline">View Algorithms</h6>&nbsp;
+                <fa-icon class="pt-2" [icon]="faArrowRight" size="xs"></fa-icon>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="algorithms" [ngClass]="viewAlgorithms ? 'view-algorithms-visible' : 'view-algorithm-visible'">
+                <div class="left col-3 mt-3 hub-scroll">
+                    <div class="sticky-algorithms ps-2">
+                        <h5 class="pb-2">Algorithms</h5>
+                        <ul class="ps-1">
+                            <ng-container *ngFor="let algorithmCategory of algorithmCategories">
+                                <ul class="action-list-selector">
+                                    <h3>{{algorithmCategory.category}}</h3>
+
+                                    <ng-container *ngFor="let algorithm of algorithmCategory.algorithms">
+                                        <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
+                                            [ngClass]="{'selected' : algorithm.id == selected}">
+                                            <span class="clickable" (click)="onAlgorithmSelect(algorithm); viewAlgorithms = false;"><a
+                                                    href="javascript:void(0)">{{algorithm.name}}</a>
+                                            </span>
+                                        </li>
+                                    </ng-container>
+                                </ul>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="right col-9 mb-2">
+                    <ng-template algorithmComponentAnchor></ng-template>
+                </div>
+        </div>
+    </div>
+</form>

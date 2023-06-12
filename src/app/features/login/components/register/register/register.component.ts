@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
-import { PasswordValidator } from 'src/app/features/validators/login/password-matching.validator';
+import { PasswordValidator } from 'src/app/features/login/components/register/password-matching.validator';
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
 import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
 
@@ -27,6 +27,8 @@ export class RegisterComponent
     this.registerFG = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8), PasswordValidator.Strength]],
       confirmPassword: ['', Validators.required]
     }, { validators: PasswordValidator.Matching });
@@ -41,7 +43,7 @@ export class RegisterComponent
 
   uploadImage()
   {
-    this.uploadService.UploadImageCrop().then((result) =>
+    this.uploadService.UploadImageCrop({title:'Upload A Profile Image'}).then((result) =>
     {
       this.profileImage = result.croppedImageEvent;
     }, () => { });

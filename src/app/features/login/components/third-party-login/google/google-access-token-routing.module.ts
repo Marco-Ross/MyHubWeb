@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './components/settings/settings.component';
+import { GoogleAccessTokenComponent } from './google-access-token.component';
 
 const routes: Routes = [
-  { path: '', component: SettingsComponent }
+  { path: 'complete', component: GoogleAccessTokenComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SettingsRoutingModule { }
+export class GoogleAccessTokenRoutingModule { }

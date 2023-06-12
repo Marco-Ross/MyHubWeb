@@ -1,9 +1,19 @@
 $black: black;
 $dark-color: #161616;
+$light-color: #f1f1f1;
+
 $dark-contrast-color: #272d32;
 $dark-lightened-color: #5f6e7a;
+
 $bg-white: #e4e8ec;
+$text-white: #e7e7e7;
 $bg-tint: rgba(0, 0, 0, 0.03);
+
+$caret: rgba(255, 255, 255, 0.55);
+$caret-active: rgba(255, 255, 255, 0.75);
+
+$selected-light: rgba(208,215,222,0.70);
+$selected-dark: rgba(177,186,196,0.08);
 
 //$dark-color
 .text-dark
@@ -36,4 +46,9 @@ $bg-tint: rgba(0, 0, 0, 0.03);
 .bg-darkl-contrast
 {
     background-color: $dark-lightened-color;
+}
+
+.text-grey
+{
+    color: grey;
 }

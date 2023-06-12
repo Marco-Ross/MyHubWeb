@@ -1,0 +1,94 @@
+<form novalidate [formGroup]="linearSearchFG">
+    <div class="d-flex mb-2">
+        <div class="col-7">
+            <h4>Linear Search Algorithm</h4>
+        </div>
+        <div class="col-5 d-flex justify-content-end">
+            <h4>Big O:&nbsp;<span class="text-success">O(n)</span></h4>
+        </div>
+    </div>
+
+    <p>A linear search is the simplest approach employed to search for an element in a data set. It examines each
+        element
+        until it finds a match, starting at the beginning of the data set, until the end. The search is finished and
+        terminated once the target element is located. If it finds no match, the algorithm must terminate its execution
+        and
+        return an appropriate result. The linear search algorithm is easy to implement and efficient in two scenarios:
+    </p>
+    <ul>
+        <li aria-level="1">When the list contains lesser elements&nbsp;</li>
+        <li aria-level="1">When searching for a single element in an unordered array</li>
+    </ul>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <img class="linear-image mt-4 mb-4"
+        src="assets/images/algorithms/search-algorithms/linear-search/linear-search-algorithm.png" />
+
+    <p>The procedures for implementing linear search are as follows:</p>
+
+    <p>
+        <b>Step 1:</b> First, read the search element (Target element) in the array.
+    </p>
+
+    <p>
+        <b>Step 2:</b> In the second step compare the search element with the first element in the array.
+    </p>
+
+    <p>
+        <b>Step 3:</b> If both are matched, display "Target element is found" and terminate the Linear Search function.
+    </p>
+
+    <p>
+        <b>Step 4:</b> If both are not matched, compare the search element with the next element in the array.
+    </p>
+
+    <p>
+        <b>Step 5:</b> In this step, repeat steps 3 and 4 until the search (Target) element is compared with the last
+        element of
+        the array.
+    </p>
+
+    <p>
+        <b>Step 6:</b> If the last element in the list does not match, the Linear Search Function will be terminated,
+        and
+        the message "Element is not found" will be displayed.
+    </p>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Linear Search:</div>
+            <div class="col-5">
+                <input type="text" class="form-control" placeholder="Search" formControlName="search">
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries$ | async">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

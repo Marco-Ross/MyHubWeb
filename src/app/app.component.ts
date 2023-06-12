@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
+import { LoggedInCookie } from './global-shared/services/cookies/logged-in.cookie';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent
   title = 'my-hub-web';
   readonly ThemeKey = 'Theme';
 
-  constructor(private themeRenderer: ThemeRenderer) { }
+  constructor(private themeRenderer: ThemeRenderer, private loggedInCookie: LoggedInCookie) { }
 
   themeLoading: boolean = false;
 
@@ -20,7 +21,7 @@ export class AppComponent
     this.SetTheme();
 
     this.themeRenderer.getIsThemeLoading().subscribe({
-      next: (isThemeLoading) =>
+      next: (isThemeLoading: any) =>
       {
         this.themeLoading = isThemeLoading;
       }
@@ -29,6 +30,9 @@ export class AppComponent
 
   private SetTheme()
   {
-    this.themeRenderer.SetCurrentTheme();
+    let loginDetails = this.loggedInCookie.GetLoggedInCookie();
+
+    if (loginDetails?.IsLoggedIn)
+      this.themeRenderer.SetCurrentTheme();
   }
 }

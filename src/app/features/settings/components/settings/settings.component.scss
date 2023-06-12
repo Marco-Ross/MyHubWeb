@@ -1,0 +1,62 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.settings-tabs
+{
+    display: inline-flex;
+    justify-content: center;
+
+    .tabs
+    {
+        padding-left: 10rem;
+        padding-right: 10rem;
+        max-width: 78rem;
+        min-width: 45rem;
+    }
+
+    @include media-breakpoint-down(sm)
+    {
+        .tabs
+        {
+            padding-left: unset;
+            padding-right: unset;
+            max-width: 21rem;
+            min-width: unset;
+        }
+    }
+
+    .google
+    {
+        font-family: 'Product Sans', sans-serif;
+
+        .g-blue
+        {
+            color: #4285F4;
+        }
+
+        .o-red
+        {
+            color: #DB4437;
+        }
+
+        .o-yellow
+        {
+            color: #F4B400;
+        }
+
+        .l-green
+        {
+            color: #0F9D58;
+        }
+
+        .e-red
+        {
+            display: inline-block;
+            transform: rotate(-20deg);
+        }
+    }
+
+    .account-disabled
+    {
+        font-size: 12px;
+    }
+}

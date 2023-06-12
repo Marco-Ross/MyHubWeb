@@ -8,6 +8,6 @@ export class RegisterUserComplete implements IRegisterUserComplete
     constructor(userId: string | null, registerToken: string | null)
     {
         this.UserId = userId;
-        this.RegisterToken = registerToken
+        this.RegisterToken = registerToken;
     }
 }

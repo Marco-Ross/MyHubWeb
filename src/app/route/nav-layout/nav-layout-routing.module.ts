@@ -9,11 +9,15 @@ const routes: Routes = [
         children: [
             {
                 path: 'home',
-                loadChildren: () => import('../../features/home/components/home.module').then(m => m.HomeModule)
+                loadChildren: () => import('../../features/home/components/home/home.module').then(m => m.HomeModule)
             },
             {
                 path: 'settings',
                 loadChildren: () => import('../../features/settings/components/settings/settings.module').then(m => m.SettingsModule)
+            },
+            {
+                path: 'algorithms',
+                loadChildren: () => import('../../features/algorithms/components/algorithms/algorithms.module').then(m => m.AlgorithmsModule)
             }
         ]
     }

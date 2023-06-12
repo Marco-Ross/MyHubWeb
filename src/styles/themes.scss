@@ -1,19 +1,22 @@
 @import "bootstrap-theme-overrides.scss";
 @import "colors.scss";
+@import "buttons.scss";
 
 :root
 {
-    --background-color: #f1f1f1;
+    --background-color: $light-color;
     --button-text-color: #{$bg-white};
-    --button-focus: #{$dark-color};
+    --button-focus: #{$black};
     --text-color: #{$black};
     --link-text-color: #{$black};
-    --button-color: #{lighten($dark-color, 10%)};
+    --button-color: #{$dark-contrast-color};
+    --button-card-color: #{lighten($dark-color, 10%)};
     --card-background: #{$bg-white};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-White.png");
     --caret: #{lighten($dark-color, 15%)};
     --caret-active: #{$black};
+    --action-list-selected: #{$selected-light};
 }
 
 .dark-theme
@@ -23,12 +26,14 @@
     --button-focus: #{$bg-white};
     --text-color: #{$bg-white};
     --link-text-color: #{$bg-white};
-    --button-color: #{$dark-color};
+    --button-color: #{$dark-contrast-color};
+    --button-card-color: #{$dark-color};
     --card-background: #{$dark-contrast-color};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
-    --caret: #{rgba(255, 255, 255, 0.55)};
-    --caret-active: #{rgba(255, 255, 255, 0.75)};
+    --caret: #{$caret};
+    --caret-active: #{$caret-active};
+    --action-list-selected: #{$selected-dark};
 
     nav
     {
@@ -41,12 +46,20 @@
     }
 
     @include calendar;
+    @include table-theme;
 }
 
 body
 {
     background-color: var(--background-color);
     color: var(--text-color);
+
+    @include button(--button-color);
+
+    .button-addon
+    {
+        @include button-addon(--button-card-color);
+    }
 
     .form-control,
     .form-control:focus
@@ -67,23 +80,12 @@ body
         text-decoration: underline;
     }
 
-    .button
-    {
-        background-color: var(--button-color);
-        color: var(--button-text-color);
-    }
-
-    button:focus-visible,
-    button:focus
-    {
-        border-color: var(--button-focus);
-        border-width: 1px;
-        outline: 0;
-    }
-
-    .card
+    .card,
+    .modal-content
     {
         background-color: var(--card-background);
+
+        @include button(--button-card-color);
     }
 
     .logo
@@ -138,5 +140,26 @@ body
     .caret-active
     {
         color: var(--caret-active);
+    }
+
+    .action-list-selector
+    {
+        li
+        {
+            border-radius: 0.3rem;
+        }
+
+        .selected
+        {
+            background-color: var(--action-list-selected);
+        }
+    }
+
+    pre
+    {
+        code
+        {
+            color: $text-white;
+        }
     }
 }

@@ -1,10 +1,11 @@
-.card
+.no-item
 {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    min-height: 70%;
-
-    .card-header
-    {
-        font-size: 1.5em;
-    }
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: grey;
 }
+
+.description-header
+{}

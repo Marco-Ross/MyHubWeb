@@ -6,6 +6,9 @@ export class ApiRouteInterceptor implements HttpInterceptor
 {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
+        if (req.url.includes("https://"))
+            return next.handle(req);
+            
         const apiRequest = req.clone({ url: environment.API_URL + req.url, withCredentials: true });
 
         return next.handle(apiRequest);

@@ -6,6 +6,7 @@ import { ILoginUser } from 'src/app/features/login/models/interfaces/ILoginUser.
 import { IResetPassword } from 'src/app/features/login/models/interfaces/IResetPassword.interface';
 import { IRegisterUserComplete } from 'src/app/features/login/models/interfaces/IRegisterUserComplete.interface';
 import { IResetPasswordComplete } from 'src/app/features/login/models/interfaces/IResetPasswordComplete.interface';
+import { IResetPasswordLoggedIn } from 'src/app/features/settings/components/password-settings/interfaces/IResetPasswordLoggedIn.interface';
 
 @Injectable()
 export class AuthenticationService
@@ -17,6 +18,16 @@ export class AuthenticationService
   Login(user: ILoginUser): Observable<any>
   {
     return this.http.post(this.ApiController + '/Login', user);
+  }
+
+  LoginToContinue(user: ILoginUser): Observable<any>
+  {
+    return this.http.post(this.ApiController + '/LoginToContinue', user);
+  }
+
+  DeleteUser(): Observable<any>
+  {
+    return this.http.delete(this.ApiController);
   }
 
   Logout(): Observable<any>
@@ -37,6 +48,11 @@ export class AuthenticationService
   RegisterComplete(registerUserComplete: IRegisterUserComplete): Observable<any>
   {
     return this.http.post(this.ApiController + '/Register/Complete', registerUserComplete);
+  }
+
+  ResetPasswordLoggedIn(resetPassword: IResetPasswordLoggedIn): Observable<any>
+  {
+    return this.http.post(this.ApiController + '/ResetPasswordLoggedIn', resetPassword);
   }
 
   ResetPassword(resetPassword: IResetPassword): Observable<any>
