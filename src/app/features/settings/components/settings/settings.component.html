@@ -4,17 +4,38 @@
       <h3>Settings</h3>
     </div>
 
+    <h2>Fix disable color</h2>
     <div class="col-12 settings-tabs">
       <div class="col-12 tabs">
-        <div class="d-flex justify-content-end mb-1">
-          <h6>{{username}} <span class="text-grey">({{email}})</span></h6>
+        <div class="row mb-3">
+          <div class="col-6" *ngIf="loginIssuer">
+            <h6 class="mb-0">Logged in with:
+              <span *ngIf="loginIssuer == 'Google'" [ngClass]="{'google': loginIssuer == 'Google'}">
+                <strong>
+                  <span class="g-blue">G</span>
+                  <span class="o-red">o</span>
+                  <span class="o-yellow">o</span>
+                  <span class="g-blue">g</span>
+                  <span class="l-green">l</span>
+                  <span class="o-red e-red">e</span>
+                </strong>
+              </span>
+            </h6>
+            <div class="text-grey account-disabled">Account changes disabled</div>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+            <h6>{{username}} <span class="text-grey">({{email}})</span></h6>
+          </div>
         </div>
+
         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
           <li [ngbNavItem]="1">
             <a ngbNavLink>Account</a>
             <ng-template ngbNavContent>
               <div class="ps-2 pt-1">
-                <account-settings (onUpdate)="onAccountUpdate($event)"></account-settings>
+                <fieldset [disabled]="loginIssuer">
+                  <account-settings (onUpdate)="onAccountUpdate($event)"></account-settings>
+                </fieldset>
               </div>
             </ng-template>
           </li>
@@ -22,7 +43,9 @@
             <a ngbNavLink>Authentication</a>
             <ng-template ngbNavContent>
               <div class="ps-2 pt-1">
-                <password-settings></password-settings>
+                <fieldset [disabled]="loginIssuer">
+                  <password-settings></password-settings>
+                </fieldset>
               </div>
             </ng-template>
           </li>

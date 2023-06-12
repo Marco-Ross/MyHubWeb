@@ -24,6 +24,8 @@
 
         <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Login'" [debounce]="150" class="mt-2"></load-button>
 
+        <button class="button" type="button" (click)="googleLogin()">Google Login</button>
+
         <div class="login-links mt-2">
           <div class="col-7">
             <a [routerLink]="'/register'">Don't have an account?</a>

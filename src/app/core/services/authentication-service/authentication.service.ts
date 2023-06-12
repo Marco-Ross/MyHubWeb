@@ -19,12 +19,12 @@ export class AuthenticationService
   {
     return this.http.post(this.ApiController + '/Login', user);
   }
-  
+
   LoginToContinue(user: ILoginUser): Observable<any>
   {
     return this.http.post(this.ApiController + '/LoginToContinue', user);
   }
-  
+
   DeleteUser(): Observable<any>
   {
     return this.http.delete(this.ApiController);
@@ -54,7 +54,7 @@ export class AuthenticationService
   {
     return this.http.post(this.ApiController + '/ResetPasswordLoggedIn', resetPassword);
   }
-  
+
   ResetPassword(resetPassword: IResetPassword): Observable<any>
   {
     return this.http.post(this.ApiController + '/ResetPassword', resetPassword);

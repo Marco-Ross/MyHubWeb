@@ -18,6 +18,7 @@ export class SettingsComponent
   active = 1;
   username = 'Unknown';
   email = 'Unknown';
+  loginIssuer = '';
   private loginCookie = this.loggedInCookie.GetLoggedInCookie();
 
   ngOnInit()
@@ -27,6 +28,7 @@ export class SettingsComponent
     });
 
     this.username = this.loginCookie.Username;
+    this.loginIssuer = this.loginCookie.LoginIssuer;
     this.email = this.loginCookie.Email;
 
     this.SetThemeData();

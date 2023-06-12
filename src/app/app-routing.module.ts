@@ -27,7 +27,11 @@ const routes: Routes = [
       {
         path: 'reset-password',
         loadChildren: () => import('./features/login/components/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
-      }
+      },
+      {
+        path: 'google',
+        loadChildren: () => import('./features/login/components/third-party-login/google/google-access-token.module').then(m => m.GoogleAccessTokenModule)
+      },
     ]
   },
   {

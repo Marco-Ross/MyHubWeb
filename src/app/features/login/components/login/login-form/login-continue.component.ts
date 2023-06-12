@@ -53,7 +53,7 @@ export class LoginContinueComponent
       next: (response: any) =>
       {
         this.isLoading = false;
-        this.onFromSubmit.emit(response.accessToken);
+        this.onFromSubmit.emit(response.idToken);
       },
       error: (response: any) =>
       {
