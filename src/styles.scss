@@ -77,3 +77,13 @@ body
         background-color: #3b3b3b;
     }
 }
+
+fieldset:disabled
+{
+    a
+    {
+        pointer-events: none;
+        cursor: default;
+        text-decoration: none;
+    }
+}

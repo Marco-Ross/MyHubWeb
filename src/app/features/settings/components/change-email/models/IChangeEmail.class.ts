@@ -1,11 +1,11 @@
 export class ChangeEmail
 {
     public Email: string | null;
-    public AccessToken: string | null;
+    public IdToken: string | null;
 
-    constructor(email: string | null, accessToken: string | null)
+    constructor(email: string | null, idToken: string | null)
     {
         this.Email = email;
-        this.AccessToken = accessToken;
+        this.IdToken = idToken;
     }
 }

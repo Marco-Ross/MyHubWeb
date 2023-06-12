@@ -26,6 +26,7 @@
     "@microsoft/signalr": "^7.0.5",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.6",
+    "angular-oauth2-oidc": "^15.0.1",
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
     "ngx-cookie-service": "^15.0.0",

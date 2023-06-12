@@ -25,7 +25,7 @@ export class ChangeEmailComponent
   hasValidated: boolean = false;
   changeEmailRequested: boolean = false;
   changeEmailFromSubmitted: boolean = false;
-  accessToken: string = "";
+  idToken: string = "";
 
   ngOnInit()
   {
@@ -36,13 +36,13 @@ export class ChangeEmailComponent
 
   //////
 
-  onLoginSubmit(accessToken: string)
+  onLoginSubmit(idToken: string)
   {
-    if (!accessToken)
+    if (!idToken)
       return;
 
     this.hasValidated = true;
-    this.accessToken = accessToken;
+    this.idToken = idToken;
   }
 
   onSubmit()
@@ -56,7 +56,7 @@ export class ChangeEmailComponent
       return;
     }
 
-    this.changeEmailService.ChangeEmail(new ChangeEmail(this.changeEmailFG.value.email, this.accessToken)).subscribe({
+    this.changeEmailService.ChangeEmail(new ChangeEmail(this.changeEmailFG.value.email, this.idToken)).subscribe({
       next: () =>
       {
         this.changeEmailRequested = true;

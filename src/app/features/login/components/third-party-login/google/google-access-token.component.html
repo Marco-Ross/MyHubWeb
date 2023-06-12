@@ -1,0 +1,15 @@
+<form novalidate>
+    <div class="center-screen">
+        <div *ngIf="loginStatus === undefined">
+            <div class="spinner-border text-darkl-contrast spinner-size" role="status"></div>
+            <p class="mt-4">Logging you in.</p>
+            <p>This won't take long.</p>
+        </div>
+
+        <div *ngIf="loginStatus === false" class="col-5">
+            <div class="text-center">
+                <p class="alert alert-danger" role="alert">{{formSubmitErrors}}</p>
+            </div>
+        </div>
+    </div>
+</form>

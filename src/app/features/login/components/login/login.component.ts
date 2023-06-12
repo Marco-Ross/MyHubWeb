@@ -6,6 +6,8 @@ import { ILoginUser } from '../../models/interfaces/ILoginUser.interface';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
 
 @Component({
   selector: 'login',
@@ -14,7 +16,8 @@ import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.render
 })
 export class LoginComponent
 {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private themeRenderer: ThemeRenderer) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router,
+    private formBuilder: FormBuilder, private themeRenderer: ThemeRenderer, private oauthService: OAuthService) { }
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -31,8 +34,11 @@ export class LoginComponent
   {
     this.loginFG = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required, ]
+      password: ['', Validators.required,]
     });
+
+    this.oauthService.configure(googleAuthConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   //////
@@ -68,6 +74,13 @@ export class LoginComponent
         this.loginFG.get('password')?.markAsPristine();
         this.formSubmitErrors = response.error;
       }
+    });
+  }
+
+  googleLogin()
+  {
+    this.oauthService.initCodeFlow(undefined, {
+      'access_type': 'offline'
     });
   }
 }
