@@ -80,7 +80,8 @@ export class LoginComponent
   googleLogin()
   {
     this.oauthService.initCodeFlow(undefined, {
-      'access_type': 'offline'
+      'access_type': 'offline',
+      'prompt': 'consent'
     });
   }
 }
