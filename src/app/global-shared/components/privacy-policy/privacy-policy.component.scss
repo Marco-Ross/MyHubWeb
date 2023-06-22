@@ -4,7 +4,14 @@ form
     justify-content: center;
     margin-top: 0.5rem;
 
-    a{
+    .logo-head
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    a
+    {
         text-decoration: underline;
     }
 }
