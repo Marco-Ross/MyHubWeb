@@ -17,6 +17,7 @@
     --caret: #{lighten($dark-color, 15%)};
     --caret-active: #{$black};
     --action-list-selected: #{$selected-light};
+    --disabled-input: #{$disabled-input-light};
 }
 
 .dark-theme
@@ -34,6 +35,7 @@
     --caret: #{$caret};
     --caret-active: #{$caret-active};
     --action-list-selected: #{$selected-dark};
+    --disabled-input: #{$disabled-input-dark};
 
     nav
     {
@@ -161,5 +163,10 @@ body
         {
             color: $text-white;
         }
+    }
+
+    .form-control:disabled
+    {
+        background-color: var(--disabled-input);
     }
 }

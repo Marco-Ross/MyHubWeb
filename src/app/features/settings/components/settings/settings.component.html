@@ -4,13 +4,12 @@
       <h3>Settings</h3>
     </div>
 
-    <h2>Fix disable color</h2>
     <div class="col-12 settings-tabs">
       <div class="col-12 tabs">
         <div class="row mb-3">
           <div class="col-6" *ngIf="loginIssuer">
             <h6 class="mb-0">Logged in with:
-              <span *ngIf="loginIssuer == 'Google'" [ngClass]="{'google': loginIssuer == 'Google'}">
+              <span *ngIf="loginIssuer == 'G'" [ngClass]="{'google': loginIssuer == 'G'}">
                 <strong>
                   <span class="g-blue">G</span>
                   <span class="o-red">o</span>
@@ -20,10 +19,13 @@
                   <span class="o-red e-red">e</span>
                 </strong>
               </span>
+              <span *ngIf="loginIssuer == 'F'" [ngClass]="{'facebook': loginIssuer == 'F'}">
+                  facebook
+              </span>
             </h6>
-            <div class="text-grey account-disabled">Account changes disabled</div>
+            <div class="text-grey account-disabled">Some account settings disabled</div>
           </div>
-          <div class="col-6 d-flex justify-content-end">
+          <div class="d-flex justify-content-end" [ngClass]="loginIssuer ? 'col-6': 'col-12'">
             <h6>{{username}} <span class="text-grey">({{email}})</span></h6>
           </div>
         </div>
@@ -33,9 +35,7 @@
             <a ngbNavLink>Account</a>
             <ng-template ngbNavContent>
               <div class="ps-2 pt-1">
-                <fieldset [disabled]="loginIssuer">
-                  <account-settings (onUpdate)="onAccountUpdate($event)"></account-settings>
-                </fieldset>
+                <account-settings [disabled]="!!loginIssuer" (onUpdate)="onAccountUpdate($event)"></account-settings>
               </div>
             </ng-template>
           </li>
@@ -55,7 +55,7 @@
               <div class="ps-2 pt-1">
                 <form novalidate>
                   <div class="col-12">
-                    <h3>Reset Password</h3>
+                    <h3>Select Theme</h3>
                     <hr />
                     <div class="row">
                       <div class="col-12">

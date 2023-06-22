@@ -26,12 +26,14 @@
     "@microsoft/signalr": "^7.0.5",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.6",
+    "@types/uuid": "^9.0.2",
     "angular-oauth2-oidc": "^15.0.1",
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
     "ngx-cookie-service": "^15.0.0",
     "ngx-image-cropper": "^6.3.3",
     "rxjs": "~7.8.0",
+    "uuid": "^9.0.0",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
