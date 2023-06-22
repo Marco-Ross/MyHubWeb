@@ -13,6 +13,11 @@ const routes: Routes = [
     component: ServerOfflineComponent
   },
   {
+    path: 'privacy-policy',
+    pathMatch: 'full',
+    component: PrivacyPolicyComponent
+  },
+  {
     path: '',
     pathMatch: 'full',
     canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthGuard).canMatch(route, segments)],
@@ -48,11 +53,6 @@ const routes: Routes = [
     path: 'unauthorized',
     pathMatch: 'full',
     component: UnauthorizedComponent
-  },
-  {
-    path: 'privacy-policy',
-    pathMatch: 'full',
-    component: PrivacyPolicyComponent
   },
   { path: 'notfound', component: PageNotFoundComponent },
   { path: '**', redirectTo: 'notfound' }
