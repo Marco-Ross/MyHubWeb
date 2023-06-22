@@ -22,9 +22,21 @@
           </div>
         </div>
 
-        <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Login'" [debounce]="150" class="mt-2"></load-button>
+        <load-button [type]="'submit'" [isLoading]="isLoading" [buttonText]="'Login'" [debounce]="150"
+          class="mt-2"></load-button>
 
-        <button class="button" type="button" (click)="googleLogin()">Google Login</button>
+        <div class="d-flex row">
+          <div class="col-sm-6 pb-sm-0 pb-3 col-12">
+            <button type="button" type="button" (click)="googleLogin()" class="login-with-google-btn w-100">
+              <img src="assets/icons/google.png"> Google Login
+            </button>
+          </div>
+          <div class="col-sm-6 col-12">
+            <button type="button" type="button" (click)="facebookLogin()" class="login-with-facebook-btn w-100">
+              <img src="assets/icons/facebook.png"> Facebook Login
+            </button>
+          </div>
+        </div>
 
         <div class="login-links mt-2">
           <div class="col-7">

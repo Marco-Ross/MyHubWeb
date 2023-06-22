@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountSettingsService } from './account-settings.service';
 import { NavLayoutService } from 'src/app/features/nav-bar/nav-layout.service';
@@ -22,6 +22,7 @@ export class AccountSettingsComponent
   //
 
   @Output() onUpdate = new EventEmitter<any>();
+  @Input() disabled: boolean = false;
 
   accountSettingsFG!: FormGroup;
   defaultProfileImage = 'assets/icons/user-thin.png';

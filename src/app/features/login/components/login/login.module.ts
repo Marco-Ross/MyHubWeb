@@ -5,14 +5,13 @@ import { ComponentsModule } from 'src/app/global-shared/modules/components.modul
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { LoadButtonModule } from 'src/app/global-shared/components/load-button/load-button.module';
-import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
     LoginComponent
   ],
   providers: [],
-  imports: [FontAwesomeModule, LoginRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, OAuthModule.forRoot()],
+  imports: [FontAwesomeModule, LoginRoutingModule, ComponentsModule, RouterModule, LoadButtonModule],
   exports: []
 })
 export class LoginModule { }

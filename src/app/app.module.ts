@@ -12,6 +12,8 @@ import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
 import { WindowRefService } from './global-shared/services/window/window-ref.service';
 import { AppInitialize } from './app-initialize.service';
 import { CookieService } from 'ngx-cookie-service';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
+import { LocalStorageOAuthStorage } from './global-shared/services/localStorage/services/oauth-local-storage';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,14 @@ import { CookieService } from 'ngx-cookie-service';
 
     CoreInterceptorsModule,
     CoreAuthServicesModule,
-    AuthGuardsModule
+    AuthGuardsModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     ThemeRenderer,
     CookieService,
     WindowRefService,
+    {provide: OAuthStorage, useClass: LocalStorageOAuthStorage},
     {
       provide: APP_INITIALIZER,
       useFactory: AppInitialize,
