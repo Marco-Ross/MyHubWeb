@@ -7,7 +7,10 @@ import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
+import { facebookAuthConfig, googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
+import { WindowRefService } from 'src/app/global-shared/services/window/window-ref.service';
+import { v4 as uuidv4 } from 'uuid';
+import { LocalStorageOAuthStorage } from 'src/app/global-shared/services/localStorage/services/oauth-local-storage';
 
 @Component({
   selector: 'login',
@@ -17,7 +20,8 @@ import { googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
 export class LoginComponent
 {
   constructor(private authenticationService: AuthenticationService, private router: Router,
-    private formBuilder: FormBuilder, private themeRenderer: ThemeRenderer, private oauthService: OAuthService) { }
+    private formBuilder: FormBuilder, private themeRenderer: ThemeRenderer, private oauthService: OAuthService,
+    private windowRefService: WindowRefService, private localStorageOAuthStorage: LocalStorageOAuthStorage) { }
 
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -36,9 +40,6 @@ export class LoginComponent
       email: ['', Validators.required],
       password: ['', Validators.required,]
     });
-
-    this.oauthService.configure(googleAuthConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   //////
@@ -62,10 +63,8 @@ export class LoginComponent
     this.authenticationService.Login(loginUser).subscribe({
       next: _ =>
       {
-        this.themeRenderer.SetCurrentThemeLogin();
-
         this.isLoading = false;
-        this.router.navigate(['home']);
+        this.router.navigate(['home']).then(() => { this.themeRenderer.SetCurrentThemeLogin(); }, () => { });
       },
       error: (response) =>
       {
@@ -79,9 +78,21 @@ export class LoginComponent
 
   googleLogin()
   {
+    this.oauthService.configure(googleAuthConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+
     this.oauthService.initCodeFlow(undefined, {
       'access_type': 'offline',
       'prompt': 'consent'
     });
+  }
+
+  facebookLogin()
+  {
+    let nonce = uuidv4();
+    this.localStorageOAuthStorage.setItem('nonce', nonce);
+    
+    this.windowRefService.nativeWindow.location.href =
+      `https://www.facebook.com/v17.0/dialog/oauth?client_id=${facebookAuthConfig.clientId}&redirect_uri=${facebookAuthConfig.redirectUri}&state=${nonce}&scope=${facebookAuthConfig.scope}`;
   }
 }
