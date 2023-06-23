@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeRenderer } from './global-shared/services/theme/theme.renderer';
 import { LoggedInCookie } from './global-shared/services/cookies/logged-in.cookie';
-import { WindowRefService } from './global-shared/services/window/window-ref.service';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +12,12 @@ export class AppComponent
   title = 'my-hub-web';
   readonly ThemeKey = 'Theme';
 
-  constructor(private themeRenderer: ThemeRenderer, private loggedInCookie: LoggedInCookie, private windowRefService: WindowRefService) { }
+  constructor(private themeRenderer: ThemeRenderer, private loggedInCookie: LoggedInCookie) { }
 
   themeLoading: boolean = false;
 
   ngOnInit()
   {
-    this.windowRefService.nativeWindow.document.documentElement.style.cssText = '';
-
     this.SetTheme();
 
     this.themeRenderer.getIsThemeLoading().subscribe({
