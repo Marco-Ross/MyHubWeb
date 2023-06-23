@@ -27,6 +27,7 @@ export class ThemeRenderer
         return this.themeService.GetTheme().subscribe({
             next: (themeOptions:any) =>
             {
+                this.window.nativeWindow.document.documentElement.style.cssText = '';
                 let setTheme = this.UpdateTheme(themeOptions.theme);
                 this.themeStorage.UpdateTheme(setTheme);
                 this.currentTheme.next(themeOptions.theme || ThemeConstants.SystemTheme);
