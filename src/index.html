@@ -12,13 +12,28 @@
     if (!currentTheme)
     {
       if (this.window.matchMedia('(prefers-color-scheme: dark)').matches)
+      {
+        document.documentElement.style.cssText = 'background-color:#161616';
         document.documentElement.classList.add('dark-theme');
+      }
 
       if (this.window.matchMedia('(prefers-color-scheme: light)').matches)
+      {
+        document.documentElement.style.cssText = 'background-color:#f1f1f1';
         document.documentElement.classList.add('light-theme');
+      }
     }
     else
+    {
+      if (currentTheme == 'dark-theme')
+        document.documentElement.style.cssText = 'background-color:#161616';
+        
+      if (currentTheme == 'light-theme')
+        document.documentElement.style.cssText = 'background-color:#f1f1f1';
+
       document.documentElement.classList.add(currentTheme);
+    }
+
   </script>
 </head>
 
