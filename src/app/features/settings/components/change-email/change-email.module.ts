@@ -8,6 +8,7 @@ import { LoginContinueModule } from 'src/app/features/login/components/login/log
 import { ChangeEmailRoutingModule } from './change-email-routing.module';
 import { ChangeEmailService } from './change-email.service';
 import { ChangeEmailCompleteComponent } from './change-email-complete/change-email-complete.component';
+import { FocusModule } from 'src/app/global-shared/directives/focus/focus.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { ChangeEmailCompleteComponent } from './change-email-complete/change-ema
     ChangeEmailCompleteComponent
   ],
   providers: [ChangeEmailService],
-  imports: [ChangeEmailRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, FontAwesomeModule, LoginContinueModule],
+  imports: [ChangeEmailRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, FontAwesomeModule, LoginContinueModule, FocusModule],
   exports: []
 })
 export class ChangeEmailModule { }

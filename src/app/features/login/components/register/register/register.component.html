@@ -15,7 +15,7 @@
           <div class="input-form">
             <div>
               <input type="email" class="form-control col-12" placeholder="Email Address" formControlName="email"
-                [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}">
+                [ngClass]="{'is-invalid' : registerFG.get('email')?.errors && registerFormSubmitted}" setfocus>
               <div class="error-feedback">Please enter a valid Email Address</div>
             </div>
 

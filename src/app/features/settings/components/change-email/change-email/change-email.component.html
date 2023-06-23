@@ -13,7 +13,7 @@
                     <div>
                         <input type="email" class="form-control col-12" placeholder="Email Address"
                             formControlName="email"
-                            [ngClass]="{'is-invalid' : changeEmailFG.get('email')?.errors && changeEmailFromSubmitted}">
+                            [ngClass]="{'is-invalid' : changeEmailFG.get('email')?.errors && changeEmailFromSubmitted}" setfocus>
                         <div class="error-feedback">Please enter a valid Email Address</div>
                     </div>
 
@@ -25,11 +25,11 @@
                             role="alert">{{formSubmitErrors}}</div>
                     </div>
                 </div>
+            </div>
 
-                <div class="text-center" *ngIf="changeEmailRequested">
-                    <p class="mt-5">Please check your email inbox for the change email address request.</p>
-                    <p>You may safely close this window.</p>
-                </div>
+            <div class="text-center" *ngIf="changeEmailRequested">
+                <p class="mt-5">Please check your email inbox for the change email address request.</p>
+                <p>You may safely close this window.</p>
             </div>
 
         </div>

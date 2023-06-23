@@ -6,6 +6,7 @@ import { ResetPasswordCompleteComponent } from './reset-password-complete/reset-
 import { ResetPasswordRoutingModule } from './reset-password-routing.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LoadButtonModule } from 'src/app/global-shared/components/load-button/load-button.module';
+import { FocusModule } from 'src/app/global-shared/directives/focus/focus.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { LoadButtonModule } from 'src/app/global-shared/components/load-button/l
     ResetPasswordComponent
   ],
   providers: [],
-  imports: [FontAwesomeModule, ResetPasswordRoutingModule, ComponentsModule, RouterModule, LoadButtonModule],
+  imports: [FontAwesomeModule, ResetPasswordRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, FocusModule],
   exports: []
 })
 export class ResetPasswordModule { }

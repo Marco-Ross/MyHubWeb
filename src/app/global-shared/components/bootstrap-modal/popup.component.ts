@@ -62,13 +62,15 @@ export class PopupComponent
         componentRef.changeDetectorRef.detectChanges();
     }
 
-    dismiss()
+    dismiss(event: any)
     {
         this.activeModal.dismiss();
+        event.stopPropagation();
     }
 
     close()
     {
-        this.activeModal.close(this.result);
+        if (this.popupFG.valid)
+            this.activeModal.close(this.result);
     }
 }
