@@ -4,4 +4,5 @@ export interface IRegisterUser
     username: string;
     password: string;
     profileImage: string;
+    theme: string;
 }

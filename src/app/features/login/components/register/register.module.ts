@@ -6,11 +6,12 @@ import { RegisterCompleteComponent } from './register-complete/register-complete
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoadButtonModule } from 'src/app/global-shared/components/load-button/load-button.module';
 import { UploadModule } from 'src/app/global-shared/components/upload-component/upload.module';
+import { FocusModule } from 'src/app/global-shared/directives/focus/focus.module';
 
 @NgModule({
   declarations: [RegisterComponent, RegisterCompleteComponent],
   providers: [],
-  imports: [FontAwesomeModule, RegisterRoutingModule, ComponentsModule, LoadButtonModule, UploadModule],
+  imports: [FontAwesomeModule, RegisterRoutingModule, ComponentsModule, LoadButtonModule, UploadModule, FocusModule],
   exports: []
 })
 export class RegisterModule { }

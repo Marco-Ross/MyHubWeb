@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication-serv
 import { PasswordValidator } from 'src/app/features/login/components/register/password-matching.validator';
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
 import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
+import { ThemeConstants } from 'src/app/global-shared/constants/theme.constants';
 
 @Component({
   selector: 'register',
@@ -61,6 +62,7 @@ export class RegisterComponent
     }
 
     registerUser.profileImage = this.profileImage;
+    registerUser.theme = ThemeConstants.SystemTheme;
 
     this.authenticationService.Register(registerUser).subscribe({
       next: _ =>
