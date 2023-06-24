@@ -7,6 +7,7 @@ import { ResetPasswordRoutingModule } from './reset-password-routing.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LoadButtonModule } from 'src/app/global-shared/components/load-button/load-button.module';
 import { FocusModule } from 'src/app/global-shared/directives/focus/focus.module';
+import { InfoFooterModule } from 'src/app/global-shared/components/info-footer/info-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { FocusModule } from 'src/app/global-shared/directives/focus/focus.module
     ResetPasswordComponent
   ],
   providers: [],
-  imports: [FontAwesomeModule, ResetPasswordRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, FocusModule],
+  imports: [FontAwesomeModule, ResetPasswordRoutingModule, ComponentsModule, RouterModule, LoadButtonModule, FocusModule, InfoFooterModule],
   exports: []
 })
 export class ResetPasswordModule { }
