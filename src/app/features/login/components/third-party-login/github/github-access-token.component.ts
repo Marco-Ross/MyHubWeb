@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 import { LocalStorageOAuthStorage } from 'src/app/global-shared/services/localStorage/services/oauth-local-storage';
-import { FacebookAuthService } from './facebook-login.service';
-import { FacebookAccessOptions } from './classes/facebook-access-options.class';
+import { GithubAuthService } from './github-login.service';
+import { GithubAccessOptions } from './classes/github-access-options.class';
 
 @Component({
-    selector: 'facebook-access-token',
-    templateUrl: 'facebook-access-token.component.html',
-    styleUrls: ['facebook-access-token.component.scss']
+    selector: 'github-access-token',
+    templateUrl: 'github-access-token.component.html',
+    styleUrls: ['github-access-token.component.scss']
 })
-export class FacebookAccessTokenComponent
+export class GithubAccessTokenComponent
 {
-    constructor(private facebookAuthService: FacebookAuthService, private router: Router, private route: ActivatedRoute,
+    constructor(private githubAuthService: GithubAuthService, private router: Router, private route: ActivatedRoute,
         private themeRenderer: ThemeRenderer, private localStorageOAuthStorage: LocalStorageOAuthStorage) { }
 
     formSubmitErrors: string = '';
@@ -22,9 +22,9 @@ export class FacebookAccessTokenComponent
     {
         let nonce = this.localStorageOAuthStorage.getItem('nonce');
 
-        let facebookAccessOptions = new FacebookAccessOptions(this.route.snapshot.queryParams['code'], this.route.snapshot.queryParams['state']);
+        let githubAccessOptions = new GithubAccessOptions(this.route.snapshot.queryParams['code'], this.route.snapshot.queryParams['state']);
 
-        if (!nonce || nonce !== facebookAccessOptions.state)
+        if (!nonce || nonce !== githubAccessOptions.state)
         {
             this.loginStatus = false;
             this.formSubmitErrors = "Your login state comes from an invalid source. Cannot continue.";
@@ -33,7 +33,7 @@ export class FacebookAccessTokenComponent
 
         this.localStorageOAuthStorage.removeItem('nonce');
 
-        this.facebookAuthService.FacebookAccessToken(facebookAccessOptions).subscribe({
+        this.githubAuthService.GithubAccessToken(githubAccessOptions).subscribe({
             next: _ =>
             {
                 this.loginStatus = true;

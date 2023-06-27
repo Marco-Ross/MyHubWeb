@@ -11,9 +11,13 @@ export const googleAuthConfig: AuthConfig = {
     disablePKCE: true
 };
 
-export const facebookAuthConfig: AuthConfig = {
-    clientId: '1625894287930451',
+export const gitHubAuthConfig: AuthConfig = {
+    issuer: 'https://token.actions.githubusercontent.com',
+    clientId: '3b4c7a8b75ad6445e73f',
     responseType: 'code',
-    redirectUri: window.location.origin + '/facebook/complete',
-    scope: 'public_profile%20email'
+    redirectUri: window.location.origin + '/github/complete',
+    scope: 'read:user%20user:email',
+    strictDiscoveryDocumentValidation: false,
+    showDebugInformation: true,
+    disablePKCE: true
 };

@@ -14,6 +14,7 @@
     --card-background: #{$bg-white};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-White.png");
+    --github-logo: url('../assets/icons/github-mark.png');
     --caret: #{lighten($dark-color, 15%)};
     --caret-active: #{$black};
     --action-list-selected: #{$selected-light};
@@ -32,6 +33,7 @@
     --card-background: #{$dark-contrast-color};
     --card-header: #{$bg-tint};
     --theme-logo: url("../assets/images/logo/MH-Black.png");
+    --github-logo: url("../assets/icons/github-mark-white.png");
     --caret: #{$caret};
     --caret-active: #{$caret-active};
     --action-list-selected: #{$selected-dark};
@@ -93,6 +95,11 @@ body
     .logo
     {
         content: var(--theme-logo);
+    }
+
+    .github-logo
+    {
+        content: var(--github-logo);
     }
 
     .ngb-dp-header

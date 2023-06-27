@@ -1,4 +1,4 @@
-export class FacebookAccessOptions
+export class GithubAccessOptions
 {
     public code: string;
     public state: string;

@@ -39,8 +39,8 @@ const routes: Routes = [
         loadChildren: () => import('./features/login/components/third-party-login/google/google-access-token.module').then(m => m.GoogleAccessTokenModule)
       },
       {
-        path: 'facebook',
-        loadChildren: () => import('./features/login/components/third-party-login/facebook/facebook-access-token.module').then(m => m.FacebookAccessTokenModule)
+        path: 'github',
+        loadChildren: () => import('./features/login/components/third-party-login/github/github-access-token.module').then(m => m.GithubAccessTokenModule)
       }
     ]
   },

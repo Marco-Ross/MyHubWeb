@@ -38,21 +38,22 @@
     }
 }
 
-
-.login-with-facebook-btn
+.login-with-github-btn
 {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
     transition: background-color .3s, box-shadow .3s;
-    background-color: #4C69BA;
-    background-image: linear-gradient(#4C69BA, #3B55A0);
-    
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left:8px;
-    padding-right:8px;
-    border: none;
+
+    border: 1px solid transparent;
+    padding: 0.47rem 0.75rem;
     border-radius: 3px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-
+    
+    background-color: #1a1a1a;
+    
     color: white;
     font-size: 14px;
     font-weight: 500;
@@ -62,7 +63,6 @@
     {
         width: 18px;
         height: 18px;
-        margin-bottom: 0.1rem;
         margin-right: 0.5rem;
     }
 
@@ -73,16 +73,17 @@
 
     &:active
     {
-        background-color: #eeeeee;
+        background-color: #0e0e0e;
     }
 
     &:focus
     {
         outline: none;
+        border-color: #555555;
         box-shadow:
             0 -1px 0 rgba(0, 0, 0, .04),
             0 2px 4px rgba(0, 0, 0, .25),
-            0 0 0 3px #c8dafc;
+            0 0 0 2px #555555;
     }
 
     &:disabled
@@ -96,13 +97,15 @@
 
 .login-with-google-btn
 {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
     transition: background-color .3s, box-shadow .3s;
 
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left:8px;
-    padding-right:8px;
-    border: none;
+    border: 1px solid transparent;
+    padding: 0.47rem 0.75rem;
     border-radius: 3px;
     box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
 
@@ -115,7 +118,6 @@
     {
         width: 18px;
         height: 18px;
-        margin-bottom: 0.1rem;
         margin-right: 0.5rem;
     }
 
@@ -132,10 +134,11 @@
     &:focus
     {
         outline: none;
+        border-color: #c8dafc;
         box-shadow:
             0 -1px 0 rgba(0, 0, 0, .04),
             0 2px 4px rgba(0, 0, 0, .25),
-            0 0 0 3px #c8dafc;
+            0 0 0 2px #c8dafc;
     }
 
     &:disabled

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FacebookAccessOptions } from './classes/facebook-access-options.class';
+import { GithubAccessOptions } from './classes/github-access-options.class';
 
 @Injectable()
-export class FacebookAuthService
+export class GithubAuthService
 {
-  ApiController: string = "FacebookAuth";
+  ApiController: string = "GithubAuth";
 
   constructor(private http: HttpClient) { }
 
-  FacebookAccessToken(accessOptions: FacebookAccessOptions)
+  GithubAccessToken(accessOptions: GithubAccessOptions)
   {
     return this.http.post(this.ApiController + '/AccessToken', accessOptions);
   }
