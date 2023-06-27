@@ -7,7 +7,7 @@ import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { ThemeRenderer } from 'src/app/global-shared/services/theme/theme.renderer';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { facebookAuthConfig, googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
+import { gitHubAuthConfig, googleAuthConfig } from 'src/app/global-shared/constants/oauth.config';
 import { WindowRefService } from 'src/app/global-shared/services/window/window-ref.service';
 import { v4 as uuidv4 } from 'uuid';
 import { LocalStorageOAuthStorage } from 'src/app/global-shared/services/localStorage/services/oauth-local-storage';
@@ -87,12 +87,12 @@ export class LoginComponent
     });
   }
 
-  facebookLogin()
+  githubLogin()
   {
     let nonce = uuidv4();
     this.localStorageOAuthStorage.setItem('nonce', nonce);
     
     this.windowRefService.nativeWindow.location.href =
-      `https://www.facebook.com/v17.0/dialog/oauth?client_id=${facebookAuthConfig.clientId}&redirect_uri=${facebookAuthConfig.redirectUri}&state=${nonce}&scope=${facebookAuthConfig.scope}`;
+      `https://github.com/login/oauth/authorize?client_id=${gitHubAuthConfig.clientId}&redirect_uri=${gitHubAuthConfig.redirectUri}&state=${nonce}&scope=${gitHubAuthConfig.scope}`;
   }
 }

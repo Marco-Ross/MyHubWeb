@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FacebookAccessTokenComponent } from './facebook-access-token.component';
+import { GithubAccessTokenComponent } from './github-access-token.component';
 
 const routes: Routes = [
-  { path: 'complete', component: FacebookAccessTokenComponent }
+  { path: 'complete', component: GithubAccessTokenComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FacebookAccessTokenRoutingModule { }
+export class GithubAccessTokenRoutingModule { }
