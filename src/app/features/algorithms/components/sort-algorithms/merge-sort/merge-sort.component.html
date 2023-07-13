@@ -4,9 +4,78 @@
             <h4>Merge Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(n log n)</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>Merge sort is defined as a sorting algorithm that works by dividing an array into smaller subarrays, sorting each
+        subarray, and then merging the sorted subarrays back together to form the final sorted array.</p>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <p>Lets consider an array arr[] = &#123;38, 27, 43, 10&#125;</p>
+
+    <ul>
+        <li>Initially, the first two elements of the array are compared in insertion sort.</li>
+    </ul>
+
+    <img class="merge-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/merge-sort/merge-sort-1.png" />
+
+    <ul>
+        <li>These subarrays are further divided into two halves. Now they become array of unit length that can no longer
+            be divided and array of unit length are always sorted.</li>
+    </ul>
+    <img class="merge-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/merge-sort/merge-sort-2.png" />
+    <ul>
+        <li>
+            These sorted subarrays are merged together, and we get bigger sorted subarrays.
+        </li>
+    </ul>
+    <img class="merge-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/merge-sort/merge-sort-3.png" />
+
+    <ul>
+        <li>
+            This merging process is continued until the sorted array is built from the smaller subarrays.
+        </li>
+    </ul>
+    <img class="merge-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/merge-sort/merge-sort-4.png" />
+    
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Merge sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="mergeSort()">Merge Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
+
+
 </form>

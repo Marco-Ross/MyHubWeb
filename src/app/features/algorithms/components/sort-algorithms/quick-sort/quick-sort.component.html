@@ -4,9 +4,101 @@
             <h4>Quick Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(log n)</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>QuickSort is a sorting algorithm based on the Divide and Conquer algorithm that picks an element as a pivot and
+        partitions the given array around the picked pivot by placing the pivot in its correct position in the sorted
+        array.</p>
+
+    <p>The key process in quickSort is a partition(). The target of partitions is to place the pivot (any element can be
+        chosen to be a pivot) at its correct position in the sorted array and put all smaller elements to the left of
+        the pivot, and all greater elements to the right of the pivot.</p>
+
+    <p>Partition is done recursively on each side of the pivot after the pivot is placed in its correct position and
+        this finally sorts the array.</p>
+
+    <img class="quicksort-image-overview mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-1.png" />
+
+    <h4 class="mt-4 mb-2">Choice of Pivot:</h4>
+    There are many different choices for picking pivots.
+
+    <ul class="pivot-options">
+        <li> Always pick the first element as a pivot.</li>
+        <li> Always pick the last element as a pivot (implemented below)</li>
+        <li> Pick a random element as a pivot.</li>
+        <li>Pick the middle as the pivot.</li>
+    </ul>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <p>Consider: arr[] = &#123;10, 80, 30, 90, 40&#125;.</p>
+
+    <ul>
+        <li>Compare 10 with the pivot and as it is less than pivot arrange it accrodingly.</li>
+    </ul>
+
+    <img class="quicksort-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-2.png" />
+
+    <ul>
+        <li>Compare 80 with the pivot. It is greater than pivot.</li>
+    </ul>
+
+    <img class="quicksort-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-3.png" />
+
+    <ul>
+        <li>Compare 30 with pivot. It is less than pivot so arrange it accordingly.</li>
+    </ul>
+
+    <img class="quicksort-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-4.png" />
+
+    <ul>
+        <li>Compare 90 with the pivot. It is greater than the pivot.</li>
+    </ul>
+
+    <img class="quicksort-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-5.png" />
+
+    <ul>
+        <li>Arrange the pivot in its correct position.</li>
+    </ul>
+
+    <img class="quicksort-image mt-2 mb-4" src="assets/images/algorithms/sort-algorithms/quick-sort/quick-sort-6.png" />
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Quick sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="quickSortExecute()">Quick Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
 </form>

@@ -1,0 +1,124 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.image-comments
+{
+    height: 23rem;
+}
+
+.comment-date
+{
+    font-size: 12px;
+}
+
+.profile-image
+{
+    width: 2.66rem;
+    height: 2.66rem;
+    border-radius: 50%;
+}
+
+.comments
+{
+    overflow-y: scroll;
+    height: 21.8rem;
+}
+
+.comments-seperator
+{
+    display: none;
+}
+
+.add-comment
+{
+    display: flex;
+
+    .form-control
+    {
+        background-color: unset;
+        border: unset;
+        font-size: 16px;
+        padding: 0px;
+        padding-right: 0.3rem;
+    }
+
+    .form-control:focus
+    {
+        box-shadow: unset;
+    }
+
+    padding-top: 0.2rem;
+
+    .post-load
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1.5rem;
+    }
+}
+
+.loader-bars
+{
+    color: rgba(233, 104, 19, 0.884);
+    background-color: rgba(233, 104, 19, 0.884);
+
+    &:before,
+    &:after
+    {
+        background-color: rgba(233, 104, 19, 0.884);
+    }
+
+    font-size: 2px;
+}
+
+.comment-divider
+{
+    display: flex;
+
+    hr
+    {
+        opacity: 0.1;
+        width: 100%;
+    }
+}
+
+.image-info
+{
+    font-size: 14px;
+    width: 100%;
+
+    .liked
+    {
+        color: rgb(255, 48, 64);
+    }
+
+    .add-comment
+    {
+        display: flex;
+        margin-top: 0.1rem;
+
+        .form-control
+        {
+
+            background-color: unset;
+            border: unset;
+            font-size: 13px;
+            padding: 0px;
+            padding-right: 0.3rem;
+        }
+
+        .form-control:focus
+        {
+            box-shadow: unset;
+        }
+    }
+}
+
+
+@include media-breakpoint-down(lg)
+{
+    .comments-seperator
+    {
+        display: block;
+    }
+}

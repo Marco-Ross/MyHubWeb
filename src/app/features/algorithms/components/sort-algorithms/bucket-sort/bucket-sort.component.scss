@@ -1,0 +1,88 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.bg-white
+{
+    height: 5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+
+    .bucket-image
+    {
+        height: 5rem;
+        width: 24rem;
+    }
+}
+
+.bg-white-3
+{
+    height: 5rem;
+    width: 34rem;
+    border-radius: 0.5rem;
+
+    .bucket-image
+    {
+        height: 5rem;
+        width: 34rem;
+    }
+}
+
+.bg-white-4
+{
+    height: 10rem;
+    width: 31rem;
+    border-radius: 0.5rem;
+
+    .bucket-image
+    {
+        height: 10rem;
+        width: 31rem;
+    }
+}
+
+.bg-white-5, .bg-white-6
+{
+    height: 5rem;
+    width: 27rem;
+    border-radius: 0.5rem;
+
+    .bucket-image
+    {
+        height: 5rem;
+        width: 27rem;
+    }
+}
+
+.bg-white-7
+{
+    height: 10rem;
+    width: 33rem;
+    border-radius: 0.5rem;
+
+    .bucket-image
+    {
+        height: 10rem;
+        width: 33rem;
+    }
+}
+
+.bg-white-overview
+{
+    height: 23rem;
+    width: 30rem;
+    border-radius: 0.5rem;
+
+    .bucket-image-overview
+    {
+        height: 23rem;
+        width: 30rem;
+    }
+}
+
+@include media-breakpoint-down(md)
+{
+    .bucket-image
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

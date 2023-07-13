@@ -10,11 +10,11 @@
 <div [hidden]="hideCropper || incorrectFile" class="row">
     <div class="text-center col-md-6">
         <h5>Crop Image</h5>
-        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
-            [resizeToWidth]="220" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="options.data.aspectRatio"
+            [resizeToWidth]="options.data.resizeToWidth" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
     </div>
-    <div class="text-center col-md-6">
+    <div class="text-center col-md-6" [ngClass]="{'useRound': options.data.useRound}">
         <h5>Preview</h5>
         <img [src]="croppedImage" />
     </div>

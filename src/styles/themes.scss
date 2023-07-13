@@ -19,6 +19,10 @@
     --caret-active: #{$black};
     --action-list-selected: #{$selected-light};
     --disabled-input: #{$disabled-input-light};
+    --modal-background: #{$light-color};
+    --gallery-card-background: #{$gallery-card-background-light};
+    --scroll-track: #{$scroll-light};
+    --scroll-thumb: #{$scroll-dark};
 }
 
 .dark-theme
@@ -38,6 +42,10 @@
     --caret-active: #{$caret-active};
     --action-list-selected: #{$selected-dark};
     --disabled-input: #{$disabled-input-dark};
+    --modal-background: #{$dark-color};
+    --gallery-card-background: #{$gallery-card-background-dark};
+    --scroll-track: #{$scroll-dark};
+    --scroll-thumb: #{$scroll-light};
 
     nav
     {
@@ -47,6 +55,11 @@
     .dropdown-menu
     {
         @include dropdown-menu;
+    }
+
+    .btn-close
+    {
+        filter: invert(1) grayscale(100%) brightness(200%);
     }
 
     @include calendar;
@@ -84,12 +97,16 @@ body
         text-decoration: underline;
     }
 
-    .card,
-    .modal-content
+    .card
     {
         background-color: var(--card-background);
 
         @include button(--button-card-color);
+    }
+
+    .gallery-card
+    {
+        background-color: var(--gallery-card-background);
     }
 
     .logo
@@ -113,14 +130,28 @@ body
         color: var(--text-color);
     }
 
+    .modal-backdrop
+    {
+        &.show
+        {
+            opacity: 0.7;
+        }
+    }
+
     .modal-content
     {
+        background-color: var(--modal-background);
+
         .modal-header
         {
             background-color: var(--card-header);
+            border-bottom-color: #40464a;
         }
 
-        background-color: var(--card-background);
+        .modal-footer
+        {
+            border-top-color: #40464a;
+        }
     }
 
     .dropzone
@@ -175,5 +206,32 @@ body
     .form-control:disabled
     {
         background-color: var(--disabled-input);
+    }
+
+    nav
+    {
+        background-color: var(--background-color);
+    }
+
+    .hub-scroll
+    {
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: var(--scroll-track);
+        }
+
+        ::-webkit-scrollbar
+        {
+            width: 5px;
+            background-color: var(--scroll-track);
+        }
+
+        ::-webkit-scrollbar-thumb
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: var(--scroll-thumb);
+        }
     }
 }

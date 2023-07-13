@@ -16,6 +16,8 @@
 
     .left
     {
+        max-width: 22rem;
+        min-width: 12rem;
         padding-right: 0.8rem;
 
         .sticky-algorithms
@@ -23,7 +25,7 @@
             max-height: calc(100vh - 17px);
             overflow-y: auto;
             position: sticky;
-            top: 1rem;
+            top: 4.5rem;
 
             ul
             {
@@ -35,8 +37,15 @@
     .right
     {
         margin-top: 0.8rem;
-        padding-right: 6rem;
-        max-width: 65rem;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: center;
+
+        .right-inner
+        {
+            width: 100%;
+            max-width: 65rem;
+        }
     }
 }
 

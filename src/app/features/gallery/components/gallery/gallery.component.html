@@ -1,0 +1,116 @@
+<form novalidate [formGroup]="galleryFG">
+    <div class="header mt-2 mb-4">
+        <div class="right">
+            <button *ngIf="isAdmin" type="button" class="button me-2" (click)="addImage()"
+                [disabled]="filterOptions.sorting.dateAscending || filterOptions.filters.isLiked">Add image</button>
+            <button type="button" class="button me-2" (click)="viewLiked();"
+                [ngClass]="{'button-orange': filterOptions.filters.isLiked}">My Likes</button>
+            <button type="button" class="button" (click)="sortByDate()"
+                [ngClass]="{'button-orange': filterOptions.sorting.dateAscending}">
+                Sort by date
+                <fa-icon *ngIf="!filterOptions.sorting.dateAscending" [icon]="faCaretDown" size="sm"></fa-icon>
+                <fa-icon *ngIf="filterOptions.sorting.dateAscending" [icon]="faCaretUp" size="sm"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <div class="image-container">
+        <div *ngIf="!images.length" class="text-grey mt-5">
+            <h3>No Images To Display.</h3>
+        </div>
+       
+
+        <ng-container *ngIf="images.length">
+            <div class="no-images text-grey mt-5">
+                <h3>No images to show.</h3>
+            </div>
+            <ng-container *ngFor="let image of images; let $index = index">
+                <div *ngIf="filteredItems(image)">
+                    <div class="card gallery-card mb-4">
+                        <div class="card-header">
+                            <div class="card-heading mt-1">
+                                <h6 class="mb-0"><span *ngIf="image.caption">{{image.caption}}</span></h6>
+                                <div *ngIf="isAdmin" ngbDropdown>
+                                    <div class="ellipsis">
+                                        <fa-icon ngbDropdownToggle class="clickable" [icon]="faEllipsisH"
+                                            size="lg"></fa-icon>
+                                    </div>
+
+                                    <div ngbDropdownMenu>
+                                        <button type="button" ngbDropdownItem
+                                            (click)="removeImage(image)">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header-content">
+                                <div class="image" [lazyImage]="image" (onImageLoad)="loadImage($event)"><img
+                                        *ngIf="image.imageUrl" [src]="image.imageUrl | safeResourceUrl"></div>
+                                <div *ngIf="!image.imageUrl" class="image-loader">
+                                    <div class="loader" role="status"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row card-body-content ps-0 pe-0 pt-1">
+                                <div class="col-12 d-flex p-0">
+                                    <div class="col-8">
+                                        <p *ngIf="!image.likesCount" class="m-0">0 Likes</p>
+                                        <p *ngIf="image.likesCount === 1" class="m-0">Liked by
+                                            <b>{{image.likedUsers[0].username}}</b>
+                                        </p>
+                                        <p *ngIf="image.likesCount === 2" class="m-0">Liked by
+                                            <b>{{image.likedUsers[0].username}}</b> and <b>{{image.likesCount-1}}
+                                                other</b>
+                                        </p>
+                                        <p *ngIf="image.likesCount > 2" class="m-0">Liked by
+                                            <b>{{image.likedUsers[0].username}}</b>
+                                            and <b>{{image.likesCount-1}} others</b>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <fa-icon *ngIf="!image.isLiked" class="clickable" [icon]="faHeart" size="lg"
+                                            (click)="like(image)"></fa-icon>
+                                        <fa-icon *ngIf="image.isLiked" class="clickable liked" [icon]="faFullHeart"
+                                            size="lg" (click)="unlike(image)"></fa-icon>
+                                    </div>
+                                </div>
+                                <div class="col-12 p-0">
+                                    <fa-icon [icon]="faCalendar" size="xs"></fa-icon>
+                                    &nbsp;{{image.dateUploaded | date}}
+                                </div>
+
+                                <div class="col-12 p-0 pb-1 text-grey">
+                                    <div *ngIf="!image.commentsCount">0 Comments</div>
+                                    <div (click)="viewComments(image)" *ngIf="image.commentsCount === 1"><span
+                                            class="clickable">View
+                                            {{image.commentsCount}} comment</span></div>
+                                    <div (click)="viewComments(image)" *ngIf="image.commentsCount > 1"><span
+                                            class="clickable">View all
+                                            {{image.commentsCount}} comments</span></div>
+                                </div>
+
+                                <div class="col-12 p-0 add-comment">
+                                    <input *ngIf="image.formControl" class="text-grey form-control"
+                                        [formControlName]="image.id" placeholder="Add a comment..."
+                                        (keydown.enter)="postComment(image)">
+
+                                    <div *ngIf="image.formControl?.value | emptyComment"
+                                        class="text-primary clickable post-load" (click)="postComment(image)">
+
+                                        <div *ngIf="image.isPostingComment" class="loader-bars text-orange"
+                                            role="status">
+                                        </div>
+
+                                        <span *ngIf="!image.isPostingComment">Post</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</form>

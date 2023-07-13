@@ -1,14 +1,15 @@
 <form novalidate [formGroup]="navFG">
     <nav class="navbar navbar-expand-sm ps-3 pe-3 col-12">
         <a class="navbar-brand" [routerLink]="'/'">
-            <div class="logo logo-xs"></div>
+            <div><img class="logo-plain-xs" src="assets/images/logo/MH-Plain.png"></div>
         </a>
 
         <div class="ms-auto right-nav order-sm-last pe-3">
             <div class="profile-image">
                 <div class="caret-container" #profileDropdown="ngbDropdown" ngbDropdown ngbDropdownToggle>
                     <img [src]="navDetails.profileImage | safeResourceUrl" class="clickable profile-image">
-                    <fa-icon class="clickable caret" [icon]="faCaretDown" size="1x" [ngClass]="{'caret-active': profileDropdown.isOpen()}"></fa-icon>  
+                    <fa-icon class="clickable caret" [icon]="faCaretDown" size="1x"
+                        [ngClass]="{'caret-active': profileDropdown.isOpen()}"></fa-icon>
                     <div ngbDropdownMenu>
                         <div class="ps-3 pt-1 pb-1">
                             <label>Logged In As:</label>
@@ -29,14 +30,21 @@
             <div class="left-nav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" [ngClass]="{'active': router.url === '/home'}" [routerLink]="'home'">Work Board</a>
+                        <a class="nav-link" [ngClass]="{'active': router.url === '/home'}" [routerLink]="'home'">Work
+                            Board</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [ngClass]="{'active': router.url === '/gallery'}" [routerLink]="'gallery'">Gallery</a>
+                        <a class="nav-link" [ngClass]="{'active': router.url === '/gallery'}"
+                            [routerLink]="'gallery'">Gallery</a>
                     </li>
-                    <li class="nav-item">     
-                        <a class="nav-link" [ngClass]="{'active': router.url === '/algorithms'}" [routerLink]="'algorithms'">Algorithms</a>
-                    </li>   
+                    <li class="nav-item">
+                        <a class="nav-link" [ngClass]="{'active': router.url === '/algorithms'}"
+                            [routerLink]="'algorithms'">Algorithms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLinkActive]="'active'" [routerLink]="'home/dashboard'" class="nav-link"
+                            type="button">Titbits</a>
+                    </li>
                     <li class="nav-item">
                         <div ngbDropdown>
                             <a class="nav-link clickable" ngbDropdownToggle>
@@ -48,10 +56,6 @@
                                 <button ngbDropdownItem>Something else is here</button>
                             </div>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a [routerLinkActive]="'active'" [routerLink]="'home/dashboard'" class="nav-link"
-                            type="button">Test Dash</a>
                     </li>
                 </ul>
             </div>

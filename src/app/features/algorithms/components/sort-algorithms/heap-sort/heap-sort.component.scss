@@ -1,0 +1,16 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.heap-image
+{
+    height: 15rem;
+    width: 35rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .heap-image
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

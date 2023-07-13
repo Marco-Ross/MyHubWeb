@@ -1,0 +1,16 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.selection-image
+{
+    height: 14rem;
+    width: 36rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .selection-image
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

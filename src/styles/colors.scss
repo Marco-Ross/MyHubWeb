@@ -1,4 +1,5 @@
 $black: black;
+$white: white;
 $dark-color: #161616;
 $light-color: #f1f1f1;
 
@@ -17,6 +18,12 @@ $selected-dark: rgba(177,186,196,0.08);
 
 $disabled-input-light: #e9ecef;
 $disabled-input-dark: #1e1e1e;
+
+$gallery-card-background-dark: #1a1a1a;
+$gallery-card-background-light: #ededed;
+
+$scroll-dark:#3b3b3b;
+$scroll-light:#F5F5F5;
 
 //$dark-color
 .text-dark
@@ -54,4 +61,14 @@ $disabled-input-dark: #1e1e1e;
 .text-grey
 {
     color: grey;
+}
+
+.text-orange
+{
+    color: rgba(233, 104, 19, 0.884);
+}
+
+.bg-orange
+{
+    background-color: rgba(233, 104, 19, 0.884);
 }

@@ -116,7 +116,7 @@ export class AccountSettingsComponent
 
   uploadImage()
   {
-    this.uploadService.UploadImageCrop({ title: 'Upload A New Profile Image' }).then((image) =>
+    this.uploadService.UploadProfileImageCrop('Upload A New Profile Image').then((image) =>
     {
       this.profileImage = image.croppedImageEvent;
       this.imageUploaded = true;
