@@ -92,12 +92,12 @@ export class HomeComponent
 
     private setUpdatedFields(updatedWorkItem: any)
     {
-        let flattenedWorkItems = this.workItems.map((x: any) => x.stateList).flat(1)
+        let flattenedWorkItems = this.workItems.map((x: any) => x.stateList).flat(1);
 
         let updatedWorkItemIndex = flattenedWorkItems.findIndex((x: any) => x.id === updatedWorkItem.resource.workItemId);
 
         if (updatedWorkItemIndex < 0)
-            return;
+            return flattenedWorkItems;
 
         Object.keys(updatedWorkItem.resource.fields).forEach(key =>
         {
