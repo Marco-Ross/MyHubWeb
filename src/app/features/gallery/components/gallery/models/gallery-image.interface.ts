@@ -16,9 +16,11 @@ export interface IImage
     caption: string;
     dateUploaded: Date;
     imageUrl: string;
+    selectedImageUrl: string;
     isPostingComment: boolean;
     filters: IImageFilters;
     formControl: AbstractControl;
+    comments: ICommentingUser[]
 }
 
 export interface IImageFilters

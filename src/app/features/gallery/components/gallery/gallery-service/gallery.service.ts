@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { galleryImage } from '../models/gallery-image.class';
 import { Observable } from 'rxjs';
 import { IImage, IImageForPopup, IImageResponse } from '../models/gallery-image.interface';
+import { ToastrService } from 'ngx-toastr';
+import { likedUser } from '../models/liked-user.class';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Injectable()
 export class GalleryImagesService
 {
     private readonly ApiController: string = 'Gallery';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private toastr: ToastrService) { }
 
     getIsAdmin(): Observable<any>
     {
@@ -41,12 +44,12 @@ export class GalleryImagesService
         return this.http.delete(this.ApiController + '/' + imageId);
     }
 
-    likeImage(imageId: string): Observable<any>
+    private likeImageApi(imageId: string): Observable<any>
     {
         return this.http.post(this.ApiController + '/Like', { imageId: imageId });
     }
 
-    unlikeImage(imageId: string): Observable<any>
+    private unlikeImageApi(imageId: string): Observable<any>
     {
         return this.http.post(this.ApiController + '/Unlike', { imageId: imageId });
     }
@@ -56,21 +59,57 @@ export class GalleryImagesService
         return this.http.post(this.ApiController + '/Comment', { imageId: imageId, comment: comment });
     }
 
-    postComment(image: IImage)
+    like(image: IImage)
     {
-        image.isPostingComment = true;
-
-        this.postCommentApi(image.id, image.formControl.value).subscribe({
+        image.likesCount++;
+        image.isLiked = true;
+        image.likedUsers.unshift(new likedUser('', 'You'));
+        this.likeImageApi(image.id).subscribe({
             next: _ =>
             {
-                image.formControl.setValue(undefined);
-                image.commentsCount++;
-                image.isPostingComment = false;
             },
             error: _ =>
             {
-                image.formControl.setValue(undefined);
+                this.toastr.error("The image may have been removed. Actions limited.");
+            }
+        });
+    }
+
+    unlike(image: IImage)
+    {
+        image.likesCount--;
+        image.isLiked = false;
+        image.filters.isLiked = false;
+        image.likedUsers.splice(0, 1);
+        this.unlikeImageApi(image.id).subscribe({
+            next: _ =>
+            {
+
+            },
+            error: _ =>
+            {
+                this.toastr.error("The image may have been removed. Actions limited.");
+            }
+        });
+    }
+
+    postComment(image: IImage, formControl: AbstractControl)
+    {
+        image.isPostingComment = true;
+
+        this.postCommentApi(image.id, formControl.value).subscribe({
+            next: (comment) =>
+            {
+                formControl.setValue(undefined);
+                image.commentsCount++;
                 image.isPostingComment = false;
+                image.comments.unshift(comment);
+            },
+            error: _ =>
+            {
+                formControl.setValue(undefined);
+                image.isPostingComment = false;
+                this.toastr.error("The image may have been removed. Actions limited.");
             }
         });
     }

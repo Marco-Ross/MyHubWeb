@@ -233,6 +233,10 @@
           {
             box-shadow: unset;
           }
+          .form-control::placeholder
+          {
+            color: grey;
+          }
 
           padding-top: 0.2rem;
 

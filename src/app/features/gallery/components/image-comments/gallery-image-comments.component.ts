@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { GalleryImageCommentsService } from './gallery-image-comments.service';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ICommentingUser, IImage, IImageForPopup } from '../gallery/models/gallery-image.interface';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { GalleryImagesService } from '../gallery/gallery-service/gallery.service';
 import { faHeart as faFullHeart, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { likedUser } from '../gallery/models/liked-user.class';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'gallery-image-comments',
@@ -15,8 +14,8 @@ import { likedUser } from '../gallery/models/liked-user.class';
 })
 export class GalleryImageCommentsComponent
 {
-    constructor(private formBuilder: FormBuilder, private galleryImageCommentsService: GalleryImageCommentsService,
-        private profileImageService: ProfileImageService, private galleryImagesService: GalleryImagesService) { }
+    constructor(private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private galleryImagesService: GalleryImagesService,
+        private toastr: ToastrService) { }
 
     @Output() popupForm = new EventEmitter<FormGroup>;
     @Input() options: any;
@@ -30,6 +29,7 @@ export class GalleryImageCommentsComponent
     galleryImageCommentsFG!: FormGroup;
     defaultProfileImage = 'assets/icons/user-thin.png';
     userProfilePictures: Record<string, string> = {};
+    // selectedImage!: string;
 
     ngOnInit()
     {
@@ -38,6 +38,8 @@ export class GalleryImageCommentsComponent
         });
 
         this.popupForm.emit(this.galleryImageCommentsFG);
+        
+        // this.loadImage(this.options.data);
 
         this.galleryImagesService.getImagePopupData(this.options.data.id).subscribe({
             next: (imagePopupData: IImageForPopup) =>
@@ -46,17 +48,31 @@ export class GalleryImageCommentsComponent
                 this.options.data.comments = imagePopupData.galleryImageComments;
                 this.options.data.likedUsers = imagePopupData.likedUsers;
                 this.options.data.likesCount = imagePopupData.likesCount;
+            },
+            error: () =>
+            {
+                this.toastr.error("The image may have been removed. Actions limited.");
             }
         });
     }
 
     //////
 
+    // loadImage(image: IImage)
+    // {
+    //     if (!image.id)
+    //         return;
+
+    //     this.galleryImagesService.getImage(image.id).subscribe({
+    //         next: (imageBlob) =>
+    //         {
+    //             this.selectedImage = URL.createObjectURL(imageBlob);
+    //         }
+    //     });
+    // }
+
     getProfileImage(comment: ICommentingUser)
     {
-        if (this.userProfilePictures[comment.userId])
-            return comment.profileImage = this.userProfilePictures[comment.userId];
-
         return this.profileImageService.GetUserProfileImageById(comment.userId).subscribe({
             next: (image) =>
             {
@@ -81,35 +97,24 @@ export class GalleryImageCommentsComponent
         if (this.isCommentEmpty())
             return;
 
-        this.galleryImagesService.postComment(this.options.data);
+        this.galleryImagesService.postComment(this.options.data, this.galleryImageCommentsFG.get('comment') as AbstractControl);
     }
 
     like(image: IImage)
     {
-        image.likesCount++;
-        image.isLiked = true;
-        image.likedUsers.unshift(new likedUser('', 'You'));
-        this.galleryImagesService.likeImage(image.id).subscribe({
-            next: _ =>
-            {
-
-            }
-        });
+        this.galleryImagesService.like(image);
     }
 
     unlike(image: IImage)
     {
-        image.likesCount--;
-        image.isLiked = false;
-        image.filters.isLiked = false;
-        image.likedUsers.splice(0, 1);
-        this.galleryImagesService.unlikeImage(image.id).subscribe({
-            next: _ =>
-            {
-
-            }
-        });
+        this.galleryImagesService.unlike(image);
     }
 
-    //share some services
+    ngOnDestroy()
+    {
+        this.options.data.comments.forEach((comment: ICommentingUser) =>
+        {
+            URL.revokeObjectURL(comment.profileImage);
+        });
+    }
 }

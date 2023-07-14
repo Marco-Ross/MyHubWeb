@@ -6,13 +6,11 @@ import { UploadService } from 'src/app/global-shared/components/upload-component
 import { GalleryImagesService } from './gallery-service/gallery.service';
 import { galleryImage } from './models/gallery-image.class';
 import { IImage, IImageFilters } from './models/gallery-image.interface';
-import { likedUser } from './models/liked-user.class';
 import { PopupService } from 'src/app/global-shared/components/bootstrap-modal/popup.service';
 import { GalleryImageCommentsComponent } from '../image-comments/gallery-image-comments.component';
 import { GalleryImageCommentsModule } from '../image-comments/gallery-image-comments.module';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/filters.interface';
-
 
 @Component({
     selector: 'gallery',
@@ -21,7 +19,8 @@ import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/
 })
 export class GalleryComponent
 {
-    constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService, private popupService: PopupService) { }
+    constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService,
+        private popupService: PopupService) { }
 
     faHeart = faHeart;
     faFullHeart = faFullHeart;
@@ -115,36 +114,25 @@ export class GalleryComponent
         this.galleryImagesService.removeImage(image.id).subscribe({
             next: _ =>
             {
-                let index = this.images.findIndex(x => x.id === image.id);
-                this.images.splice(index, 1);
+                this.removeImageByIndex(image);
             }
         });
+    }
+
+    removeImageByIndex(image: IImage)
+    {
+        let index = this.images.findIndex(x => x.id === image.id);
+        this.images.splice(index, 1);
     }
 
     like(image: IImage)
     {
-        image.likesCount++;
-        image.isLiked = true;
-        image.likedUsers.unshift(new likedUser('', 'You'));
-        this.galleryImagesService.likeImage(image.id).subscribe({
-            next: _ =>
-            {
-
-            }
-        });
+        this.galleryImagesService.like(image);
     }
 
     unlike(image: IImage)
     {
-        image.likesCount--;
-        image.isLiked = false;
-        image.filters.isLiked = false;
-        image.likedUsers.splice(0, 1);
-        this.galleryImagesService.unlikeImage(image.id).subscribe({
-            next: _ =>
-            {
-            }
-        });
+        this.galleryImagesService.unlike(image);
     }
 
     isValueEmpty(comment: string | null)
@@ -160,7 +148,7 @@ export class GalleryComponent
         if (this.isValueEmpty(image.formControl.value) || image.isPostingComment)
             return;
 
-        this.galleryImagesService.postComment(image);
+        this.galleryImagesService.postComment(image, image.formControl);
     }
 
     viewComments(image: IImage)
@@ -175,8 +163,6 @@ export class GalleryComponent
         {
         }, () =>
         {
-            let index = this.images.findIndex(x => x.id === image.id);
-            this.images.splice(index, 1);
         });
     }
 
@@ -189,6 +175,7 @@ export class GalleryComponent
             next: (imageBlob) =>
             {
                 image.imageUrl = URL.createObjectURL(imageBlob);
+                image.selectedImageUrl = URL.createObjectURL(imageBlob);
             }
         });
     }
@@ -235,4 +222,12 @@ export class GalleryComponent
 
         return isFilteredItem;
     }
+
+    // ngOnDestroy()
+    // {
+    //     this.images.forEach((image: IImage) =>
+    //     {
+    //         URL.revokeObjectURL(image.imageUrl);
+    //     });
+    // }
 }
