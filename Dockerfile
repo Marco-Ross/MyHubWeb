@@ -5,7 +5,7 @@ COPY package.json package-lock.json ./
 RUN npm i -g @angular/cli
     
 # Install app dependencies:
-RUN npm i 
+RUN npm i --legacy-peer-deps
     
 COPY . .
 RUN ng build --configuration production
