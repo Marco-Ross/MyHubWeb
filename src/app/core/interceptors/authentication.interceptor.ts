@@ -1,7 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-
 import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication-service/authentication.service';
@@ -21,7 +20,7 @@ export class AuthenticationInterceptor implements HttpInterceptor
         let modifiedReq = req;
 
         let forgeryToken = this.cookieService.get('X-Forgery-Token');
-        
+
         if (forgeryToken)
             modifiedReq = req.clone({
                 headers: req.headers.set("X-Forgery-Token", forgeryToken),
@@ -30,13 +29,17 @@ export class AuthenticationInterceptor implements HttpInterceptor
         if (modifiedReq.url.includes('Authentication/Refresh'))
             return next.handle(modifiedReq);
 
-        return next.handle(modifiedReq).pipe(catchError(errorResponse =>
-        {
-            if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 401)
-                return from(this.handleUnauthenticatedError(modifiedReq, next));
+        if (this.isRefreshing)
+            return this.handleUnauthenticatedError(modifiedReq, next);
 
-            return throwError(() => errorResponse);
-        }));
+        else
+            return next.handle(modifiedReq).pipe(catchError(errorResponse =>
+            {
+                if (errorResponse instanceof HttpErrorResponse && errorResponse.status === 401)
+                    return this.handleUnauthenticatedError(modifiedReq, next);
+
+                return throwError(() => errorResponse);
+            }));
     }
 
     private handleUnauthenticatedError(request: HttpRequest<any>, next: HttpHandler)

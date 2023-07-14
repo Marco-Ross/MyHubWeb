@@ -4,9 +4,248 @@
             <h4>Insertion Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(n<sup>2</sup>)</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>Insertion sort works similarly as we sort cards in our hand in a card game.</p>
+
+    <p>We assume that the first card is already sorted then, we select an unsorted card. If the unsorted card is greater
+        than the card in hand, it is placed on the right otherwise, to the left. In the same way, other unsorted cards
+        are taken and put in their right place.</p>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <p>Consider an example: arr[]: &#123;12, 11, 13, 5, 6&#125;</p>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>12</td>
+            <td>11</td>
+            <td>13</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <br />
+
+    <b>First Pass:</b>
+
+    <ul class="mt-2">
+        <li>Initially, the first two elements of the array are compared in insertion sort.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>12</td>
+            <td>11</td>
+            <td>13</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+    <ul>
+        <li>Here, 12 is greater than 11 hence they are not in the ascending order and 12 is not at its correct position.
+            Thus, swap 11 and 12.</li>
+        <li>So, for now 11 is stored in a sorted sub-array.</li>
+    </ul>
+    <table class="number-table mb-3">
+        <tr>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <br />
+
+    <b>Second Pass:</b>
+
+    <ul class="mt-2">
+        <li>Now, move to the next two elements and compare them.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+    <ul>
+        <li>Here, 13 is greater than 12, thus both elements seems to be in ascending order, hence, no swapping will
+            occur. 12 also stored in a sorted sub-array along with 11.</li>
+    </ul>
+
+    <br />
+
+    <b>Third Pass:</b>
+
+    <ul class="mt-2">
+        <li>Now, two elements are present in the sorted sub-array which are 11 and 12.</li>
+        <li>Moving forward to the next two elements which are 13 and 5.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Both 5 and 13 are not present at their correct place so swap them.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>11</td>
+            <td>12</td>
+            <td>5</td>
+            <td>13</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>After swapping, elements 12 and 5 are not sorted, thus swap again.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>11</td>
+            <td>5</td>
+            <td>12</td>
+            <td>13</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Here, again 11 and 5 are not sorted, hence swap again.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>5</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Here, 5 is at its correct position.</li>
+    </ul>
+
+    <br />
+
+    <b>Fourth Pass:</b>
+
+    <ul class="mt-2">
+        <li>Now, the elements which are present in the sorted sub-array are 5, 11 and 12.</li>
+        <li>Moving to the next two elements 13 and 6.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>5</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>6</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Clearly, they are not sorted, thus perform swap between both.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>5</td>
+            <td>11</td>
+            <td>12</td>
+            <td>6</td>
+            <td>13</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Now, 6 is smaller than 12, hence, swap again.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>5</td>
+            <td>11</td>
+            <td>6</td>
+            <td>12</td>
+            <td>13</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Here, also swapping makes 11 and 6 unsorted hence, swap again.</li>
+    </ul>
+
+    <table class="number-table mb-3">
+        <tr>
+            <td>5</td>
+            <td>6</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Finally, the array is completely sorted.</li>
+    </ul>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Insertion sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="insertionSort()">Insertion Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
 </form>

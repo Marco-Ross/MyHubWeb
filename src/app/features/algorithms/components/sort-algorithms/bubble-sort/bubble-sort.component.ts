@@ -60,7 +60,7 @@ export class BubbleSortComponent
     public static void Main()
     {
         int[] arr = { 64, 34, 25, 12, 22, 11, 90 };
-        bubbleSort(arr);
+        bubbleSort(arr, arr.Length);
         Console.WriteLine("Sorted array:");
         printArray(arr);
     }

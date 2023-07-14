@@ -4,9 +4,62 @@
             <h4>Shell Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(n (log(n))<sup>2</sup>)</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>
+        Shell sort is mainly a variation of Insertion Sort. In insertion sort, we move elements only one position ahead.
+        When an element has to be moved far ahead, many movements are involved. The idea of ShellSort is to allow the
+        exchange of far items. In Shell sort, we make the array h-sorted for a large value of h. We keep reducing the
+        value of h until it becomes 1. An array is said to be h-sorted if all sublists of every h’th element are sorted.
+    </p>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+    <div class="shell-steps">
+        <p>Step 1 - Start</p>
+        <p>Step 2 - Initialize the value of gap size. Example: h</p>
+        <p>Step 3 - Divide the list into smaller sub-part. Each must have equal intervals to h</p>
+        <p>Step 4 - Sort these sub-lists using insertion sort</p>
+        <p>Step 5 - Repeat this step 2 until the list is sorted.</p>
+        <p>Step 6 - Print a sorted list.</p>
+        <p>Step 7 - Stop.</p>
+    </div>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Shell sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="shellSort()">Shell Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
 </form>

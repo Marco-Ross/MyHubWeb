@@ -4,9 +4,147 @@
             <h4>Selection Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(n<sup>2</sup>)</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>Selection sort is a simple and efficient sorting algorithm that works by repeatedly selecting the smallest (or
+        largest) element from the unsorted portion of the list and moving it to the sorted portion of the list. </p>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <p>Lets consider the following array as an example: arr[] = &#123;64, 25, 12, 22, 11&#125;</p>
+
+    <b>First pass:</b>
+
+    <ul>
+        <li>
+            For the first position in the sorted array, the whole array is traversed from index 0 to 4 sequentially.
+            The
+            first
+            position where 64 is stored presently, after traversing whole array it is clear that 11 is the lowest
+            value.
+        </li>
+        <li>
+            Thus, replace 64 with 11. After one iteration 11, which happens to be the least value in the array,
+            tends to
+            appear
+            in the first position of the sorted list.
+        </li>
+    </ul>
+
+    <div>
+        <img class="selection-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/selection-sort/selection-sort-1.png" />
+    </div>
+
+
+    <b>Second Pass:</b>
+
+    <ul>
+        <li>
+            For the second position, where 25 is present, again traverse the rest of the array in a sequential
+            manner.
+        </li>
+        <li>
+            After traversing, we found that 12 is the second lowest value in the array and it should appear at the
+            second
+            place in the array, thus swap these values.
+        </li>
+    </ul>
+
+    <div>
+        <img class="selection-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/selection-sort/selection-sort-2.png" />
+    </div>
+
+    <b>Third Pass:</b>
+
+    <ul>
+        <li>
+            Now, for third place, where 25 is present again traverse the rest of the array and find the third least
+            value
+            present in the array.
+        </li>
+        <li>
+            While traversing, 22 came out to be the third least value and it should appear at the third place in the
+            array,
+            thus swap 22 with element present at third position.
+        </li>
+    </ul>
+
+    <div>
+        <img class="selection-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/selection-sort/selection-sort-3.png" />
+    </div>
+
+    <b>Fourth pass:</b>
+
+    <ul>
+        <li>
+            Similarly, for fourth position traverse the rest of the array and find the fourth least element in the array
+        </li>
+        <li>
+            As 25 is the 4th lowest value hence, it will place at the fourth position.
+        </li>
+    </ul>
+
+    <div>
+        <img class="selection-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/selection-sort/selection-sort-4.png" />
+    </div>
+
+    <b>Fifth Pass:</b>
+
+    <ul>
+        <li>
+            At last the largest value present in the array automatically get placed at the last position in the array
+        </li>
+        <li>
+            The resulted array is the sorted array.
+        </li>
+    </ul>
+
+    <div>
+        <img class="selection-image mt-2 mb-4"
+            src="assets/images/algorithms/sort-algorithms/selection-sort/selection-sort-5.png" />
+    </div>
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Selection sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="selectionSort()">Selection Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
+
 </form>

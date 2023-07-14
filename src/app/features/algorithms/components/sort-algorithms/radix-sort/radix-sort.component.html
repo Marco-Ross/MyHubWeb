@@ -4,9 +4,109 @@
             <h4>Radix Sort Algorithm</h4>
         </div>
         <div class="col-5 d-flex justify-content-end">
-            <h4>Big O:&nbsp;<span class="text-success">?</span></h4>
+            <h4>Big O:&nbsp;<span class="text-success">O(d * (n + b))</span></h4>
         </div>
     </div>
 
-    Coming soon!
+    <p>Radix Sort is a linear sorting algorithm that sorts elements by processing them digit by digit. It is an
+        efficient sorting algorithm for integers or strings with fixed-size keys.</p>
+    <p>Rather than comparing elements directly, Radix Sort distributes the elements into buckets based on each digit’s
+        value. By repeatedly sorting the elements by their significant digits, from the least significant to the most
+        significant, Radix Sort achieves the final sorted order.</p>
+
+    <h4 class="mt-4 mb-2">Steps to follow</h4>
+
+    <p>Consider: arr[] = &#123;170, 45, 75, 90, 802, 24, 2, 66&#125;.</p>
+
+    <p>
+        <b>Step 1:</b>
+        Find the largest element in the array, which is 802. It has three digits, so we will iterate three times,
+        once for each significant place.
+    </p>
+
+    <p>
+        <b>Step 2:</b>
+        Sort the elements based on the unit place digits (X=0). We use a stable sorting technique, such as counting
+        sort, to sort the digits at each significant place.
+    </p>
+
+    <b>Sorting based on the unit place:</b>
+
+    <ul>
+        <li>Perform counting sort on the array based on the unit place digits.</li>
+        <li>The sorted array based on the unit place is [170, 90, 802, 2, 24, 45, 75, 66].</li>
+    </ul>
+
+    <img class="radix-image mt-1 mb-5" src="assets/images/algorithms/sort-algorithms/radix-sort/radix-sort-1.png" />
+
+    <p>
+        <b>Step 3:</b> Sort the elements based on the tens place digits.
+    </p>
+
+    <b>Sorting based on the tens place:</b>
+
+    <ul>
+        <li>Perform counting sort on the array based on the tens place digits.</li>
+        <li>The sorted array based on the tens place is [802, 2, 24, 45, 66, 170, 75, 90].</li>
+    </ul>
+
+    <img class="radix-image mt-1 mb-5" src="assets/images/algorithms/sort-algorithms/radix-sort/radix-sort-2.png" />
+
+    <p>
+        <b>Step 4:</b> Sort the elements based on the hundreds place digits.
+    </p>
+
+    <b>Sorting based on the hundreds place:</b>
+
+    <ul>
+        <li>Perform counting sort on the array based on the hundreds place digits.</li>
+        <li>The sorted array based on the hundreds place is [2, 24, 45, 66, 75, 90, 170, 802].</li>
+    </ul>
+
+    <img class="radix-image mt-1 mb-5" src="assets/images/algorithms/sort-algorithms/radix-sort/radix-sort-3.png" />
+
+    <p>
+        <b>Step 5:</b> The array is now sorted in ascending order.
+    </p>
+
+    <p>The final sorted array using radix sort is [2, 24, 45, 66, 75, 90, 170, 802].</p>
+
+    <img class="radix-image mt-1 mb-5" src="assets/images/algorithms/sort-algorithms/radix-sort/radix-sort-4.png" />
+
+    <h4 class="mt-4 mb-2">Code</h4>
+
+    <pre class="code-background">
+        <code [innerHTML]="highlightedCode"></code>
+    </pre>
+
+    <h4 class="mt-4 mb-2">Practice Implementation</h4>
+
+    <div class="row">
+        <div class="d-flex">
+            <div class="col-3 pt-2">Radix sort on Id: </div>
+            <div class="col-9">
+                <button class="button me-2" type="button" (click)="radixSortExecute()">Radix Sort</button>
+                <button class="button" type="button" (click)="reset()">Randomize</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Area</th>
+                <th scope="col">Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries">
+                <th scope="row">{{ country.id }}</th>
+                <td><ngb-highlight [result]="country.name"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.capital"></ngb-highlight></td>
+                <td><ngb-highlight [result]="country.population | number"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
 </form>

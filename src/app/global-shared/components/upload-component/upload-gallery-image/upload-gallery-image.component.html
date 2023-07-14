@@ -1,0 +1,7 @@
+<form novalidate [formGroup]="uploadGalleryFG">
+    <upload-image-crop (croppedImageEvent)="onCroppedImageEvent($event)" [options]="options"></upload-image-crop>
+
+    <div *ngIf="galleryImage.image" class="mt-3">
+        <input type="text" class="form-control" placeholder="Enter Caption" formControlName="caption">
+    </div>
+</form>

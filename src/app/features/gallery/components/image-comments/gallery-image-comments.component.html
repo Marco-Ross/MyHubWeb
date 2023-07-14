@@ -1,0 +1,81 @@
+<form novalidate [formGroup]="galleryImageCommentsFG">
+    <div class="row d-flex image-comments mb-2">
+        <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center">
+            <div>
+                <h6 *ngIf="options.data.caption">{{options.data.caption}}</h6>
+                <img [src]="options.data.selectedImageUrl | safeResourceUrl" />
+
+                <div class="image-info ps-0 pe-0 pt-2">
+                    <div class="col-12 d-flex p-0">
+                        <div class="col-8">
+                            <p *ngIf="!options.data.likesCount" class="m-0">0 Likes</p>
+                            <p *ngIf="options.data.likesCount === 1" class="m-0">Liked by
+                                <b>{{options.data.likedUsers[0].username}}</b>
+                            </p>
+                            <p *ngIf="options.data.likesCount === 2" class="m-0">Liked by
+                                <b>{{options.data.likedUsers[0].username}}</b> and <b>{{options.data.likesCount-1}}
+                                    other</b>
+                            </p>
+                            <p *ngIf="options.data.likesCount > 2" class="m-0">Liked by
+                                <b>{{options.data.likedUsers[0].username}}</b>
+                                and <b>{{options.data.likesCount-1}} others</b>
+                            </p>
+                        </div>
+
+                        <div class="col-4 d-flex justify-content-end">
+                            <fa-icon *ngIf="!options.data.isLiked" class="clickable" [icon]="faHeart" size="lg"
+                                (click)="like(options.data)"></fa-icon>
+                            <fa-icon *ngIf="options.data.isLiked" class="clickable liked" [icon]="faFullHeart" size="lg"
+                                (click)="unlike(options.data)"></fa-icon>
+                        </div>
+                    </div>
+                    <div class="col-12 p-0 date-text mb-1">
+                        <fa-icon [icon]="faCalendar" size="xs" (click)="unlike(options.data)"></fa-icon>
+                        &nbsp;{{options.data.dateUploaded | date}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comments-seperator ps-4 pe-4 pt-1">
+            <hr />
+        </div>
+
+        <div class="col-lg-6 col-12">
+            <div class="hub-scroll">
+                <div class="comments">
+                    <ng-container *ngFor="let comment of this.options.data.comments; let $index = index">
+                        <div class="d-flex mb-3">
+                            <img class="profile-image" [lazyImage]="this.options.data.comments[$index]"
+                                (onImageLoad)="getProfileImage($event)"
+                                [src]="comment.profileImage | safeResourceUrl" />
+                            <div class="ms-3">
+                                <div class="d-flex">
+                                    <b>{{comment.username}}</b> &nbsp; {{comment.comment}}
+                                </div>
+                                <div class="comment-date text-grey">
+                                    {{comment.commentDate|date}}
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="comment-divider">
+                    <hr class="m-0 mb-1" />
+                </div>
+
+                <div class="col-12 p-0 add-comment">
+                    <input class="text-grey form-control" placeholder="Add a comment..." (keydown.enter)="postComment()"
+                        formControlName="comment">
+
+                    <div *ngIf="galleryImageCommentsFG.get('comment')?.value | emptyComment"
+                        class="text-primary clickable post-load" (click)="postComment()">
+                        <div *ngIf="options.data.isPostingComment" class="loader-bars text-orange" role="status"></div>
+
+                        <span *ngIf="!options.data.isPostingComment">Post</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
