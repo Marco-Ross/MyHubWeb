@@ -6,6 +6,7 @@ import { DeleteAccountSettingsComponent } from './delete-account-settings/delete
 import { DeleteAccountSettingsModule } from './delete-account-settings/delete-account-settings.module';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 
 @Injectable()
 export class AccountSettingsService
@@ -16,7 +17,9 @@ export class AccountSettingsService
 
     deleteAccount()
     {
-        this.popupService.open(DeleteAccountSettingsComponent, DeleteAccountSettingsModule, { title: 'Delete Account', buttonText: 'Delete Account' }).then((value: any) =>
+        let options = new uploadOptions('Delete Account');
+        options.buttonText = 'Delete Account';
+        this.popupService.open(DeleteAccountSettingsComponent, DeleteAccountSettingsModule, options).then((value: any) =>
         {
             this.authenticationService.DeleteUser().subscribe({
                 next: () =>

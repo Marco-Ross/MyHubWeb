@@ -22,6 +22,11 @@ export class ProfileImageService
         return this.http.get(this.ApiController + '/ProfileImage', { responseType: 'blob' });
     }
 
+    GetUserProfileImageById(userId: string): Observable<Blob>
+    {
+        return this.http.get(this.ApiController + '/ProfileImage/' + userId, { responseType: 'blob' });
+    }
+
     RemoveProfileImage(): Observable<any>
     {
         return this.http.delete(this.ApiController + '/ProfileImage');

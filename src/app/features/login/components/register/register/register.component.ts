@@ -5,6 +5,8 @@ import { PasswordValidator } from 'src/app/features/login/components/register/pa
 import { IRegisterUser } from '../../../models/interfaces/IRegisterUser.interface';
 import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
 import { ThemeConstants } from 'src/app/global-shared/constants/theme.constants';
+import { uploadCroppedOptions } from 'src/app/global-shared/components/upload-component/upload-cropped-options.class';
+import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 
 @Component({
   selector: 'register',
@@ -44,7 +46,7 @@ export class RegisterComponent
 
   uploadImage()
   {
-    this.uploadService.UploadImageCrop({title:'Upload A Profile Image'}).then((result) =>
+    this.uploadService.UploadProfileImageCrop('Upload A Profile Image').then((result) =>
     {
       this.profileImage = result.croppedImageEvent;
     }, () => { });

@@ -1,0 +1,35 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.quicksort-image
+{
+    height: 14rem;
+    width: 36rem;
+}
+
+.quicksort-image-overview
+{
+    height: 16rem;
+    width: 36rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .quicksort-image,
+    .quicksort-image-overview
+    {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.pivot-options
+{
+    padding-left: 2rem;
+}
+
+ul
+{
+    padding-left: 1.2rem;
+    margin-bottom: 0rem;
+    margin-top: 0.5rem;
+}

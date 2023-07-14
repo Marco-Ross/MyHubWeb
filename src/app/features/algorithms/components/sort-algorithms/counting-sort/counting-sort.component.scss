@@ -1,0 +1,38 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.bg-white
+{
+    height: 7rem;
+    width: 30rem;
+    border-radius: 0.5rem;
+}
+
+.bg-white-5
+{
+    height: 16.1rem;
+    width: 30rem;
+    border-radius: 0.5rem;
+}
+
+.counting-image
+{
+    height: 6rem;
+    width: 30rem;
+}
+
+.counting-image-5
+{
+    height: 16rem;
+    width: 30rem;
+}
+
+@include media-breakpoint-down(md)
+{
+
+    .counting-image,
+    .counting-image-5
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

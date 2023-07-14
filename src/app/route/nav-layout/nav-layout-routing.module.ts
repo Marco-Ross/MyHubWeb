@@ -18,6 +18,10 @@ const routes: Routes = [
             {
                 path: 'algorithms',
                 loadChildren: () => import('../../features/algorithms/components/algorithms/algorithms.module').then(m => m.AlgorithmsModule)
+            },
+            {
+                path: 'gallery',
+                loadChildren: () => import('../../features/gallery/components/gallery/gallery.module').then(m => m.GalleryModule)
             }
         ]
     }

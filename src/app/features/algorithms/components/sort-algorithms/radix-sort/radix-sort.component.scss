@@ -1,0 +1,16 @@
+@import "/src/styles/media-breakpoints.scss";
+
+.radix-image
+{
+    height: 14rem;
+    width: 36rem;
+}
+
+@include media-breakpoint-down(md)
+{
+    .radix-image
+    {
+        height: 100%;
+        width: 100%;
+    }
+}

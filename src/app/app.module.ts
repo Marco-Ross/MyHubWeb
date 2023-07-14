@@ -14,6 +14,8 @@ import { AppInitialize } from './app-initialize.service';
 import { CookieService } from 'ngx-cookie-service';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { LocalStorageOAuthStorage } from './global-shared/services/localStorage/services/oauth-local-storage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { LocalStorageOAuthStorage } from './global-shared/services/localStorage/
 
     CoreInterceptorsModule,
     CoreAuthServicesModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AuthGuardsModule,
     OAuthModule.forRoot()
   ],

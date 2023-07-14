@@ -38,6 +38,8 @@ export class PopupComponent
 
         const componentRef = viewContainerRef.createComponent<typeof this.component>(this.component, { ngModuleRef: moduleRef });
 
+        componentRef.instance.options = this.options;
+
         if (componentRef.instance.popupForm)
             componentRef.instance.popupForm.subscribe({
                 next: (form: any) =>

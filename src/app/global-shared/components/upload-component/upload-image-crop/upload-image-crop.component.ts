@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
@@ -11,6 +11,7 @@ export class UploadImageCropComponent
     constructor() { }
 
     @Output() croppedImageEvent = new EventEmitter<string>;
+    @Input() options: any;
     croppedImage: any = '';
     imageChangedEvent: any = '';
     hideCropper: boolean = true;

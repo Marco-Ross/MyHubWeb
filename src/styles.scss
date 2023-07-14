@@ -3,6 +3,7 @@
 @import "/src/styles/buttons.scss";
 @import "/src/styles/colors.scss";
 @import "/src/styles/themes.scss";
+@import "/src/styles/spinners.scss";
 
 body
 {
@@ -24,6 +25,12 @@ body
 }
 
 //logo height=width/1.6...
+
+.logo-plain-xs
+{
+    width: 82.5px;
+    height: 41.7px;
+}
 
 .logo-xs
 {
@@ -56,28 +63,6 @@ body
     border-radius: 0.3em;
 }
 
-.hub-scroll
-{
-    ::-webkit-scrollbar-track
-    {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        background-color: #F5F5F5;
-    }
-
-    ::-webkit-scrollbar
-    {
-        width: 5px;
-        background-color: #F5F5F5;
-    }
-
-    ::-webkit-scrollbar-thumb
-    {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-        background-color: #3b3b3b;
-    }
-}
-
 fieldset:disabled
 {
     a
@@ -85,5 +70,13 @@ fieldset:disabled
         pointer-events: none;
         cursor: default;
         text-decoration: none;
+    }
+}
+
+.modal-top
+{
+    .modal-dialog-centered
+    {
+        min-height: unset;
     }
 }
