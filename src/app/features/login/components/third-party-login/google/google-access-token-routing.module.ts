@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { GoogleAccessTokenComponent } from './google-access-token.component';
 
 const routes: Routes = [
-  { path: 'complete', component: GoogleAccessTokenComponent }
+  {
+    path: 'complete',
+    component: GoogleAccessTokenComponent
+  }
 ];
 
 @NgModule({

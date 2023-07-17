@@ -1,5 +1,5 @@
-<form novalidate [formGroup]="homeFG">
-  <div class="home">
+<form novalidate [formGroup]="workBoardFG">
+  <div class="work-board">
     <div class="horizontal-divider"></div>
 
     <div class="row">
@@ -27,10 +27,10 @@
               <div class="no-item-results">
                 <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
                   role="status"></div>
-                <h4 *ngIf="homeFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
+                <h4 *ngIf="workBoardFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
                   Found
                 </h4>
-                <h4 *ngIf="!homeFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
+                <h4 *ngIf="!workBoardFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
               </div>
               <ul>
                 <ng-container *ngFor="let items of filteredWorkItems">

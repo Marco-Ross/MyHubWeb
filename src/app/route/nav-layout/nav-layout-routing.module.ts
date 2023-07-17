@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, inject } from '@angular/core';
+import { Route, RouterModule, Routes, UrlSegment } from '@angular/router';
+import { AuthGuard } from 'src/app/core/guards/auth-guards/auth.guard';
 import { NavLayoutComponent } from 'src/app/route/nav-layout/nav-layout.component';
 
 const routes: Routes = [
@@ -8,11 +9,12 @@ const routes: Routes = [
         component: NavLayoutComponent,
         children: [
             {
-                path: 'home',
-                loadChildren: () => import('../../features/home/components/home/home.module').then(m => m.HomeModule)
+                path: '',
+                loadChildren: () => import('../../features/work-board/components/work-board/work-board.module').then(m => m.WorkBoardModule)
             },
             {
                 path: 'settings',
+                canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthGuard).canMatch(route, segments)],
                 loadChildren: () => import('../../features/settings/components/settings/settings.module').then(m => m.SettingsModule)
             },
             {

@@ -5,7 +5,7 @@
         </a>
 
         <div class="ms-auto right-nav order-sm-last pe-3">
-            <div class="profile-image">
+            <div *ngIf="isLoggedIn" class="profile-image">
                 <div class="caret-container" #profileDropdown="ngbDropdown" ngbDropdown ngbDropdownToggle>
                     <img [src]="navDetails.profileImage | safeResourceUrl" class="clickable profile-image">
                     <fa-icon class="clickable caret" [icon]="faCaretDown" size="1x"
@@ -21,6 +21,10 @@
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="!isLoggedIn">
+                <button type="button" class="button no-decoration" [routerLink]="'/login'">Log In</button>
+            </div>
         </div>
 
         <button class="navbar-toggler ms-2" type="button" (click)="onCollapseClick($event)">
@@ -30,19 +34,19 @@
             <div class="left-nav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" [ngClass]="{'active': router.url === '/home'}" [routerLink]="'home'">Work
+                        <a class="nav-link" [ngClass]="{'active': router.url === '/'}" [routerLink]="'/'">Work
                             Board</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" [ngClass]="{'active': router.url === '/gallery'}"
-                            [routerLink]="'gallery'">Gallery</a>
+                            [routerLink]="'/gallery'">Gallery</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" [ngClass]="{'active': router.url === '/algorithms'}"
-                            [routerLink]="'algorithms'">Algorithms</a>
+                            [routerLink]="'/algorithms'">Algorithms</a>
                     </li>
                     <li class="nav-item">
-                        <a [routerLinkActive]="'active'" [routerLink]="'home/dashboard'" class="nav-link"
+                        <a [routerLinkActive]="'active'" [routerLink]="'/dashboard'" class="nav-link"
                             type="button">Titbits</a>
                     </li>
                     <li class="nav-item">

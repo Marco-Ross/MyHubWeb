@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 import { IHub } from "../interfaces/hub.interface";
 
-export class HomeHub implements IHub
+export class WorkBoardHub implements IHub
 {
     public id: string;
     public subject: BehaviorSubject<any>;

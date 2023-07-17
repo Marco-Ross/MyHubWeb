@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { SignalRService } from '../../../global-shared/services/signalR/signalR.service';
 import { HubIds } from '../../../global-shared/services/signalR/models/constants/hub.constant';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { HomeHub } from '../../../global-shared/services/signalR/models/classes/home-hub.model';
+import { WorkBoardHub } from '../../../global-shared/services/signalR/models/classes/work-board-hub.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SignalRHomeService extends SignalRService
+export class SignalRWorkBoardService extends SignalRService
 {
     constructor()
     {
-        super(new HomeHub(HubIds.UpdatedWorkItem, new BehaviorSubject<any>(undefined)));
+        super(new WorkBoardHub(HubIds.UpdatedWorkItem, new BehaviorSubject<any>(undefined)));
     }
 
     hubSubscription!: Subscription;
