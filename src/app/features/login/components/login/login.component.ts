@@ -64,7 +64,7 @@ export class LoginComponent
       next: _ =>
       {
         this.isLoading = false;
-        this.router.navigate(['home']).then(() => { this.themeRenderer.SetCurrentThemeLogin(); }, () => { });
+        this.router.navigate(['/']).then(() => { this.themeRenderer.SetCurrentThemeLogin(); }, () => { });
       },
       error: (response) =>
       {

@@ -3,21 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { galleryImage } from '../models/gallery-image.class';
 import { Observable } from 'rxjs';
 import { IImage, IImageForPopup, IImageResponse } from '../models/gallery-image.interface';
-import { ToastrService } from 'ngx-toastr';
 import { likedUser } from '../models/liked-user.class';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 
 @Injectable()
 export class GalleryImagesService
 {
     private readonly ApiController: string = 'Gallery';
 
-    constructor(private http: HttpClient, private toastr: ToastrService) { }
-
-    getIsAdmin(): Observable<any>
-    {
-        return this.http.get(this.ApiController + "/IsAdmin");
-    }
+    constructor(private http: HttpClient, private hubToast: HubToastService) { }
 
     uploadImage(gallery: galleryImage): Observable<IImage>
     {
@@ -61,34 +56,34 @@ export class GalleryImagesService
 
     like(image: IImage)
     {
-        image.likesCount++;
-        image.isLiked = true;
-        image.likedUsers.unshift(new likedUser('', 'You'));
         this.likeImageApi(image.id).subscribe({
             next: _ =>
             {
+                image.likesCount++;
+                image.isLiked = true;
+                image.likedUsers.unshift(new likedUser('', 'You'));
             },
-            error: _ =>
+            error: (error) =>
             {
-                this.toastr.error("The image may have been removed. Actions limited.");
+                //dont show more than one at a time?
+                this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
     }
 
     unlike(image: IImage)
     {
-        image.likesCount--;
-        image.isLiked = false;
-        image.filters.isLiked = false;
-        image.likedUsers.splice(0, 1);
         this.unlikeImageApi(image.id).subscribe({
             next: _ =>
             {
-
+                image.likesCount--;
+                image.isLiked = false;
+                image.filters.isLiked = false;
+                image.likedUsers.splice(0, 1);
             },
-            error: _ =>
+            error: (error) =>
             {
-                this.toastr.error("The image may have been removed. Actions limited.");
+                this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
     }
@@ -105,11 +100,11 @@ export class GalleryImagesService
                 image.isPostingComment = false;
                 image.comments.unshift(comment);
             },
-            error: _ =>
+            error: (error) =>
             {
                 formControl.setValue(undefined);
                 image.isPostingComment = false;
-                this.toastr.error("The image may have been removed. Actions limited.");
+                this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
     }

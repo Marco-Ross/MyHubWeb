@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { HomeService } from './home.service';
 import { faExternalLink, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
-import { SignalRHomeService } from 'src/app/features/home/services/signalR-home.service';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SignalRWorkBoardService } from '../../services/signalR-work-board.service';
+import { WorkBoardService } from './work-board.service';
 
 @Component({
-    selector: 'home',
-    templateUrl: 'home.component.html',
-    styleUrls: ['home.component.scss'],
-    providers: [HomeService]
+    selector: 'work-board',
+    templateUrl: 'work-board.component.html',
+    styleUrls: ['work-board.component.scss'],
+    providers: [WorkBoardService]
 })
 
-export class HomeComponent
+export class WorkBoardComponent
 {
-    constructor(private homeService: HomeService, private formBuilder: FormBuilder, private signalRHomeService: SignalRHomeService, private router: Router, private modalService: NgbModal) { }
+    constructor(private workBoardService: WorkBoardService, private formBuilder: FormBuilder, private signalRWorkBoardService: SignalRWorkBoardService, private router: Router, private modalService: NgbModal) { }
 
     faExternalLink = faExternalLink;
     faCaretDown = faCaretDown;
@@ -25,7 +25,7 @@ export class HomeComponent
 
     //
 
-    homeFG!: FormGroup;
+    workBoardFG!: FormGroup;
     private readonly STATES = {
         Doing: 'Doing',
         ToDo: 'To Do',
@@ -38,13 +38,13 @@ export class HomeComponent
 
     ngOnInit()
     {
-        this.homeFG = this.formBuilder.group({
+        this.workBoardFG = this.formBuilder.group({
             search: ''
         });
 
-        this.initializeHomeHub();
+        this.initializeWorkBoardHub();
 
-        this.homeService.GetAllWorkItems().subscribe({
+        this.workBoardService.GetAllWorkItems().subscribe({
             next: (workItemsQuery) => this.SetWorkItems(workItemsQuery),
             error: () =>
             {
@@ -53,10 +53,10 @@ export class HomeComponent
             }
         });
 
-        this.homeFG.get('search')?.valueChanges.pipe(debounce(() => timer(500))).subscribe((searchValue) => this.OnSearchChange(searchValue));
+        this.workBoardFG.get('search')?.valueChanges.pipe(debounce(() => timer(500))).subscribe((searchValue) => this.OnSearchChange(searchValue));
     }
 
-    private initializeHomeHub()
+    private initializeWorkBoardHub()
     {
         this.onWorkItemUpdate();
         this.hubCleanup();
@@ -67,7 +67,7 @@ export class HomeComponent
         let navigateSub = this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe({
             next: () =>
             {
-                this.signalRHomeService.unsubscribe();
+                this.signalRWorkBoardService.unsubscribe();
                 navigateSub.unsubscribe();
             }
         });
@@ -75,7 +75,7 @@ export class HomeComponent
 
     private onWorkItemUpdate()
     {
-        this.signalRHomeService.subscribe(
+        this.signalRWorkBoardService.subscribe(
             updatedWorkItem =>
             {
                 if (!updatedWorkItem || !this.workItems?.length)

@@ -7,12 +7,14 @@ form
 
 .navbar
 {
+    height: 3.4rem;
     border-bottom: solid 1px;
     border-color: rgb(128, 128, 128, 0.2);
 
     .logo-plain-xs
     {
-        margin: -12px;
+        margin: -4px;
+        margin-right: -12px;
     }
 }
 
@@ -20,12 +22,9 @@ form
 {
     .profile-image
     {
-        .profile-image
-        {
-            width: 2.66rem;
-            height: 2.66rem;
-            border-radius: 50%;
-        }
+        width: 2.66rem;
+        height: 2.66rem;
+        border-radius: 50%;
 
         .caret
         {
@@ -37,9 +36,8 @@ form
             display: none;
         }
 
-        .dropdown-menu[data-bs-popper]
+        .dropdown-menu[ngbdropdownmenu]
         {
-            left: unset;
             right: -1em;
         }
     }

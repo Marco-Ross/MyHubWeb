@@ -5,7 +5,7 @@ import { ProfileImageService } from 'src/app/global-shared/services/profile/prof
 import { GalleryImagesService } from '../gallery/gallery-service/gallery.service';
 import { faHeart as faFullHeart, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { ToastrService } from 'ngx-toastr';
+import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 
 @Component({
     selector: 'gallery-image-comments',
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class GalleryImageCommentsComponent
 {
     constructor(private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private galleryImagesService: GalleryImagesService,
-        private toastr: ToastrService) { }
+        private hubToast: HubToastService) { }
 
     @Output() popupForm = new EventEmitter<FormGroup>;
     @Input() options: any;
@@ -29,7 +29,6 @@ export class GalleryImageCommentsComponent
     galleryImageCommentsFG!: FormGroup;
     defaultProfileImage = 'assets/icons/user-thin.png';
     userProfilePictures: Record<string, string> = {};
-    // selectedImage!: string;
 
     ngOnInit()
     {
@@ -38,8 +37,6 @@ export class GalleryImageCommentsComponent
         });
 
         this.popupForm.emit(this.galleryImageCommentsFG);
-        
-        // this.loadImage(this.options.data);
 
         this.galleryImagesService.getImagePopupData(this.options.data.id).subscribe({
             next: (imagePopupData: IImageForPopup) =>
@@ -49,27 +46,14 @@ export class GalleryImageCommentsComponent
                 this.options.data.likedUsers = imagePopupData.likedUsers;
                 this.options.data.likesCount = imagePopupData.likesCount;
             },
-            error: () =>
+            error: (error) =>
             {
-                this.toastr.error("The image may have been removed. Actions limited.");
+                this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
     }
 
     //////
-
-    // loadImage(image: IImage)
-    // {
-    //     if (!image.id)
-    //         return;
-
-    //     this.galleryImagesService.getImage(image.id).subscribe({
-    //         next: (imageBlob) =>
-    //         {
-    //             this.selectedImage = URL.createObjectURL(imageBlob);
-    //         }
-    //     });
-    // }
 
     getProfileImage(comment: ICommentingUser)
     {

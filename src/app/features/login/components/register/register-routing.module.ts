@@ -4,8 +4,14 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterCompleteComponent } from './register-complete/register-complete.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent },
-  { path: ':UserId/:RegisterToken', component: RegisterCompleteComponent }
+  {
+    path: '',
+    component: RegisterComponent
+  },
+  {
+    path: ':UserId/:RegisterToken',
+    component: RegisterCompleteComponent
+  }
 ];
 
 @NgModule({

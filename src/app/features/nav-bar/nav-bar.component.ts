@@ -30,6 +30,7 @@ export class NavBarComponent
     open: boolean = false;
     defaultProfileImage = 'assets/icons/user-thin.png';
     navDetails: NavDetails = new NavDetails();
+    isLoggedIn: boolean = false;
 
     ngOnInit()
     {
@@ -41,20 +42,34 @@ export class NavBarComponent
     setNavDetails()
     {
         let loginData = this.loggedInCookie.GetLoggedInCookie();
-        this.navDetails.username = loginData.Username;
 
-        this.profileImageService.GetUserProfileImage().subscribe({
-            next: (image) =>
-            {
-                if (!image || !image.size)
+        if (!loginData)
+        {
+            this.isLoggedIn = false;
+            this.navDetails.username = '';
+            URL.revokeObjectURL(this.navDetails.profileImage);
+            this.navDetails.profileImage = '';
+
+            return;
+        }
+        else
+        {
+            this.isLoggedIn = true;
+            this.navDetails.username = loginData.Username;
+
+            this.profileImageService.GetUserProfileImage().subscribe({
+                next: (image) =>
                 {
-                    this.navDetails.profileImage = this.defaultProfileImage;
-                    return;
-                }
+                    if (!image || !image.size)
+                    {
+                        this.navDetails.profileImage = this.defaultProfileImage;
+                        return;
+                    }
 
-                this.navDetails.profileImage = URL.createObjectURL(image);
-            }
-        });
+                    this.navDetails.profileImage = URL.createObjectURL(image);
+                }
+            });
+        }
 
         this.navLayoutService.setNavDetails(this.navDetails);
     }
@@ -75,11 +90,6 @@ export class NavBarComponent
         });
     }
 
-    Dash()
-    {
-        this.router.navigate(['home/dashboard']);
-    }
-
     Logout()
     {
         this.authenticationService.Logout().subscribe({
@@ -87,7 +97,8 @@ export class NavBarComponent
             {
                 this.themeRenderer.SetSystemTheme();
                 this.themeStorage.RemoveTheme();
-                this.router.navigate(['']);
+                this.setNavDetails();
+                this.router.navigate(['/']);
             },
             error: _ =>
             {

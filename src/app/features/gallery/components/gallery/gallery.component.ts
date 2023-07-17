@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisH, faHeart as faFullHeart, faCalendar, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ import { GalleryImageCommentsComponent } from '../image-comments/gallery-image-c
 import { GalleryImageCommentsModule } from '../image-comments/gallery-image-comments.module';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/filters.interface';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 
 @Component({
     selector: 'gallery',
@@ -20,7 +21,7 @@ import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/
 export class GalleryComponent
 {
     constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService,
-        private popupService: PopupService) { }
+        private popupService: PopupService, private authenticationService: AuthenticationService) { }
 
     faHeart = faHeart;
     faFullHeart = faFullHeart;
@@ -47,7 +48,7 @@ export class GalleryComponent
     {
         this.galleryFG = this.formBuilder.group({});
 
-        this.galleryImagesService.getIsAdmin().subscribe({
+        this.authenticationService.getIsAdmin().subscribe({
             next: (response) =>
             {
                 this.isAdmin = response.isAdmin;
@@ -222,12 +223,4 @@ export class GalleryComponent
 
         return isFilteredItem;
     }
-
-    // ngOnDestroy()
-    // {
-    //     this.images.forEach((image: IImage) =>
-    //     {
-    //         URL.revokeObjectURL(image.imageUrl);
-    //     });
-    // }
 }

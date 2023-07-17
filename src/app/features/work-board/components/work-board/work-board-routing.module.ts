@@ -1,15 +1,19 @@
 import { inject, NgModule } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
-import { HomeGuard } from 'src/app/core/guards/home-guards/auth-home.guard';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { DashboardComponent2 } from '../dashboard/dashboard2.component';
-import { HomeComponent } from './home.component';
+import { WorkBoardComponent } from './work-board.component';
+import { WorkBoardGuard } from 'src/app/core/guards/work-board-guards/auth-work-board.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   {
     path: '',
-    canActivateChild: [(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(HomeGuard).canActivateChild(next, state)],//used for roles or other permission checks.
+    pathMatch: 'full',
+    component: WorkBoardComponent
+  },
+  {
+    path: '',
+    canActivateChild: [(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(WorkBoardGuard).canActivateChild(next, state)],//used for roles or other permission checks.
     children: [
       {
         path: 'dashboard',
@@ -27,4 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomeRoutingModule { }
+export class WorkBoardRoutingModule { }
