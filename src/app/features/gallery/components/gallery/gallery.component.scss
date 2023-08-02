@@ -9,24 +9,13 @@
   transition: background-color 0.3s;
 }
 
-.header
+.right
 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  .center
-  {
-    justify-self: center;
-    grid-column: 2;
-  }
-
-  .right
-  {
-    justify-self: right;
-    grid-column: 3;
-    padding-right: 2rem;
-  }
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2rem;
 }
+
 
 .image-container
 {
@@ -233,6 +222,7 @@
           {
             box-shadow: unset;
           }
+
           .form-control::placeholder
           {
             color: grey;

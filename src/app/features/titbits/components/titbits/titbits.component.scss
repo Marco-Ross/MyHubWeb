@@ -1,0 +1,136 @@
+@import "/src/styles/media-breakpoints.scss";
+
+form
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.titbits-width
+{
+    width: 65%;
+}
+
+.view-titbits
+{
+    display: none;
+}
+
+.button-orange
+{
+    background-color: rgba(233, 104, 19, 0.884);
+}
+
+.button-orange:hover
+{
+    background-color: darken(rgba(233, 104, 19, 0.884), 10%);
+    transition: background-color 0.3s;
+}
+
+.titbits
+{
+    display: inline-flex;
+    margin-top: 1.5rem;
+
+    .left
+    {
+        max-width: 22rem;
+        min-width: 12rem;
+        padding-right: 1.5rem;
+
+        .sticky-titbits
+        {
+            max-height: calc(100vh - 17px);
+            overflow-y: auto;
+            position: sticky;
+            top: 4.5rem;
+
+            ul
+            {
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    .right
+    {
+        display: flex;
+        justify-content: center;
+
+        .right-inner
+        {
+            width: 100%;
+            max-width: 65rem;
+
+            .option-icons
+            {
+                white-space: nowrap;
+            }
+
+            .date-posted
+            {
+                font-size: 13px;
+            }
+
+            .links
+            {
+                .resource-caret
+                {
+                    width: 0.4rem;
+                    margin-right: 0.4rem;
+                    padding-top: 0.06rem;
+                }
+            }
+
+            .liked
+            {
+                color: rgb(255, 48, 64);
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(md)
+{
+    .view-titbits
+    {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .titbits-width
+    {
+        width: 80%;
+    }
+
+    .view-titbits-visible
+    {
+        .right
+        {
+            display: none;
+        }
+
+        .left
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+    }
+
+    .view-titbit-visible
+    {
+        .right
+        {
+            width: 100%;
+            padding-right: unset;
+        }
+
+        .left
+        {
+
+            display: none;
+        }
+    }
+}

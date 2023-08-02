@@ -5,7 +5,9 @@
         <div class="row mt-2">
             <div class="col-12">
                 <p class="form-label">Please enter the word 'Delete' to delete your account.</p>
-                <input type="text" class="form-control col-12" placeholder="" formControlName="delete" setfocus>
+                <input type="text" class="form-control col-12" placeholder="" formControlName="delete" setfocus
+                    [ngClass]="{'is-invalid' : deleteAccountFG.get('delete')?.errors && deleteSubmitted}">
+                <div class="error-feedback">Enter 'delete' to delete account.</div>
             </div>
         </div>
     </div>

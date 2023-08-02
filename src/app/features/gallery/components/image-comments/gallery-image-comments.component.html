@@ -43,7 +43,11 @@
         <div class="col-lg-6 col-12">
             <div class="hub-scroll">
                 <div class="comments">
-                    <ng-container *ngFor="let comment of this.options.data.comments; let $index = index">
+                    <div *ngIf="!options.data.comments.length" class="d-flex justify-content-center">
+                        <h3 class="text-grey">No comments</h3>
+                    </div>
+
+                    <ng-container *ngFor="let comment of options.data.comments; let $index = index">
                         <div class="d-flex mb-3">
                             <img class="profile-image" [lazyImage]="this.options.data.comments[$index]"
                                 (onImageLoad)="getProfileImage($event)"

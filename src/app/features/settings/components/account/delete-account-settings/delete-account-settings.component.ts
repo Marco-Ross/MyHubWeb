@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DeleteAccountValidator } from './delete.validator';
+import { NavLayoutService } from 'src/app/features/nav-bar/nav-layout.service';
 
 @Component({
   selector: 'account-settings',
@@ -8,22 +9,33 @@ import { DeleteAccountValidator } from './delete.validator';
 })
 export class DeleteAccountSettingsComponent
 {
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private navLayoutService: NavLayoutService) { }
 
   //
 
-  @Output() popupForm = new EventEmitter<FormGroup>;
   deleteAccountFG!: FormGroup;
-  deletable: boolean = false;
+  deleteSubmitted: boolean = false;
 
   ngOnInit()
   {
     this.deleteAccountFG = this.formBuilder.group({
       delete: ['', [Validators.required, DeleteAccountValidator.Matching]]
     });
-
-    this.popupForm.emit(this.deleteAccountFG);
   }
 
   //////
+
+  onClose = () =>
+  {
+    return new Promise((resolve, reject) =>
+    {
+      this.deleteSubmitted = true;
+
+      if (!this.deleteAccountFG.valid)
+        return reject();
+
+      this.navLayoutService.signOut();
+      resolve(undefined);
+    });
+  }
 }

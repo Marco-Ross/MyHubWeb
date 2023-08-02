@@ -10,7 +10,15 @@ const routes: Routes = [
         children: [
             {
                 path: '',
+                loadChildren: () => import('../../features/home/components/home.module').then(m => m.HomeModule)
+            },
+            {
+                path: 'work-board',
                 loadChildren: () => import('../../features/work-board/components/work-board/work-board.module').then(m => m.WorkBoardModule)
+            },
+            {
+                path: 'titbits',
+                loadChildren: () => import('../../features/titbits/components/titbits/titbits.module').then(m => m.TitbitsModule)
             },
             {
                 path: 'settings',

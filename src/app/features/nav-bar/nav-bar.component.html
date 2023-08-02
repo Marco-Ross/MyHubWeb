@@ -5,15 +5,16 @@
         </a>
 
         <div class="ms-auto right-nav order-sm-last pe-3">
-            <div *ngIf="isLoggedIn" class="profile-image">
+            <div *ngIf="navLayoutService.getNavDetails().isLoggedIn" class="profile-image">
                 <div class="caret-container" #profileDropdown="ngbDropdown" ngbDropdown ngbDropdownToggle>
-                    <img [src]="navDetails.profileImage | safeResourceUrl" class="clickable profile-image">
+                    <img [src]="navLayoutService.getNavDetails().profileImage | safeResourceUrl"
+                        class="clickable profile-image">
                     <fa-icon class="clickable caret" [icon]="faCaretDown" size="1x"
                         [ngClass]="{'caret-active': profileDropdown.isOpen()}"></fa-icon>
                     <div ngbDropdownMenu>
                         <div class="ps-3 pt-1 pb-1">
                             <label>Logged In As:</label>
-                            <br /><b>{{navDetails.username}}</b>
+                            <br /><b>{{navLayoutService.getNavDetails().username}}</b>
                         </div>
                         <div class="dropdown-divider"></div>
                         <button ngbDropdownItem [routerLink]="'settings'">Settings</button>
@@ -22,8 +23,9 @@
                 </div>
             </div>
 
-            <div *ngIf="!isLoggedIn">
-                <button type="button" class="button no-decoration" [routerLink]="'/login'">Log In</button>
+            <div *ngIf="!navLayoutService.getNavDetails().isLoggedIn">
+                <button type="button" class="button no-decoration" [routerLink]="'/login'">Log In<span
+                        class="ps-1 pe-1">/</span>Register</button>
             </div>
         </div>
 
@@ -34,7 +36,8 @@
             <div class="left-nav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" [ngClass]="{'active': router.url === '/'}" [routerLink]="'/'">Work
+                        <a class="nav-link" [ngClass]="{'active': router.url === '/work-board'}"
+                            [routerLink]="'/work-board'">Work
                             Board</a>
                     </li>
                     <li class="nav-item">
@@ -46,7 +49,7 @@
                             [routerLink]="'/algorithms'">Algorithms</a>
                     </li>
                     <li class="nav-item">
-                        <a [routerLinkActive]="'active'" [routerLink]="'/dashboard'" class="nav-link"
+                        <a [routerLinkActive]="'active'" [routerLink]="'/titbits'" class="nav-link"
                             type="button">Titbits</a>
                     </li>
                     <li class="nav-item">
