@@ -90,6 +90,9 @@ export class GalleryImagesService
 
     postComment(image: IImage, formControl: AbstractControl)
     {
+        if (image.isPostingComment)
+            return;
+
         image.isPostingComment = true;
 
         this.postCommentApi(image.id, formControl.value).subscribe({
@@ -98,7 +101,7 @@ export class GalleryImagesService
                 formControl.setValue(undefined);
                 image.commentsCount++;
                 image.isPostingComment = false;
-                image.comments.unshift(comment);
+                (image.comments ||= []).unshift(comment);
             },
             error: (error) =>
             {

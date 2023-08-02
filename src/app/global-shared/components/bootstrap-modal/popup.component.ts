@@ -16,8 +16,8 @@ export class PopupComponent
     @Input() options: any;
 
     @ViewChild(PopupAnchorDirective, { static: true }) popupBodyAnchor!: PopupAnchorDirective;
-    result: any = {};
     popupFG!: FormGroup;
+    onClose!: any;
 
     //////
 
@@ -40,28 +40,7 @@ export class PopupComponent
 
         componentRef.instance.options = this.options;
 
-        if (componentRef.instance.popupForm)
-            componentRef.instance.popupForm.subscribe({
-                next: (form: any) =>
-                {
-                    this.popupFG = form;
-                }
-            });
-
-        Object.keys(componentRef.instance).forEach(key =>
-        {
-            if (!(componentRef.instance[key] instanceof EventEmitter) || key == 'popupForm')
-                return;
-
-            componentRef.instance[key].subscribe({
-                next: (value: any) =>
-                {
-                    this.result[key] = value;
-                }
-            });
-        });
-
-        componentRef.changeDetectorRef.detectChanges();
+        this.onClose = componentRef.instance.onClose;
     }
 
     dismiss(event: any)
@@ -72,7 +51,9 @@ export class PopupComponent
 
     close()
     {
-        if (this.popupFG.valid)
-            this.activeModal.close(this.result);
+        this.onClose().then((result: any) =>
+        {
+            this.activeModal.close(result);
+        }, () => { });
     }
 }

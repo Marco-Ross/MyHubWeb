@@ -26,7 +26,7 @@ export class RegisterCompleteComponent
         this.registrationStatus = true;
         setTimeout(() =>
         {
-          this.router.navigate(['']);
+          this.router.navigate(['/login']);
         }, 3000);
       },
       error: (response) =>

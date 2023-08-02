@@ -1,5 +1,5 @@
 <form novalidate [formGroup]="galleryFG">
-    <div class="header mt-2 mb-4">
+    <div class="mt-2 mb-4">
         <div class="right">
             <button *ngIf="isAdmin" type="button" class="button me-2" (click)="addImage()"
                 [disabled]="filterOptions.sorting.dateAscending || filterOptions.filters.isLiked">Add image</button>
@@ -15,7 +15,8 @@
     </div>
     <div class="image-container">
         <div *ngIf="!images.length" class="text-grey mt-5">
-            <h3>No Images To Display.</h3>
+            <page-load *ngIf="loadingImages"></page-load>
+            <h3 *ngIf="!loadingImages">No Images To Display.</h3>
         </div>
 
         <ng-container *ngIf="images.length">
@@ -42,8 +43,9 @@
                             </div>
 
                             <div class="card-header-content">
-                                <div class="image" [lazyImage]="image" (onImageLoad)="loadImage($event)"><img
-                                        *ngIf="image.imageUrl" [src]="image.imageUrl | safeResourceUrl"></div>
+                                <div class="image" [lazyImage]="image" (onImageLoad)="loadImage($event)">
+                                    <img *ngIf="image.imageUrl" [src]="image.imageUrl | safeResourceUrl" (click)="viewComments(image)" class="clickable">
+                                </div>
                                 <div *ngIf="!image.imageUrl" class="image-loader">
                                     <div class="loader" role="status"></div>
                                 </div>

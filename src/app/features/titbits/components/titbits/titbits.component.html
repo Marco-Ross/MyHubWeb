@@ -1,0 +1,127 @@
+<form novalidate [formGroup]="titbitsFG">
+    <div class="titbits-width">
+        <div class="d-flex">
+            <div *ngIf="!viewTitbits" class="view-titbits w-100 mt-1">
+                <div class="clickable d-flex" (click)="viewTitbits = !viewTitbits">
+                    <h6 class="mt-2 text-decoration-underline">View Titbits</h6>&nbsp;
+                    <fa-icon class="pt-2" [icon]="faArrowRight" size="xs"></fa-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="titbits" [ngClass]="viewTitbits ? 'view-titbits-visible' : 'view-titbit-visible'">
+                <div class="left col-4 hub-scroll">
+                    <div class="sticky-titbits ps-2">
+                        <h5>Filter by category</h5>
+
+                        <ul class="action-list-selector">
+                            <ng-container *ngFor="let category of titbitCategories">
+                                <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
+                                    [ngClass]="{'selected' : category.id == selectedCategory}">
+                                    <span class="clickable"
+                                        (click)="onCategorySelect(category.id); viewTitbits = false;"><a
+                                            href="javascript:void(0)">{{category.description}}</a>
+                                    </span>
+                                </li>
+                            </ng-container>
+                        </ul>
+
+                        <h5 class="mt-4">Additional Filters</h5>
+                        <ul class="action-list-selector">
+                            <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
+                                [ngClass]="{'selected' : filterOptions.isLiked }">
+                                <span class="clickable" (click)="showFavourites(); viewTitbits = false; ">
+                                    <a href="javascript:void(0)">My Favourites</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="right col-8 mb-2">
+                    <div class="right-inner">
+                        <div class="d-flex mb-2" [ngClass]="isAdmin ? 'justify-content-between' : 'justify-content-end'">
+                            <div *ngIf="isAdmin" class="d-flex align-items-center">
+                                <fa-icon (click)="addTitbit()" class="ps-3 clickable text-success"
+                                    ngbPopover="Add new titbit" triggers="mouseenter:mouseleave" container="body"
+                                    [icon]="faAdd" size="lg"></fa-icon>
+                                <fa-icon (click)="manageCategories()" class="ps-3 clickable text-success"
+                                    ngbPopover="Manage categories" triggers="mouseenter:mouseleave" container="body"
+                                    [icon]="faList" size="lg"></fa-icon>
+                            </div>
+
+                            <div class="input-group button-addon w-50">
+                                <input type="search" class="form-control" placeholder="Search..."
+                                    formControlName="search">
+                            </div>
+                        </div>
+
+                        <ng-container *ngFor="let titbit of titbits; let $index = index">
+                            <ng-container
+                                *ngIf="isFiltered(titbit) || !(filterOptions.isLiked || filterOptions.isCategorized || filterOptions.isSearched)">
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="mb-1">{{titbit.title}}</h4>
+
+                                        <span class="date-posted">Date posted: {{titbit.dateUploaded | date}}</span>
+                                    </div>
+
+                                    <hr class="mt-0 mb-1" />
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1 pe-2">{{titbit.description}}</p>
+
+                                        <div class="option-icons">
+                                            <fa-icon *ngIf="!titbit.isLiked" class="clickable" [icon]="faHeart"
+                                                size="lg" (click)="like(titbit)"></fa-icon>
+                                            <fa-icon *ngIf="titbit.isLiked" class="clickable liked" [icon]="faFullHeart"
+                                                size="lg" (click)="unlike(titbit)"></fa-icon>
+
+                                            <fa-icon *ngIf="isAdmin" (click)="deleteTitbit(titbit.id)"
+                                                class="clickable text-error-red ps-2" ngbPopover="Remove titbit"
+                                                triggers="mouseenter:mouseleave" container="body" [icon]="faMinus"
+                                                size="lg"></fa-icon>
+
+                                            <fa-icon *ngIf="isAdmin" (click)="editTitbit(titbit)"
+                                                class="clickable ps-2 text-blue" ngbPopover="Edit titbit"
+                                                triggers="mouseenter:mouseleave" container="body" [icon]="faEdit"
+                                                size="lg"></fa-icon>
+                                        </div>
+                                    </div>
+
+                                    <div class="links">
+                                        <ul class="p-0">
+                                            <div class="d-flex">
+
+                                                <div (click)="isResourceCollapsed[$index] =! isResourceCollapsed[$index]"
+                                                    class="resource-caret clickable">
+                                                    <fa-icon *ngIf="isResourceCollapsed[$index]" [icon]="faCaretRight"
+                                                        size="sm"></fa-icon>
+                                                    <fa-icon *ngIf="!isResourceCollapsed[$index]" [icon]="faCaretDown"
+                                                        size="sm"></fa-icon>
+                                                </div>
+
+                                                <div (click)="isResourceCollapsed[$index] =! isResourceCollapsed[$index]"
+                                                    class="clickable">View Resources</div>
+                                            </div>
+
+                                            <div class="ps-3" [(ngbCollapse)]="isResourceCollapsed[$index]">
+                                                <ng-container *ngFor="let titbitLink of titbit.titbitLinks">
+                                                    <li class="list-unstyled">
+                                                        <span class="clickable"><a target="_blank" class="text-blue"
+                                                                [href]="titbitLink.link">{{titbitLink.title}}</a>
+                                                        </span>
+                                                    </li>
+                                                </ng-container>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

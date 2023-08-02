@@ -19,7 +19,7 @@ export class ApiUnauthenticatedInterceptor implements HttpInterceptor
                 return throwError(() => errorResponse);
             }
 
-            return next.handle(req);
+            return throwError(() => errorResponse);
         }));
     }
 }

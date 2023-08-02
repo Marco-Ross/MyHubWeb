@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ICommentingUser, IImage, IImageForPopup } from '../gallery/models/gallery-image.interface';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { GalleryImagesService } from '../gallery/gallery-service/gallery.service';
 import { faHeart as faFullHeart, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
+import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
 
 @Component({
     selector: 'gallery-image-comments',
@@ -17,7 +18,6 @@ export class GalleryImageCommentsComponent
     constructor(private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private galleryImagesService: GalleryImagesService,
         private hubToast: HubToastService) { }
 
-    @Output() popupForm = new EventEmitter<FormGroup>;
     @Input() options: any;
 
     faHeart = faHeart;
@@ -28,15 +28,12 @@ export class GalleryImageCommentsComponent
 
     galleryImageCommentsFG!: FormGroup;
     defaultProfileImage = 'assets/icons/user-thin.png';
-    userProfilePictures: Record<string, string> = {};
 
     ngOnInit()
     {
         this.galleryImageCommentsFG = this.formBuilder.group({
-            comment: ''
+            comment: ['', [Validators.required, InputValidator.whiteSpace]]
         });
-
-        this.popupForm.emit(this.galleryImageCommentsFG);
 
         this.galleryImagesService.getImagePopupData(this.options.data.id).subscribe({
             next: (imagePopupData: IImageForPopup) =>
@@ -61,24 +58,13 @@ export class GalleryImageCommentsComponent
             next: (image) =>
             {
                 comment.profileImage = URL.createObjectURL(image);
-                this.userProfilePictures[comment.userId] = comment.profileImage;
             }
         });
     }
 
-    isCommentEmpty(): boolean
-    {
-        let comment = this.galleryImageCommentsFG.get('comment')?.value;
-
-        if (!comment)
-            return true;
-
-        return comment.trim().length === 0;
-    }
-
     postComment()
     {
-        if (this.isCommentEmpty())
+        if (!this.galleryImageCommentsFG.get('comment')?.valid)
             return;
 
         this.galleryImagesService.postComment(this.options.data, this.galleryImageCommentsFG.get('comment') as AbstractControl);
@@ -94,11 +80,11 @@ export class GalleryImageCommentsComponent
         this.galleryImagesService.unlike(image);
     }
 
-    ngOnDestroy()
+    onClose = () =>
     {
-        this.options.data.comments.forEach((comment: ICommentingUser) =>
+        return new Promise((resolve, reject) =>
         {
-            URL.revokeObjectURL(comment.profileImage);
+            resolve(undefined);
         });
     }
 }

@@ -52,4 +52,12 @@ export class UploadImageCropComponent
     {
         /* show message */
     }
+
+    onClose = () =>
+    {
+        return new Promise((resolve, reject) =>
+        {
+            resolve(this.croppedImage);
+        });
+    }
 }

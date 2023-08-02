@@ -14,7 +14,6 @@ export class UploadFilesComponent
 
     //
 
-    @Output() uploadFilesEvent = new EventEmitter<Array<File>>;
     @Input() fileTypes: string = '';
     uploadedFiles!: Array<File>;
 
@@ -28,7 +27,6 @@ export class UploadFilesComponent
     onFileDrag(files: Array<File>)
     {
         this.uploadedFiles = files;
-        this.uploadFilesEvent.emit(this.uploadedFiles);
     }
 
     onFileUpload(event: Event)
@@ -38,6 +36,13 @@ export class UploadFilesComponent
         const valid_files = Array.from(inputEvent.files || []);
 
         this.uploadedFiles = valid_files;
-        this.uploadFilesEvent.emit(this.uploadedFiles);
+    }
+
+    onClose = () =>
+    {
+        return new Promise((resolve, reject) =>
+        {
+            resolve(this.uploadedFiles);
+        });
     }
 }

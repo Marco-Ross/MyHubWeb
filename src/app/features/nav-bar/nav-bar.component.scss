@@ -7,7 +7,6 @@ form
 
 .navbar
 {
-    height: 3.4rem;
     border-bottom: solid 1px;
     border-color: rgb(128, 128, 128, 0.2);
 
@@ -15,6 +14,11 @@ form
     {
         margin: -4px;
         margin-right: -12px;
+    }
+
+    .nav-item
+    {
+        white-space: nowrap;
     }
 }
 

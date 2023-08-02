@@ -1,0 +1,45 @@
+<form novalidate [formGroup]="manageTitbitCategoryFG">
+    <div class="d-flex justify-content-between">
+        <p class="mb-1 ps-1">Add Category:</p>
+        <fa-icon (click)="addCategory()" class="clickable text-blue" ngbPopover="Add new category"
+            triggers="mouseenter:mouseleave" container="body" [icon]="faAdd" size="lg"></fa-icon>
+    </div>
+
+    <hr class="m-0 mb-2" />
+
+    <div *ngIf="!categoryForms.controls.length" class="d-flex justify-content-center">
+        <h6 class="text-grey">No links added</h6>
+    </div>
+
+    <ng-container *ngIf="categoryForms.controls.length" formArrayName="categories">
+        <ng-container *ngFor="let categoryForm of categoryForms.controls; let $index = index">
+            <form [formGroup]="getFormGroup(categoryForm)">
+                <div class="d-flex mb-3">
+                    <div class="col-11 pe-1">
+                        <input class="form-control" placeholder="Category description" formControlName="description"
+                            [ngClass]="{'is-invalid' : categoryForm.get('description')?.errors && manageTitbitCategoriesSubmitted, 'has-error' : isDeleted($index), 
+                            'has-warning': getFormControl(categoryForm.get('description')).defaultValue !== '' && getFormControl(categoryForm.get('description')).defaultValue != getFormControl(categoryForm.get('description')).value }">
+                        <div class="error-feedback">A category description is required.</div>
+                    </div>
+
+                    <div class="col-1 d-flex justify-content-end align-items-center">
+                        <fa-icon
+                            *ngIf="!isDeleted($index) && !isUpdated(getFormControl(categoryForm.get('description')))"
+                            (click)="deleteCategory($index)" class="clickable text-error-red"
+                            ngbPopover="Remove category" triggers="mouseenter:mouseleave" container="body"
+                            [icon]="faMinus" size="lg"></fa-icon>
+
+                        <fa-icon *ngIf="isDeleted($index)" (click)="restoreDeletedCategory($index)"
+                            class="clickable text-success" ngbPopover="Undo delete" triggers="mouseenter:mouseleave"
+                            container="body" [icon]="faUndo" size="lg"></fa-icon>
+
+                        <fa-icon *ngIf="isUpdated(getFormControl(categoryForm.get('description')))"
+                            (click)="restoreUpdatedCategory($index)" class="clickable text-success"
+                            ngbPopover="Undo edit" triggers="mouseenter:mouseleave" container="body" [icon]="faUndo"
+                            size="lg"></fa-icon>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </ng-container>
+</form>

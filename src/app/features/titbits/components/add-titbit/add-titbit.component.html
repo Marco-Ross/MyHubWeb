@@ -1,0 +1,61 @@
+<form novalidate [formGroup]="addTitbitFG">
+    <input class="form-control" placeholder="Title" formControlName="title"
+        [ngClass]="{'is-invalid' : addTitbitFG.get('title')?.errors && addTitbitSubmitted}">
+    <div class="error-feedback">A title is required.</div>
+
+    <div ngbDropdown class="mt-3" [ngClass]="{'is-invalid' : !selectedCategory && addTitbitSubmitted}">
+        <button type="button" class="button w-100 text-start" ngbDropdownToggle>
+            <fa-icon class="clickable" [icon]="faList" size="sm"></fa-icon>&nbsp;&nbsp;
+            <span *ngIf="selectedCategory">{{selectedCategory.description}}</span>
+            <span *ngIf="!selectedCategory">Select a category</span>
+        </button>
+        <div ngbDropdownMenu class="w-100">
+            <ng-container *ngFor="let category of categories">
+                <button ngbDropdownItem (click)="selectedCategory = category;"
+                    type="button">{{category.description}}</button>
+            </ng-container>
+        </div>
+    </div>
+    <div class="error-feedback">A category is required.</div>
+
+    <textarea class="form-control mt-3" placeholder="Description" formControlName="description" rows="5"
+        [ngClass]="{'is-invalid' : addTitbitFG.get('description')?.errors && addTitbitSubmitted}"></textarea>
+    <div class="error-feedback">A description is required.</div>
+
+
+    <div class="d-flex justify-content-between mt-3">
+        <p class="mb-1 ps-1">Add Link:</p>
+        <fa-icon (click)="addLink()" class="clickable text-blue" ngbPopover="Add new link"
+            triggers="mouseenter:mouseleave" container="body" [icon]="faAdd" size="lg"></fa-icon>
+    </div>
+
+    <hr class="m-0 mb-2" />
+
+    <div *ngIf="!linkForms.controls.length" class="d-flex justify-content-center">
+        <h6 class="text-grey">No links added</h6>
+    </div>
+
+    <ng-container *ngIf="linkForms.controls.length" formArrayName="links">
+        <ng-container *ngFor="let linkForm of linkForms.controls; let $index = index">
+            <form [formGroup]="getFormGroup(linkForm)">
+                <div class="d-flex mb-3">
+                    <div class="col-6 pe-1">
+                        <input class="form-control" placeholder="Link title" formControlName="title"
+                            [ngClass]="{'is-invalid' : linkForm.get('title')?.errors && addTitbitSubmitted}">
+                        <div class="error-feedback">A link title is required.</div>
+                    </div>
+
+                    <div class="col-5 ps-1">
+                        <input class="form-control" placeholder="Link" formControlName="link"
+                            [ngClass]="{'is-invalid' : linkForm.get('link')?.errors && addTitbitSubmitted}">
+                        <div class="error-feedback">A link is required.</div>
+                    </div>
+                    <div class="col-1 d-flex justify-content-end align-items-center">
+                        <fa-icon (click)="deleteLink($index)" class="clickable text-error-red" ngbPopover="Remove link"
+                            triggers="mouseenter:mouseleave" container="body" [icon]="faMinus" size="lg"></fa-icon>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </ng-container>
+</form>

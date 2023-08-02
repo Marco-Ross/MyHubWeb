@@ -48,7 +48,7 @@ export class RegisterComponent
   {
     this.uploadService.UploadProfileImageCrop('Upload A Profile Image').then((result) =>
     {
-      this.profileImage = result.croppedImageEvent;
+      this.profileImage = result;
     }, () => { });
   }
 

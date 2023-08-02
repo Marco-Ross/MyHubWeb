@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ComponentsModule } from 'src/app/global-shared/modules/components.module';
-import { GalleryRoutingRoutingModule } from './gallery-routing.module';
+import { GalleryRoutingModule } from './gallery-routing.module';
 import { GalleryComponent } from './gallery.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UploadModule } from 'src/app/global-shared/components/upload-component/upload.module';
@@ -9,13 +9,15 @@ import { PopupModule } from 'src/app/global-shared/components/bootstrap-modal/po
 import { GalleryServiceModule } from './gallery-service/gallery-service.module';
 import { LazyImageLoadModule } from './lazy-image-load/lazy-image-load.module';
 import { EmptyCommentPipeModule } from './pipes/is-comment-empty/is-comment-empty.module';
+import { PageLoadModule } from 'src/app/global-shared/components/loading/page-loading.module';
 
 @NgModule({
   declarations: [
     GalleryComponent,
   ],
   providers: [],
-  imports: [ComponentsModule, GalleryRoutingRoutingModule, FontAwesomeModule, UploadModule, SafeResourceUrlModule, PopupModule, GalleryServiceModule, LazyImageLoadModule, EmptyCommentPipeModule],
+  imports: [ComponentsModule, GalleryRoutingModule, FontAwesomeModule, UploadModule, SafeResourceUrlModule, PopupModule,
+    GalleryServiceModule, LazyImageLoadModule, EmptyCommentPipeModule, PageLoadModule],
   exports: []
 })
 export class GalleryModule { }
