@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisH, faHeart as faFullHeart, faCalendar, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
@@ -11,6 +11,9 @@ import { GalleryImageCommentsComponent } from '../image-comments/gallery-image-c
 import { GalleryImageCommentsModule } from '../image-comments/gallery-image-comments.module';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/filters.interface';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
+import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 
 @Component({
     selector: 'gallery',
@@ -20,7 +23,7 @@ import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/
 export class GalleryComponent
 {
     constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService,
-        private popupService: PopupService) { }
+        private popupService: PopupService, private authenticationService: AuthenticationService, private hubToastr : HubToastService) { }
 
     faHeart = faHeart;
     faFullHeart = faFullHeart;
@@ -34,6 +37,7 @@ export class GalleryComponent
     images: IImage[] = [];
     galleryFG!: FormGroup;
     isAdmin: boolean = false;
+    loadingImages: boolean = false;
     filterOptions: IImageFiltersOptions = {
         filters: {
             isLiked: false,
@@ -47,7 +51,7 @@ export class GalleryComponent
     {
         this.galleryFG = this.formBuilder.group({});
 
-        this.galleryImagesService.getIsAdmin().subscribe({
+        this.authenticationService.getIsAdmin().subscribe({
             next: (response) =>
             {
                 this.isAdmin = response.isAdmin;
@@ -71,17 +75,19 @@ export class GalleryComponent
 
         this.uploadService.UploadImageCrop(options).then((result) =>
         {
-            this.galleryImagesService.uploadImage(new galleryImage(result.uploadEvent.image, result.uploadEvent.caption)).subscribe({
+            this.galleryImagesService.uploadImage(new galleryImage(result.image, result.caption)).subscribe({
                 next: (image) =>
                 {
-                    image.imageUrl = result.uploadEvent.image;
+                    image.imageUrl = result.image;
                     image.filters = {} as IImageFilters;
                     this.images.unshift(image);
                     this.addImageForm(image);
+                    this.hubToastr.success('Image added.');
                 },
-                error: () =>
+                error: (error) =>
                 {
                     this.images.splice(0, 1);
+                    this.hubToastr.error('Failed to add image.', error);
                 }
             });
         }, () => { });
@@ -89,15 +95,21 @@ export class GalleryComponent
 
     getImages()
     {
+        this.loadingImages = true;
+
         return this.galleryImagesService.getImageIds().subscribe({
             next: (response) =>
             {
                 this.images = response.images;
+                this.loadingImages = false;
 
-                this.images.forEach((image) =>
+                setTimeout(() =>
                 {
-                    image.filters = {} as IImageFilters;
-                    return this.addImageForm(image);
+                    this.images.forEach((image) =>
+                    {
+                        image.filters = {} as IImageFilters;
+                        return this.addImageForm(image);
+                    });
                 });
             }
         });
@@ -105,7 +117,7 @@ export class GalleryComponent
 
     addImageForm(image: IImage) 
     {
-        image.formControl = new FormControl();
+        image.formControl = new FormControl('', [Validators.required, InputValidator.whiteSpace]);
         this.galleryFG.addControl(image.id, image.formControl);
     }
 
@@ -115,6 +127,7 @@ export class GalleryComponent
             next: _ =>
             {
                 this.removeImageByIndex(image);
+                this.hubToastr.success('Image removed.');
             }
         });
     }
@@ -135,17 +148,9 @@ export class GalleryComponent
         this.galleryImagesService.unlike(image);
     }
 
-    isValueEmpty(comment: string | null)
-    {
-        if (!comment)
-            return true;
-
-        return comment.trim().length === 0;
-    }
-
     postComment(image: IImage)
     {
-        if (this.isValueEmpty(image.formControl.value) || image.isPostingComment)
+        if (!image.formControl?.valid)
             return;
 
         this.galleryImagesService.postComment(image, image.formControl);
@@ -222,12 +227,4 @@ export class GalleryComponent
 
         return isFilteredItem;
     }
-
-    // ngOnDestroy()
-    // {
-    //     this.images.forEach((image: IImage) =>
-    //     {
-    //         URL.revokeObjectURL(image.imageUrl);
-    //     });
-    // }
 }

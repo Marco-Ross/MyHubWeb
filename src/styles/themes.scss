@@ -17,7 +17,6 @@
     --github-logo: url('../assets/icons/github-mark.png');
     --caret: #{lighten($dark-color, 15%)};
     --caret-active: #{$black};
-    --action-list-selected: #{$selected-light};
     --disabled-input: #{$disabled-input-light};
     --modal-background: #{$light-color};
     --gallery-card-background: #{$gallery-card-background-light};
@@ -40,7 +39,6 @@
     --github-logo: url("../assets/icons/github-mark-white.png");
     --caret: #{$caret};
     --caret-active: #{$caret-active};
-    --action-list-selected: #{$selected-dark};
     --disabled-input: #{$disabled-input-dark};
     --modal-background: #{$dark-color};
     --gallery-card-background: #{$gallery-card-background-dark};
@@ -73,6 +71,11 @@ body
 
     @include button(--button-color);
 
+    .page-loader
+    {
+        color: var(--text-color);
+    }
+
     .button-addon
     {
         @include button-addon(--button-card-color);
@@ -101,6 +104,15 @@ body
         color: var(--link-text-color);
         text-decoration: underline;
     }
+
+    fieldset:disabled
+    {
+        a
+        {
+            color: $disabled-grey;
+        }
+    }
+
 
     .card
     {
@@ -197,7 +209,7 @@ body
 
         .selected
         {
-            background-color: var(--action-list-selected);
+            background-color: $primary-blue;
         }
     }
 
@@ -217,6 +229,23 @@ body
     nav
     {
         background-color: var(--background-color);
+    }
+
+    .nav-tabs
+    {
+        .nav-link
+        {
+            &.active
+            {
+                background-color: #4169e1;
+                color: white;
+            }
+
+            &:not(.active)
+            {
+                color: #4169e1;
+            }
+        }
     }
 
     .hub-scroll

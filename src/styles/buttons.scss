@@ -65,3 +65,14 @@
     color: var(--button-text-color);
   }
 }
+
+.button.button-selected-blue
+{
+  background-color: $primary-blue;
+}
+
+.button.button-selected-blue:hover
+{
+  background-color: darken($primary-blue, 10%);
+  transition: background-color 0.3s;
+}

@@ -1,0 +1,304 @@
+@import "/src/styles/media-breakpoints.scss";
+@import "/src/styles/colors.scss";
+
+.work-board
+{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin-left: -0.8em;
+    margin-right: -0.8em;
+
+    .horizontal-divider
+    {
+        border-left: 1px solid rgb(128, 128, 128, 0.3);
+        height: 100%;
+        position: fixed;
+        left: 35.56%;
+    }
+
+    .left
+    {
+        .custom-day
+        {
+            text-align: center;
+            padding: 0.185rem 0.25rem;
+            display: inline-block;
+            height: 2rem;
+            width: 2rem;
+        }
+
+        .custom-day.range,
+        .custom-day:hover
+        {
+            background-color: rgb(2, 117, 216);
+            color: white;
+        }
+
+        .custom-day.faded
+        {
+            background-color: rgba(2, 117, 216, 0.5);
+        }
+
+
+        .header-left
+        {
+            margin-top: 0.3em;
+            margin-right: 0.4em;
+        }
+
+        .left-absolute
+        {
+            position: absolute;
+            bottom: 3.5em;
+            top: 0em;
+            padding-right: 2%;
+            padding-left: 2%;
+            width: 35.6%;
+            background-color: rgb(0, 0, 0, 0.04);
+
+            .psudo-input
+            {
+                width: 0px;
+                padding: 0px;
+                margin: 0px;
+                border: 0px;
+                visibility: hidden;
+            }
+
+            .refresh-date-icon
+            {
+                padding-top: 1px;
+            }
+
+            .filter-dot
+            {
+                font-size: 10px;
+                margin-left: 1.3rem;
+                margin-top: 1rem;
+                box-shadow: 0 0 5px $primary-blue;
+                border-radius: 50%;
+                height: 10px;
+                display: flex;
+            }
+
+            .calendar-addon
+            {
+                padding-top: 4px;
+                padding-bottom: 4px;
+                padding-left: 8px;
+                padding-right: 8px;
+
+                img
+                {
+                    width: 1.7em;
+                    height: 1.7em;
+                }
+            }
+
+            .left-absolute-inner
+            {
+                position: absolute;
+                bottom: 4em;
+                top: 0.5em;
+                padding-right: 0.2%;
+                width: 100%;
+                margin-top: 0.3em;
+                overflow-y: auto;
+                overflow-x: hidden;
+
+                .no-item-results
+                {
+                    text-align: center;
+
+                    .spinner-size
+                    {
+                        width: 5rem;
+                        height: 5rem;
+                        border-width: 0.3rem;
+                    }
+                }
+
+                ul
+                {
+                    margin-bottom: 0em;
+                    padding-left: unset;
+
+                    li:first-child
+                    {
+                        .state-heading
+                        {
+                            padding-top: 0em;
+                        }
+                    }
+
+                    li
+                    {
+                        .state-heading
+                        {
+                            display: flex;
+                            padding-bottom: 0.5em;
+                            padding-top: 0.9em;
+
+                            .state-title
+                            {
+                                font-size: 1.15em;
+                            }
+
+                            fa-icon
+                            {
+                                padding-left: 0.3em;
+                                margin-top: 0.07em;
+                            }
+                        }
+
+                        .card-collapse
+                        {
+                            .card-container
+                            {
+                                display: flex;
+                                align-items: center;
+                                position: relative;
+                                margin-bottom: 1em;
+
+                                .selected-item
+                                {
+                                    box-shadow: 0 0 5px $primary-blue;
+                                    border: 1px solid $primary-blue;
+                                }
+
+                                .card-color-indicator
+                                {
+                                    width: 4px;
+                                    height: 50%;
+                                    position: absolute;
+                                    border-radius: 4px;
+                                    background-color: $primary-blue;
+                                }
+
+                                .card:last-child
+                                {
+                                    margin-bottom: 0em;
+                                }
+
+                                .card
+                                {
+                                    width: 100%;
+                                    margin-left: 1em;
+                                    margin-right: 1em;
+
+                                    .card-header-sm,
+                                    .card-header-md
+                                    {
+                                        padding-top: 0.2em;
+                                        padding-bottom: 0.2em;
+                                    }
+
+                                    .card-body
+                                    {
+                                        padding-top: 0em;
+                                        padding-bottom: 0em;
+
+                                        p
+                                        {
+                                            font-size: 0.9em;
+                                            margin-bottom: 0.2em;
+                                        }
+
+                                        .item-link
+                                        {
+                                            a
+                                            {
+                                                color: #0d6efd;
+                                            }
+
+                                            a:hover
+                                            {
+                                                color: #0a58ca;
+                                            }
+                                        }
+
+                                        .item-state
+                                        {
+                                            display: inline-flex;
+                                            padding-right: 0.6em;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    li:last-child
+                    {
+                        .card-collapse
+                        {
+                            .card:last-child
+                            {
+                                margin-bottom: 0.2em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .right
+    {
+        .header-right
+        {
+            margin-top: 0.3em;
+        }
+
+        .right-absolute
+        {
+            position: absolute;
+            bottom: 3.5em;
+            top: 0em;
+            right: 1%;
+            width: 62%;
+
+            .right-absolute-inner
+            {
+                height: 100%;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm)
+    {
+        .card-header-md
+        {
+            display: none;
+        }
+
+        .horizontal-divider
+        {
+            display: none;
+        }
+
+        .right
+        {
+            display: none;
+        }
+
+        .left
+        {
+            .left-absolute
+            {
+                width: 100%;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(sm)
+    {
+        .card-header-sm
+        {
+            display: none;
+        }
+    }
+}

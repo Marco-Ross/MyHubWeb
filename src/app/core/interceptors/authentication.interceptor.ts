@@ -6,6 +6,7 @@ import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication-service/authentication.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor
@@ -13,10 +14,13 @@ export class AuthenticationInterceptor implements HttpInterceptor
     private isRefreshing = false;
     private refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService) { }
+    constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService, private loggedInCookie: LoggedInCookie) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
+        if (!this.loggedInCookie.GetLoggedInCookie())
+            return next.handle(req);
+
         let modifiedReq = req;
 
         let forgeryToken = this.cookieService.get('X-Forgery-Token');

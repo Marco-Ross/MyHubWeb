@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { GithubAccessTokenComponent } from './github-access-token.component';
 
 const routes: Routes = [
-  { path: 'complete', component: GithubAccessTokenComponent }
+  {
+    path: 'complete',
+    component: GithubAccessTokenComponent
+  }
 ];
 
 @NgModule({

@@ -15,6 +15,11 @@ export class AuthenticationService
 
   constructor(private http: HttpClient) { }
 
+  getIsAdmin(): Observable<any>
+  {
+    return this.http.get(this.ApiController + "/IsAdmin");
+  }
+
   Login(user: ILoginUser): Observable<any>
   {
     return this.http.post(this.ApiController + '/Login', user);

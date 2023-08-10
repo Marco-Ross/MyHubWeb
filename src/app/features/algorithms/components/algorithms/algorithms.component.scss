@@ -19,13 +19,14 @@
         max-width: 22rem;
         min-width: 12rem;
         padding-right: 0.8rem;
+        padding-left: 1rem;
 
         .sticky-algorithms
         {
-            max-height: calc(100vh - 17px);
+            max-height: calc(100vh - 80px);
             overflow-y: auto;
             position: sticky;
-            top: 4.5rem;
+            top: 5rem;
 
             ul
             {

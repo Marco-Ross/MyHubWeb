@@ -1,6 +1,5 @@
 <form novalidate [formGroup]="algorithmsFG">
     <div class="d-flex">
-        <h2 class="mt-2 w-100 learn-algorithms">Learn Algorithms</h2>
         <div *ngIf="!viewAlgorithms" class="view-algorithms w-100 mt-1">
             <div class="clickable d-flex" (click)="viewAlgorithms = !viewAlgorithms">
                 <h6 class="mt-2 text-decoration-underline">View Algorithms</h6>&nbsp;
@@ -12,7 +11,7 @@
 
     <div class="row">
         <div class="algorithms" [ngClass]="viewAlgorithms ? 'view-algorithms-visible' : 'view-algorithm-visible'">
-            <div class="left col-3 mt-3 hub-scroll">
+            <div class="left col-4 mt-3 hub-scroll">
                 <div class="sticky-algorithms ps-2">
                     <h5 class="pb-2">Algorithms</h5>
                     <ul class="ps-1">
@@ -35,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="right col-9 mb-2">
+            <div class="right col-8 mb-2">
                 <div class="right-inner">
                     <ng-template algorithmComponentAnchor></ng-template>
                 </div>

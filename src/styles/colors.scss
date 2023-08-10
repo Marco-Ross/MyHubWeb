@@ -3,7 +3,7 @@ $white: white;
 $dark-color: #161616;
 $light-color: #f1f1f1;
 
-$dark-contrast-color: #272d32;
+$dark-contrast-color: #202326f7;
 $dark-lightened-color: #5f6e7a;
 
 $bg-white: #e4e8ec;
@@ -13,8 +13,8 @@ $bg-tint: rgba(0, 0, 0, 0.03);
 $caret: rgba(255, 255, 255, 0.55);
 $caret-active: rgba(255, 255, 255, 0.75);
 
-$selected-light: rgba(208,215,222,0.70);
-$selected-dark: rgba(177,186,196,0.08);
+$selected-light: rgba(208, 215, 222, 0.70);
+$selected-dark: rgba(177, 186, 196, 0.08);
 
 $disabled-input-light: #e9ecef;
 $disabled-input-dark: #1e1e1e;
@@ -22,55 +22,92 @@ $disabled-input-dark: #1e1e1e;
 $gallery-card-background-dark: #1a1a1a;
 $gallery-card-background-light: #ededed;
 
-$scroll-dark:#3b3b3b;
-$scroll-light:#F5F5F5;
+$scroll-dark: #3b3b3b;
+$scroll-light: #F5F5F5;
 
 $input-placeholder: #616161;
+$disabled-grey: #616161;
+
+$error-red: #dc3545;
+
+$primary-white: #eef4ed;
+$primary-blue: #4169e1;
+$primary-orange: rgba(233, 104, 19, 0.884);
 
 //$dark-color
 .text-dark
 {
-    color: $dark-color;
+    color: $dark-color !important;
 }
 
 .bg-dark
 {
-    background-color: $dark-color;
+    background-color: $dark-color !important;
 }
 
 //$dark-contrast-color
 .text-dark-contrast
 {
-    color: $dark-contrast-color;
+    color: $dark-contrast-color !important;
 }
 
 .bg-dark-contrast
 {
-    background-color: $dark-contrast-color;
+    background-color: $dark-contrast-color !important;
 }
 
 //$dark-contrast-color
 .text-darkl-contrast
 {
-    color: $dark-lightened-color;
+    color: $dark-lightened-color !important;
 }
 
 .bg-darkl-contrast
 {
-    background-color: $dark-lightened-color;
+    background-color: $dark-lightened-color !important;
 }
 
 .text-grey
 {
-    color: grey;
+    color: grey !important;
 }
 
 .text-orange
 {
-    color: rgba(233, 104, 19, 0.884);
+    color: $primary-orange !important;
 }
 
 .bg-orange
 {
-    background-color: rgba(233, 104, 19, 0.884);
+    background-color: $primary-orange !important;
+}
+
+.text-blue
+{
+    color: $primary-blue !important;
+}
+
+.bg-blue
+{
+    background-color: $primary-blue !important;
+}
+
+.text-white
+{
+    color: $primary-white !important;
+}
+
+.bg-white
+{
+    background-color: $primary-white !important;
+}
+
+.text-error-red
+{
+    color: $error-red !important;
+}
+
+.bg-error-red
+{
+    background-color: $error-red !important;
 }
