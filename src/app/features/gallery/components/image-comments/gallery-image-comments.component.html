@@ -1,5 +1,5 @@
 <form novalidate [formGroup]="galleryImageCommentsFG">
-    <div class="row d-flex image-comments mb-2">
+    <div class="row d-flex image-comments">
         <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center">
             <div>
                 <h6 *ngIf="options.data.caption">{{options.data.caption}}</h6>
@@ -43,7 +43,7 @@
         <div class="col-lg-6 col-12">
             <div class="hub-scroll">
                 <div class="comments">
-                    <div *ngIf="!options.data.comments.length" class="d-flex justify-content-center">
+                    <div *ngIf="!options.data?.comments?.length" class="d-flex justify-content-center">
                         <h3 class="text-grey">No comments</h3>
                     </div>
 

@@ -3,21 +3,21 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faArrowRight, faAdd, faList, faHeart as faFullHeart, faMinus, faEdit, faCheck, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { PopupService } from 'src/app/global-shared/components/bootstrap-modal/popup.service';
-import { AddTitbitComponent } from '../add-titbit/add-titbit.component';
-import { AddTitbitModule } from '../add-titbit/add-titbit.module';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 import { TitbitService } from '../../services/titbit.service';
-import { ITitbitResponse } from '../add-titbit/interfaces/titbit-response.interface';
-import { ITitbit, ITitbitFilters } from '../add-titbit/interfaces/titbit.interface';
-import { ITitbitCategoriesResponse } from '../add-titbit/interfaces/titbit-categories-response.interface';
-import { ITitbitCategory } from '../add-titbit/interfaces/tibit-category.interface';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
-import { AddTitbit } from '../add-titbit/classes/add-titbit.class';
 import { ManageTitbitCategoriesComponent } from '../manage-titbit-categories/manage-titbit-categories.component';
 import { ManageTitbitCategoriesModule } from '../manage-titbit-categories/manage-titbit-categories.module';
 import { ITitbitCategoryChanges } from '../manage-titbit-categories/interfaces/titbit-category-changes.interface';
 import { debounce, timer } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { ITitbit, ITitbitFilters } from '../manage-titbit/interfaces/titbit.interface';
+import { ITitbitCategory } from '../manage-titbit/interfaces/tibit-category.interface';
+import { ITitbitResponse } from '../manage-titbit/interfaces/titbit-response.interface';
+import { ITitbitCategoriesResponse } from '../manage-titbit/interfaces/titbit-categories-response.interface';
+import { ManageTitbitComponent } from '../manage-titbit/manage-titbit.component';
+import { ManageTitbitModule } from '../manage-titbit/manage-titbit.module';
+import { ManageTitbit } from '../manage-titbit/classes/manage-titbit.class';
 
 @Component({
     selector: 'titbits',
@@ -54,7 +54,7 @@ export class TitbitsComponent
         isCategorized: false,
         isLiked: false,
         isSearched: false
-    }
+    };
 
     ngOnInit()
     {
@@ -107,12 +107,12 @@ export class TitbitsComponent
         let options = new uploadOptions('Add a new titbit');
         options.buttonText = 'Add';
 
-        this.popupService.open(AddTitbitComponent, AddTitbitModule, options).then((response: AddTitbit) =>
+        this.popupService.open(ManageTitbitComponent, ManageTitbitModule, options).then((response: ManageTitbit) =>
         {
             this.titbitService.addTitbit(response).subscribe({
                 next: (titbit: ITitbit) =>
                 {
-                    this.hubToast.success('Category Added');
+                    this.hubToast.success('Titbit Added');
                     this.titbits.unshift(titbit);
                 },
                 error: (error) =>
@@ -166,6 +166,8 @@ export class TitbitsComponent
                         });
                     }
                 });
+
+            this.hubToast.success('Category changes saved');
         }, () =>
         {
         });
@@ -198,11 +200,11 @@ export class TitbitsComponent
             },
             error: (error) =>
             {
-                //dont show more than one at a time?
                 this.hubToast.error("The titbit may have been removed. Actions limited.", error);
             }
         });
     }
+
     unlike(titbit: ITitbit)
     {
         this.titbitService.unlikeTitbit(titbit.id).subscribe({
@@ -272,11 +274,13 @@ export class TitbitsComponent
         return isFiltered;
     }
 
-    deleteTitbit(titbitId: string)
+    deleteTitbit(titbitId: string, titbitIndex: number)
     {
         this.titbitService.deleteTitbit(titbitId).subscribe({
             next: _ =>
             {
+                this.titbits.splice(titbitIndex, 1);
+                this.hubToast.success('Titbit deleted');
             },
             error: (error) =>
             {
@@ -291,7 +295,7 @@ export class TitbitsComponent
         options.buttonText = 'Update';
         options.data = titbit;
 
-        this.popupService.open(AddTitbitComponent, AddTitbitModule, options).then((response: AddTitbit) =>
+        this.popupService.open(ManageTitbitComponent, ManageTitbitModule, options).then((response: ManageTitbit) =>
         {
             this.titbitService.updateTitbit(response).subscribe({
                 next: (updatedTitbit: ITitbit) =>

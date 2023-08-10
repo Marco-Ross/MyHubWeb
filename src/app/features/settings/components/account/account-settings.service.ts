@@ -7,13 +7,14 @@ import { DeleteAccountSettingsModule } from './delete-account-settings/delete-ac
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
+import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 
 @Injectable()
 export class AccountSettingsService
 {
     private readonly ApiUsersController: string = "Users";
 
-    constructor(private http: HttpClient, private popupService: PopupService, private router: Router, private authenticationService: AuthenticationService) { }
+    constructor(private http: HttpClient, private popupService: PopupService, private router: Router, private authenticationService: AuthenticationService, private hubToastr: HubToastService) { }
 
     deleteAccount()
     {
@@ -24,6 +25,7 @@ export class AccountSettingsService
             this.authenticationService.DeleteUser().subscribe({
                 next: () =>
                 {
+                    this.hubToastr.success('Account deleted');
                     this.router.navigate(['']);
                 }
             });

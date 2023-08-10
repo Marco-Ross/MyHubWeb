@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { faExternalLink, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLink, faCaretDown, faCaretUp, faRefresh, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, filter, timer } from 'rxjs';
 import { WorkItem } from './models/classes/work-item.class';
 import { NavigationStart, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SignalRWorkBoardService } from '../../services/signalR-work-board.service';
 import { WorkBoardService } from './work-board.service';
 
@@ -17,11 +17,18 @@ import { WorkBoardService } from './work-board.service';
 
 export class WorkBoardComponent
 {
-    constructor(private workBoardService: WorkBoardService, private formBuilder: FormBuilder, private signalRWorkBoardService: SignalRWorkBoardService, private router: Router, private modalService: NgbModal) { }
+    constructor(private workBoardService: WorkBoardService, private formBuilder: FormBuilder, private signalRWorkBoardService: SignalRWorkBoardService, private router: Router, private modalService: NgbModal,
+        private calendar: NgbCalendar) 
+    {
+        this.fromDate = calendar.getToday();
+        // this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    }
 
     faExternalLink = faExternalLink;
     faCaretDown = faCaretDown;
     faCaretUp = faCaretUp;
+    faRefresh = faRefresh;
+    faCircle = faCircle;
 
     //
 
@@ -35,6 +42,10 @@ export class WorkBoardComponent
     filteredWorkItems: any = undefined;
     selectedWorkItem: any;
     isCollapsed: boolean[] = [];
+    hoveredDate: NgbDate | null = null;
+    fromDate: NgbDate;
+    toDate: NgbDate | null = null;
+    searchText: string = '';
 
     ngOnInit()
     {
@@ -53,7 +64,84 @@ export class WorkBoardComponent
             }
         });
 
-        this.workBoardFG.get('search')?.valueChanges.pipe(debounce(() => timer(500))).subscribe((searchValue) => this.OnSearchChange(searchValue));
+        this.workBoardFG.get('search')?.valueChanges.pipe(debounce(() => timer(500)))
+            .subscribe((searchValue) => this.applyFilter(searchValue));
+    }
+
+    onDateSelection(date: NgbDate)
+    {
+        if (!this.fromDate && !this.toDate)
+            this.fromDate = date;
+
+        else if (this.fromDate && !this.toDate && date.after(this.fromDate))
+        {
+            this.toDate = date;
+
+            this.applyFilter(this.workBoardFG.get('search')?.value);
+        }
+        else
+        {
+            this.toDate = null;
+            this.fromDate = date;
+        }
+    }
+
+    private filterDates()
+    {
+        if (!this.toDate)
+            return;
+
+        for (let state of this.workItems)
+            this.filteredWorkItems.find((x: any) => x.state == state.state).stateList = state.stateList.filter((item: any) =>
+            {
+                for (let field in item.fields)
+                {
+                    if (field.toLowerCase() == 'changeddate' || field.toLowerCase() == 'createddate')
+                    {
+                        let from = new Date(`${this.fromDate.year} ${this.fromDate.month} ${this.fromDate.day}`);
+                        let to = new Date(`${this.toDate?.year} ${this.toDate?.month} ${this.toDate?.day}`);
+
+                        if (new Date(item.fields[field]) >= from && new Date(item.fields[field]) <= to)
+                            return true;
+
+                        else
+                            return false;
+                    }
+                }
+
+                return false;
+            });
+    }
+
+    resetDates()
+    {
+        this.fromDate = this.calendar.getToday();
+        this.toDate = null;
+
+        this.AssignFilterValues();
+        this.applyFilter(this.workBoardFG.get('search')?.value);
+    }
+
+    isHovered(date: NgbDate)
+    {
+        return (
+            this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate)
+        );
+    }
+
+    isInside(date: NgbDate)
+    {
+        return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+    }
+
+    isRange(date: NgbDate)
+    {
+        return (
+            date.equals(this.fromDate) ||
+            (this.toDate && date.equals(this.toDate)) ||
+            this.isInside(date) ||
+            this.isHovered(date)
+        );
     }
 
     private initializeWorkBoardHub()
@@ -125,6 +213,8 @@ export class WorkBoardComponent
         this.AssignWorkItemValues(states);
 
         this.AssignFilterValues();
+
+        this.selectedWorkItem = this.filteredWorkItems[0].stateList[0];
     }
 
     private AssignWorkItemValues(states: any)
@@ -169,17 +259,17 @@ export class WorkBoardComponent
     private OnSearchChange(searchValue: any)
     {
         if (!this.workItems.length)
-            return this.filteredWorkItems = [];
-
-        if (!searchValue)
-            return this.AssignFilterValues();
+        {
+            this.filteredWorkItems = [];
+            return;
+        }
 
         this.SearchWorkItems(searchValue);
     }
 
     private SearchWorkItems(searchValue: any)
     {
-        for (let state of this.workItems)
+        for (let state of this.filteredWorkItems)
             this.filteredWorkItems.find((x: any) => x.state == state.state).stateList = state.stateList.filter((item: any) => 
             {
                 return this.CheckMatchingFields(item, searchValue);
@@ -192,14 +282,6 @@ export class WorkBoardComponent
         {
             if (field.toLowerCase() == 'description')
                 return false;
-
-            if (typeof searchValue === "object" && (field.toLowerCase() == 'changeddate' || field.toLowerCase() == 'createddate'))
-            {
-                let searchDate = new Date(`${searchValue.year} ${searchValue.month} ${searchValue.day}`).toDateString();
-
-                if (new Date(item.fields[field]).toDateString().includes(searchDate))
-                    return true;
-            }
 
             if (typeof searchValue === "string" && field.toLowerCase() == 'id')
             {
@@ -233,5 +315,14 @@ export class WorkBoardComponent
     open(content: any)
     {
         this.modalService.open(content, { centered: true });
+    }
+
+    applyFilter(searchValue: string)
+    {
+        if (!searchValue)
+            this.AssignFilterValues();
+
+        this.filterDates();
+        this.OnSearchChange(searchValue);
     }
 }
