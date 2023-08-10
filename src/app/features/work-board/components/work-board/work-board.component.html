@@ -12,11 +12,37 @@
               </div>
               <div class="d-flex col-9">
                 <div class="input-group button-addon align-items-center">
+
                   <input type="search" class="form-control work-item-search" placeholder="Search For Work Items"
-                    formControlName="search" ngbDatepicker #datePicker="ngbDatepicker" [placement]="'bottom-right'">
+                    formControlName="search">
+
+                  <input class="psudo-input" ngbDatepicker #datePicker="ngbDatepicker" [dayTemplate]="dayTemp"
+                    [footerTemplate]="footerTemp" (dateSelect)="onDateSelection($event)" [placement]="'bottom-end'"
+                    [autoClose]="'outside'" [startDate]="fromDate!">
+
                   <button class="button calendar-addon" type="button" (click)="datePicker.toggle()">
+                    <fa-icon *ngIf="toDate" class="position-absolute text-blue filter-dot" [icon]="faCircle"></fa-icon>
                     <img src="assets/icons/calendar.png" />
                   </button>
+                  <ng-template #dayTemp let-date let-focused="focused">
+                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                      [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                      (mouseleave)="hoveredDate = null">
+                      {{date.day}}
+                    </span>
+                  </ng-template>
+
+                  <ng-template #footerTemp let-date let-focused="focused">
+                    <div class="d-flex justify-content-end pb-1 me-3">
+                      <div class="clickable d-flex" (click)="resetDates()">
+                        <span>Reset</span>
+                        <div class="refresh-date-icon">
+                          <fa-icon class="text-blue ps-1" [icon]="faRefresh" size="xs"></fa-icon>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
                 </div>
               </div>
             </div>
@@ -27,7 +53,8 @@
               <div class="no-item-results">
                 <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
                   role="status"></div>
-                <h4 *ngIf="workBoardFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No Results
+                <h4 *ngIf="workBoardFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No
+                  Results
                   Found
                 </h4>
                 <h4 *ngIf="!workBoardFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
@@ -67,9 +94,20 @@
                               </div>
                               <div class="modal-body">
                                 <form novalidate>
-                                  <div class="mb-3">
-                                    <h6><b>Ticket Description:</b></h6>
-                                    <p [innerHTML]="GetItemDescription()"></p>
+                                  <div class="popup-card" *ngIf="selectedWorkItem?.fields?.title">
+                                    <div class="card mt-2">
+                                      <div class="card-body">
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <div class="row mt-2">
+                                              <h5>Work Item Description:</h5>
+                                              <p class="ms-3" [innerHTML]="GetItemDescription()">
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </form>
                               </div>
@@ -101,12 +139,12 @@
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="d-flex justify-content-center">
-                      <hr class="w-50 m-0" />
-                    </div>
+                      <div class="d-flex justify-content-center">
+                        <hr class="w-50 m-0" />
+                      </div>
 
+                    </div>
                   </li>
                 </ng-container>
               </ul>

@@ -29,7 +29,9 @@ import { ToastrModule } from 'ngx-toastr';
     CoreInterceptorsModule,
     CoreAuthServicesModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }),
     AuthGuardsModule,
     OAuthModule.forRoot()
   ],

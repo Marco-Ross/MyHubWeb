@@ -105,6 +105,15 @@ body
         text-decoration: underline;
     }
 
+    fieldset:disabled
+    {
+        a
+        {
+            color: $disabled-grey;
+        }
+    }
+
+
     .card
     {
         background-color: var(--card-background);
@@ -220,6 +229,23 @@ body
     nav
     {
         background-color: var(--background-color);
+    }
+
+    .nav-tabs
+    {
+        .nav-link
+        {
+            &.active
+            {
+                background-color: #4169e1;
+                color: white;
+            }
+
+            &:not(.active)
+            {
+                color: #4169e1;
+            }
+        }
     }
 
     .hub-scroll

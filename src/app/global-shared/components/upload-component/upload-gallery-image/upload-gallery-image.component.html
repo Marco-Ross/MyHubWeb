@@ -4,4 +4,7 @@
     <div *ngIf="galleryImage.image" class="mt-3">
         <input type="text" class="form-control" placeholder="Enter Caption" formControlName="caption">
     </div>
+
+    <div [ngClass]="{'is-invalid' : isInvalid}"></div>
+    <div class="error-feedback">Upload a new image to save.</div>
 </form>

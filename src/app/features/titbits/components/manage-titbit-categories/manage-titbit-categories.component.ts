@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TitbitService } from '../../services/titbit.service';
 import { faList, faAdd, faMinus, faUndo } from '@fortawesome/free-solid-svg-icons';
-import { ITitbitCategory } from '../add-titbit/interfaces/tibit-category.interface';
-import { ITitbitCategoriesResponse } from '../add-titbit/interfaces/titbit-categories-response.interface';
 import { ITitbitCategoryChanges } from './interfaces/titbit-category-changes.interface';
+import { ITitbitCategory } from '../manage-titbit/interfaces/tibit-category.interface';
+import { ITitbitCategoriesResponse } from '../manage-titbit/interfaces/titbit-categories-response.interface';
 
 @Component({
     selector: 'manage-titbit-categories',

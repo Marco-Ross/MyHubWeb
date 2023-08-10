@@ -5,11 +5,12 @@ import { ApiServerErrorInterceptorProviders } from './api-server-error.intercept
 import { AuthInterceptorProviders } from './authentication.interceptor';
 import { ServerOfflineInterceptorProviders } from './server-offline.interceptor';
 import { ApiUnauthenticatedInterceptorProviders } from './api-unauthenticated.interceptor';
+import { ApiBusyInterceptorProviders } from './api-busy.interceptor';
 
 @NgModule({
   declarations: [],
   imports: [],
-  providers: [ServerOfflineInterceptorProviders, ApiServerErrorInterceptorProviders, ApiForbiddenInterceptorProviders, ApiUnauthenticatedInterceptorProviders, AuthInterceptorProviders, ApiRouteInterceptorProviders],
+  providers: [ServerOfflineInterceptorProviders, ApiServerErrorInterceptorProviders, ApiForbiddenInterceptorProviders, ApiUnauthenticatedInterceptorProviders, AuthInterceptorProviders, ApiRouteInterceptorProviders, ApiBusyInterceptorProviders],
   exports: []
 })
 export class CoreInterceptorsModule { }

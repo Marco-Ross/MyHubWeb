@@ -16,6 +16,7 @@ export class UploadGalleryImageComponent
 
     uploadGalleryFG!: FormGroup;
     galleryImage: galleryImage = new galleryImage('', '');
+    isInvalid: boolean = false;
 
     ngOnInit()
     {
@@ -31,6 +32,7 @@ export class UploadGalleryImageComponent
     onCroppedImageEvent(croppedImage: string)
     {
         this.galleryImage.image = croppedImage;
+        this.isInvalid = false;
     }
 
     updateCaption(caption: string)
@@ -42,6 +44,12 @@ export class UploadGalleryImageComponent
     {
         return new Promise((resolve, reject) =>
         {
+            if (!this.galleryImage.image)
+            {
+                this.isInvalid = true;
+                reject();
+            }
+
             resolve(this.galleryImage);
         });
     }

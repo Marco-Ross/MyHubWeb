@@ -13,6 +13,7 @@ import { uploadOptions } from 'src/app/global-shared/components/upload-component
 import { IImageFilter, IImageFiltersOptions, IImageSortFilters } from './models/filters.interface';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
+import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 
 @Component({
     selector: 'gallery',
@@ -22,7 +23,7 @@ import { InputValidator } from 'src/app/global-shared/validators/empty-input.val
 export class GalleryComponent
 {
     constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService,
-        private popupService: PopupService, private authenticationService: AuthenticationService) { }
+        private popupService: PopupService, private authenticationService: AuthenticationService, private hubToastr : HubToastService) { }
 
     faHeart = faHeart;
     faFullHeart = faFullHeart;
@@ -81,10 +82,12 @@ export class GalleryComponent
                     image.filters = {} as IImageFilters;
                     this.images.unshift(image);
                     this.addImageForm(image);
+                    this.hubToastr.success('Image added.');
                 },
-                error: () =>
+                error: (error) =>
                 {
                     this.images.splice(0, 1);
+                    this.hubToastr.error('Failed to add image.', error);
                 }
             });
         }, () => { });
@@ -124,6 +127,7 @@ export class GalleryComponent
             next: _ =>
             {
                 this.removeImageByIndex(image);
+                this.hubToastr.success('Image removed.');
             }
         });
     }

@@ -38,5 +38,7 @@ export class UploadFileComponent
 
         this.uploadedFile = valid_files[0];
         this.uploadFilesEvent.emit(this.uploadedFile);
+
+        inputEvent.value = '';
     }
 }

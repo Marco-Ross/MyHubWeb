@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
-import { AddTitbit } from './classes/add-titbit.class';
+import { ManageTitbit } from './classes/manage-titbit.class';
 import { TitbitService } from '../../services/titbit.service';
 import { ITitbitCategoriesResponse } from './interfaces/titbit-categories-response.interface';
 import { ITitbitCategory } from './interfaces/tibit-category.interface';
@@ -9,11 +9,11 @@ import { faList, faAdd, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { TitbitLink } from './classes/titbit-link.class';
 
 @Component({
-    selector: 'add-titbit',
-    templateUrl: 'add-titbit.component.html',
-    styleUrls: ['add-titbit.component.scss']
+    selector: 'manage-titbit',
+    templateUrl: 'manage-titbit.component.html',
+    styleUrls: ['manage-titbit.component.scss']
 })
-export class AddTitbitComponent
+export class ManageTitbitComponent
 {
     constructor(private formBuilder: FormBuilder, private titbitService: TitbitService) { }
 
@@ -104,7 +104,7 @@ export class AddTitbitComponent
                 titbitLinks.push(new TitbitLink(group.get('id')?.value, group.get('title')?.value, group.get('link')?.value));
             });
 
-            resolve(new AddTitbit(this.options.data.id, this.addTitbitFG.get('title')?.value, titbitLinks, this.addTitbitFG.get('description')?.value, this.selectedCategory?.id));
+            resolve(new ManageTitbit(this.options.data.id, this.addTitbitFG.get('title')?.value, titbitLinks, this.addTitbitFG.get('description')?.value, this.selectedCategory?.id));
         });
     }
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AddTitbit } from '../components/add-titbit/classes/add-titbit.class';
-import { ITitbit } from '../components/add-titbit/interfaces/titbit.interface';
-import { ITitbitResponse } from '../components/add-titbit/interfaces/titbit-response.interface';
-import { ITitbitCategoriesResponse } from '../components/add-titbit/interfaces/titbit-categories-response.interface';
-import { ITitbitCategory } from '../components/add-titbit/interfaces/tibit-category.interface';
+import { ManageTitbit } from '../components/manage-titbit/classes/manage-titbit.class';
+import { ITitbit } from '../components/manage-titbit/interfaces/titbit.interface';
+import { ITitbitResponse } from '../components/manage-titbit/interfaces/titbit-response.interface';
+import { ITitbitCategory } from '../components/manage-titbit/interfaces/tibit-category.interface';
+import { ITitbitCategoriesResponse } from '../components/manage-titbit/interfaces/titbit-categories-response.interface';
 
 @Injectable()
 export class TitbitService
@@ -14,12 +14,12 @@ export class TitbitService
 
     constructor(private http: HttpClient) { }
 
-    addTitbit(titbit: AddTitbit): Observable<ITitbit>
+    addTitbit(titbit: ManageTitbit): Observable<ITitbit>
     {
         return this.http.post<ITitbit>(this.ApiController, titbit);
     }
     
-    updateTitbit(titbit: AddTitbit): Observable<ITitbit>
+    updateTitbit(titbit: ManageTitbit): Observable<ITitbit>
     {
         return this.http.put<ITitbit>(this.ApiController, titbit);
     }

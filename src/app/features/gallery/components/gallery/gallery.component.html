@@ -4,9 +4,9 @@
             <button *ngIf="isAdmin" type="button" class="button me-2" (click)="addImage()"
                 [disabled]="filterOptions.sorting.dateAscending || filterOptions.filters.isLiked">Add image</button>
             <button type="button" class="button me-2" (click)="viewLiked();"
-                [ngClass]="{'button-orange': filterOptions.filters.isLiked}">My Likes</button>
+                [ngClass]="{'button-selected-blue': filterOptions.filters.isLiked}">My Likes</button>
             <button type="button" class="button" (click)="sortByDate()"
-                [ngClass]="{'button-orange': filterOptions.sorting.dateAscending}">
+                [ngClass]="{'button-selected-blue': filterOptions.sorting.dateAscending}">
                 Sort by date
                 <fa-icon *ngIf="!filterOptions.sorting.dateAscending" [icon]="faCaretDown" size="sm"></fa-icon>
                 <fa-icon *ngIf="filterOptions.sorting.dateAscending" [icon]="faCaretUp" size="sm"></fa-icon>

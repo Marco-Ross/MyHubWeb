@@ -18,7 +18,7 @@ export class AuthenticationInterceptor implements HttpInterceptor
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
-        if(!this.loggedInCookie.GetLoggedInCookie())
+        if (!this.loggedInCookie.GetLoggedInCookie())
             return next.handle(req);
 
         let modifiedReq = req;

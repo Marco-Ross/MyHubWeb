@@ -1,6 +1,6 @@
 import { TitbitLink } from "./titbit-link.class";
 
-export class AddTitbit
+export class ManageTitbit
 {
     public id: string;
     public title: string;
