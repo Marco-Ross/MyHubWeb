@@ -48,6 +48,9 @@ export class TitbitsComponent
     titbits: ITitbit[] = [];
     titbitCategories: ITitbitCategory[] = [];
     isAdmin: boolean = false;
+    showCategories: boolean = false;
+    showTitbitsLoading: boolean = false;
+    titbitsLoaded: boolean = false;
     isResourceCollapsed: Array<boolean> = [];
 
     filterOptions: ITitbitFilters = {
@@ -69,8 +72,8 @@ export class TitbitsComponent
             }
         });
 
-        this.getTitbits();
         this.getTitbitCategories();
+        this.getTitbits();
 
         this.titbitsFG.get('search')?.valueChanges.pipe(debounce(() => timer(500))).subscribe((searchValue) => this.search(searchValue));
     }
@@ -79,9 +82,15 @@ export class TitbitsComponent
 
     getTitbits()
     {
+        let timeout = setTimeout(() => this.showTitbitsLoading = true, 180);
+
         this.titbitService.getTitbits().subscribe({
             next: (response: ITitbitResponse) =>
             {
+                clearTimeout(timeout);
+                this.showTitbitsLoading = false;
+                this.titbitsLoaded = true;
+
                 this.titbits = response.titbits;
                 this.isResourceCollapsed = Array(response.titbits.length).fill(true);
             }
@@ -90,9 +99,14 @@ export class TitbitsComponent
 
     getTitbitCategories()
     {
+        let timeout = setTimeout(() => this.showCategories = true, 180);
+
         this.titbitService.getTitbitCategories().subscribe({
             next: (response: ITitbitCategoriesResponse) =>
             {
+                clearTimeout(timeout);
+                this.showCategories = true;
+
                 this.titbitCategories = response.categories;
 
                 let allCategories = { id: '', description: 'All' } as ITitbitCategory;

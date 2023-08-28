@@ -21,10 +21,6 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: '',
-        loadChildren: () => import('./route/nav-layout/nav-layout.module').then(m => m.NavLayoutModule)
-      },
-      {
         path: 'login',
         canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthLoginGuard).canMatch(route, segments)],
         loadChildren: () => import('./features/login/components/login/login.module').then(m => m.LoginModule)
@@ -47,6 +43,10 @@ const routes: Routes = [
         path: 'github',
         canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthLoginGuard).canMatch(route, segments)],
         loadChildren: () => import('./features/login/components/third-party-login/github/github-access-token.module').then(m => m.GithubAccessTokenModule)
+      },
+      {
+        path: '',
+        loadChildren: () => import('./route/nav-layout/nav-layout.module').then(m => m.NavLayoutModule)
       }
     ]
   },

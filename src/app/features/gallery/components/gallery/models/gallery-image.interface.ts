@@ -20,7 +20,7 @@ export interface IImage
     isPostingComment: boolean;
     filters: IImageFilters;
     formControl: AbstractControl;
-    comments: ICommentingUser[]
+    comments: IComment[]
 }
 
 export interface IImageFilters
@@ -34,7 +34,7 @@ export interface IImageForPopup
     likesCount: number;
     likedUsers: ILikedUser[];
     commentsCount: number;
-    galleryImageComments: ICommentingUser[];
+    galleryImageComments: IComment[];
     imageUrl: string;
     isPostingComment: boolean;
 }
@@ -45,7 +45,7 @@ export interface ILikedUser
     username: string;
 }
 
-export interface ICommentingUser
+export interface IComment
 {
     id: string;
     userId: string;

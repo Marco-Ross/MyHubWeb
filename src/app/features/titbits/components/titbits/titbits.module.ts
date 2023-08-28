@@ -5,13 +5,14 @@ import { TitbitsRoutingModule } from './titbits-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PopupModule } from 'src/app/global-shared/components/bootstrap-modal/popup.module';
 import { TitbitServiceModule } from '../../services/titbit.module';
+import { PageLoadModule } from 'src/app/global-shared/components/loading/page-loading.module';
 
 @NgModule({
     declarations: [
         TitbitsComponent,
     ],
     providers: [],
-    imports: [ComponentsModule, TitbitsRoutingModule, FontAwesomeModule, PopupModule, TitbitServiceModule],
+    imports: [ComponentsModule, TitbitsRoutingModule, FontAwesomeModule, PopupModule, TitbitServiceModule, PageLoadModule],
     exports: []
 })
 export class TitbitsModule { }

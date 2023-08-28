@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <label class="form-label">Username</label>
                         <input type="text" class="form-control" placeholder="Username" formControlName="username"
-                            [ngClass]="{'is-invalid' : accountSettingsFG.get('username')?.errors && accountUpdateSubmitted}">
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('username')?.errors && accountUpdateSubmitted}" maxlength="30">
                     </div>
                     <div class="error-feedback">Username is required</div>
                 </div>
@@ -17,7 +17,7 @@
                     <div class="col-12">
                         <label class="form-label">Name</label>
                         <input type="text" class="form-control" placeholder="Name" formControlName="name"
-                            [ngClass]="{'is-invalid' : accountSettingsFG.get('name')?.errors && accountUpdateSubmitted}">
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('name')?.errors && accountUpdateSubmitted}" maxlength="30">
                         <div class="error-feedback">Name is required</div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="col-12">
                         <label class="form-label">Surname</label>
                         <input type="text" class="form-control" placeholder="Surname" formControlName="surname"
-                            [ngClass]="{'is-invalid' : accountSettingsFG.get('surname')?.errors && accountUpdateSubmitted}">
+                            [ngClass]="{'is-invalid' : accountSettingsFG.get('surname')?.errors && accountUpdateSubmitted}" maxlength="30">
                         <div class="error-feedback">Surname is required</div>
                     </div>
                 </div>

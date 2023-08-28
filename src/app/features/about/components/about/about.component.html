@@ -1,0 +1,88 @@
+<ng-particles [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
+    (particlesLoaded)="particlesLoaded($event)"></ng-particles>
+
+<form novalidate [formGroup]="aboutFG">
+    <div class="d-flex justify-content-end social-links">
+        <div class="social-links-images">
+            <a href="https://github.com/Marco-Ross" target="_blank">
+                <span class="clickable" class="github-logo"></span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/marco-ross-829676174/" target="_blank">
+                <img class="clickable" src="assets/images/about/LinkedIn.png" />
+            </a>
+
+            <a href="https://www.codewars.com/users/Marco-Ross" target="_blank">
+                <img class="clickable" src="assets/images/about/Codewars.png" />
+            </a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-content">
+            <div class="row">
+                <div class="left col-12 col-lg-6">
+                    <div class="d-flex align-items-center">
+                        <img class="profile-image" src="assets/images/about/profile.jpg" />
+                    </div>
+                </div>
+                <div class="right col-12 col-lg-6 pt-5 pt-lg-0 ps-4 ps-lg-0 pb-4 pb-lg-0">
+                    <h4 class="mb-4">Software Developer</h4>
+
+                    <div class="names">
+                        Marco Ross
+                    </div>
+
+                    <p>
+                        Greetings! I'm Marco, and I'm an avid software developer. With a solid foundation built upon
+                        an advanced diploma in software development, I've had the privilege of working in the field for
+                        3
+                        and a half years. My experience as a full stack developer has allowed me to appreciate the
+                        intricate
+                        balance between front-end and back-end work, as well as the joy of creating seamless user
+                        experiences.
+                    </p>
+
+                    <p>
+                        What truly keeps me engaged in this ever-evolving field is my genuine interest in technology.
+                        The
+                        endless possibilities it offers never cease to amaze me, and I'm constantly excited to learn
+                        about
+                        the latest advancements and trends. Beyond just writing code, I thrive on the challenge of
+                        problem-solving and finding creative ways to tackle complex issues. As I continue on this
+                        journey, I
+                        look forward to sharing my experiences and contributing to the ever-growing tech community.
+                    </p>
+
+                    <div class="tech-stack">
+                        <h5>Tech stack:</h5>
+
+                        <div class="tech-stack-icons">
+                            <img src="assets/images/about/FrontEnds.png" ngbPopover="Html, CSS, Javascript"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/TypeScript.png" ngbPopover="Typescript"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/Bootstrap.png" ngbPopover="Bootstrap"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/Sass.png" ngbPopover="Scss/Sass"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/AngularJsCircle.png" ngbPopover="AngularJs"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/Angular.png" ngbPopover="Angular"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img class="csharp" src="assets/images/about/CSharp.png" ngbPopover="C#"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img src="assets/images/about/Sqls.png" ngbPopover="Sql" triggers="mouseenter:mouseleave"
+                                container="body" />
+                            <img src="assets/images/about/Docker.png" ngbPopover="Docker"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img class="azure" src="assets/images/about/Azure.png" ngbPopover="Azure"
+                                triggers="mouseenter:mouseleave" container="body" />
+                            <img class="azure-dev-ops" src="assets/images/about/AzureDevOps.png"
+                                ngbPopover="Azure DevOps" triggers="mouseenter:mouseleave" container="body" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

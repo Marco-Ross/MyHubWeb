@@ -12,12 +12,13 @@
                     <fa-icon class="clickable caret" [icon]="faCaretDown" size="1x"
                         [ngClass]="{'caret-active': profileDropdown.isOpen()}"></fa-icon>
                     <div ngbDropdownMenu>
-                        <div class="ps-3 pt-1 pb-1">
+                        <div class="ps-3 pe-3 pt-1 pb-1">
                             <label>Logged In As:</label>
                             <br /><b>{{navLayoutService.getNavDetails().username}}</b>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <button ngbDropdownItem [routerLink]="'settings'">Settings</button>
+                        <button ngbDropdownItem [routerLink]="'/feedback'">Feedback</button>
+                        <button ngbDropdownItem [routerLink]="'/settings'">Settings</button>
                         <button ngbDropdownItem (click)="Logout()">Logout</button>
                     </div>
                 </div>
@@ -52,13 +53,11 @@
                         <a [routerLinkActive]="'active'" [routerLink]="'/titbits'" class="nav-link"
                             type="button">Titbits</a>
                     </li>
-                    <fieldset disabled>
-                        <li class="nav-item">
-                            <a [routerLinkActive]="'active'" [routerLink]="'/about'" class="nav-link"
-                                type="button">About</a>
-                        </li>
-                    </fieldset>
-                    
+                    <li class="nav-item">
+                        <a [routerLinkActive]="'active'" [routerLink]="'/about'" class="nav-link"
+                            type="button">About</a>
+                    </li>
+
                     <!-- <li class="nav-item">
                         <div ngbDropdown>
                             <a class="nav-link clickable" ngbDropdownToggle>

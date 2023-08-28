@@ -1,0 +1,57 @@
+.main
+{
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 2rem;
+
+    .feedback
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .feedback-form
+        {
+            width: 100%;
+        }
+    }
+}
+
+.user-info
+{
+    white-space: nowrap;
+
+    .profile-image
+    {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+
+    .username
+    {
+        font-size: 1.2rem;
+    }
+
+    .comment-date
+    {
+        font-size: 12px;
+    }
+}
+
+.feedback-description
+{
+    margin-left: 2rem;
+}
+
+.feeback-divider
+{
+    display: flex;
+    margin-top: 0.5rem;
+
+    hr
+    {
+        opacity: 0.1;
+        width: 100%;
+    }
+}

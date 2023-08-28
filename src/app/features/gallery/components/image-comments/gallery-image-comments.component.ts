@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ICommentingUser, IImage, IImageForPopup } from '../gallery/models/gallery-image.interface';
+import { IComment, IImage, IImageForPopup } from '../gallery/models/gallery-image.interface';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { GalleryImagesService } from '../gallery/gallery-service/gallery.service';
-import { faHeart as faFullHeart, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faFullHeart, faCalendar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
@@ -23,11 +23,13 @@ export class GalleryImageCommentsComponent
     faHeart = faHeart;
     faFullHeart = faFullHeart;
     faCalendar = faCalendar;
+    faEllipsisH = faEllipsisH;
 
     //
 
     galleryImageCommentsFG!: FormGroup;
     defaultProfileImage = 'assets/icons/user-thin.png';
+    inputElement!: HTMLInputElement;
 
     ngOnInit()
     {
@@ -52,7 +54,7 @@ export class GalleryImageCommentsComponent
 
     //////
 
-    getProfileImage(comment: ICommentingUser)
+    getProfileImage(comment: IComment)
     {
         return this.profileImageService.GetUserProfileImageById(comment.userId).subscribe({
             next: (image) =>
@@ -60,6 +62,23 @@ export class GalleryImageCommentsComponent
                 comment.profileImage = URL.createObjectURL(image);
             }
         });
+    }
+
+    deleteComment(commentingUser: IComment, index: number)
+    {
+        this.galleryImagesService.deleteComment(commentingUser.id).subscribe(
+            {
+                next: () =>
+                {
+                    this.options.data.comments.splice(index, 1);
+                    this.options.data.commentsCount--;
+                    this.hubToast.success('Comment deleted');
+                },
+                error: (error) =>
+                {
+                    this.hubToast.error(error.error, error);
+                }
+            });
     }
 
     postComment()
