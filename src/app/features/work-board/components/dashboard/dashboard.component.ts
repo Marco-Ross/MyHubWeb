@@ -10,8 +10,8 @@ export class DashboardComponent
 {
     constructor(private router: Router) { }
 
-    Dash2()
-    {
-        this.router.navigate(['dashboard2']);
-    }
+    // Dash2()
+    // {
+    //     this.router.navigate(['dashboard2']);
+    // }
 }

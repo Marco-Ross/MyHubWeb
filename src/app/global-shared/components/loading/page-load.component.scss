@@ -1,8 +1,7 @@
 .page-loader {
 	--dur: 8s;
-	font-size: calc(20px + (30 - 20) * (100vw - 320px) / (1280 - 320));
 
-	font: bold 1.5em/1.5 "Comfortaa", sans-serif;
+	font: bold "Comfortaa", sans-serif;
 	display: grid;
 	place-items: center;
 	align-content: center;

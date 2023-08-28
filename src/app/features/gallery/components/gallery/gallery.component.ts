@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisH, faHeart as faFullHeart, faCalendar, faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faHeart as faFullHeart, faCalendar, faCaretDown, faCaretUp, faGrinAlt } from '@fortawesome/free-solid-svg-icons';
 import { UploadService } from 'src/app/global-shared/components/upload-component/upload-files.service';
 import { GalleryImagesService } from './gallery-service/gallery.service';
 import { galleryImage } from './models/gallery-image.class';
@@ -23,7 +23,7 @@ import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-t
 export class GalleryComponent
 {
     constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private galleryImagesService: GalleryImagesService,
-        private popupService: PopupService, private authenticationService: AuthenticationService, private hubToastr : HubToastService) { }
+        private popupService: PopupService, private authenticationService: AuthenticationService, private hubToastr: HubToastService) { }
 
     faHeart = faHeart;
     faFullHeart = faFullHeart;
@@ -31,13 +31,14 @@ export class GalleryComponent
     faCalendar = faCalendar;
     faCaretDown = faCaretDown;
     faCaretUp = faCaretUp;
+    faGrinAlt = faGrinAlt;
 
     //
 
     images: IImage[] = [];
     galleryFG!: FormGroup;
     isAdmin: boolean = false;
-    loadingImages: boolean = false;
+    loadingImages: boolean | undefined = false;
     filterOptions: IImageFiltersOptions = {
         filters: {
             isLiked: false,
@@ -46,6 +47,8 @@ export class GalleryComponent
             dateAscending: false
         }
     };
+
+    inputElement!: HTMLInputElement;
 
     ngOnInit()
     {
@@ -61,6 +64,13 @@ export class GalleryComponent
         this.getImages();
     }
 
+    componentLoaded: boolean = false;
+
+    ngAfterViewChecked()
+    {
+        this.componentLoaded = true;
+    }
+
     //////
 
     addImage()
@@ -71,7 +81,7 @@ export class GalleryComponent
 
         let options = new uploadOptions('Upload An Image');
         options.size = 'lg';
-        options.data = { resizeToWidth: 300, useRound: false, aspectRatio: 6 / 5 };
+        options.data = { resizeToWidth: 500, useRound: false, aspectRatio: 6 / 5 };
 
         this.uploadService.UploadImageCrop(options).then((result) =>
         {
@@ -95,12 +105,14 @@ export class GalleryComponent
 
     getImages()
     {
-        this.loadingImages = true;
+        this.loadingImages = undefined;
+        let loadingTimeout = setTimeout(() => this.loadingImages = true, 180);
 
         return this.galleryImagesService.getImageIds().subscribe({
             next: (response) =>
             {
                 this.images = response.images;
+                clearTimeout(loadingTimeout);
                 this.loadingImages = false;
 
                 setTimeout(() =>
@@ -115,7 +127,7 @@ export class GalleryComponent
         });
     }
 
-    addImageForm(image: IImage) 
+    addImageForm(image: IImage)
     {
         image.formControl = new FormControl('', [Validators.required, InputValidator.whiteSpace]);
         this.galleryFG.addControl(image.id, image.formControl);

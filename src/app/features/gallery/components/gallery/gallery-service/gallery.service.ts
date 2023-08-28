@@ -65,7 +65,6 @@ export class GalleryImagesService
             },
             error: (error) =>
             {
-                //dont show more than one at a time?
                 this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
@@ -93,22 +92,28 @@ export class GalleryImagesService
         if (image.isPostingComment)
             return;
 
-        image.isPostingComment = true;
+        let timeout = setTimeout(() => image.isPostingComment = true, 100);
 
         this.postCommentApi(image.id, formControl.value).subscribe({
             next: (comment) =>
             {
-                formControl.setValue(undefined);
+                clearTimeout(timeout);
+                formControl.setValue('');
                 image.commentsCount++;
                 image.isPostingComment = false;
                 (image.comments ||= []).unshift(comment);
             },
             error: (error) =>
             {
-                formControl.setValue(undefined);
+                formControl.setValue('');
                 image.isPostingComment = false;
                 this.hubToast.error("The image may have been removed. Actions limited.", error);
             }
         });
+    }
+
+    deleteComment(commentId: string)
+    {
+        return this.http.delete(this.ApiController + '/Comments/' + commentId);
     }
 }

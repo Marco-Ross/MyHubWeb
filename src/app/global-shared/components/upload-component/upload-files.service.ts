@@ -40,7 +40,7 @@ export class UploadService
         let options = new uploadOptions(title);
         options.size = 'lg';
         options.data.useRound = true;
-        options.data.resizeToWidth = 220;
+        options.data.resizeToWidth = 300;
         options.data.aspectRatio = 4/4;
 
         return this.popupService.open(UploadImageCropComponent, UploadImageCropModule, options);

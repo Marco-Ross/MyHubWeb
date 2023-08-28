@@ -21,19 +21,19 @@
 
             <div>
               <input type="text" class="form-control col-12 mt-2" placeholder="Username" formControlName="username"
-                [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}">
+                [ngClass]="{'is-invalid' : registerFG.get('username')?.errors && registerFormSubmitted}" maxlength="30">
               <div class="error-feedback">Please enter a valid Username</div>
             </div>
 
             <div class="row">
               <div class="col-6">
                 <input type="text" class="form-control mt-2" placeholder="Name" formControlName="name"
-                  [ngClass]="{'is-invalid' : registerFG.get('name')?.errors && registerFormSubmitted}">
+                  [ngClass]="{'is-invalid' : registerFG.get('name')?.errors && registerFormSubmitted}" maxlength="30">
                 <div class="error-feedback">Name is required</div>
               </div>
               <div class="col-6">
                 <input type="text" class="form-control mt-2" placeholder="Surname" formControlName="surname"
-                  [ngClass]="{'is-invalid' : registerFG.get('surname')?.errors && registerFormSubmitted}">
+                  [ngClass]="{'is-invalid' : registerFG.get('surname')?.errors && registerFormSubmitted}" maxlength="30">
                 <div class="error-feedback">Surname is required</div>
               </div>
             </div>

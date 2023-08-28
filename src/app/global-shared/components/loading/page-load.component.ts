@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'page-load',
@@ -10,6 +10,8 @@ export class PageLoadComponent
     constructor() { }
 
     //
+
+    @Input() fontSize = '1.5em';
 
     ngOnInit()
     {

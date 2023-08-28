@@ -3,7 +3,7 @@
         <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center">
             <div>
                 <h6 *ngIf="options.data.caption">{{options.data.caption}}</h6>
-                <img [src]="options.data.selectedImageUrl | safeResourceUrl" />
+                <img class="main-image" [src]="options.data.selectedImageUrl | safeResourceUrl" />
 
                 <div class="image-info ps-0 pe-0 pt-2">
                     <div class="col-12 d-flex p-0">
@@ -42,7 +42,7 @@
 
         <div class="col-lg-6 col-12">
             <div class="hub-scroll">
-                <div class="comments">
+                <div class="comments pt-1">
                     <div *ngIf="!options.data?.comments?.length" class="d-flex justify-content-center">
                         <h3 class="text-grey">No comments</h3>
                     </div>
@@ -54,10 +54,26 @@
                                 [src]="comment.profileImage | safeResourceUrl" />
                             <div class="ms-3">
                                 <div class="d-flex">
-                                    <b>{{comment.username}}</b> &nbsp; {{comment.comment}}
+                                    <div>
+                                        <b>{{comment.username}}:</b>&nbsp;<span
+                                            class="comment">{{comment.comment}}</span>
+                                    </div>
                                 </div>
-                                <div class="comment-date text-grey">
-                                    {{comment.commentDate|date}}
+                                <div class="comment-data text-grey">
+                                    <div class="pe-2">
+                                        {{comment.commentDate|date}}
+                                    </div>
+                                    <div ngbDropdown *ngIf="comment.isMyComment">
+                                        <div class="ellipsis">
+                                            <fa-icon ngbDropdownToggle class="clickable" [icon]="faEllipsisH"
+                                                size="sm"></fa-icon>
+                                        </div>
+
+                                        <div ngbDropdownMenu>
+                                            <button type="button" ngbDropdownItem
+                                                (click)="deleteComment(comment, $index)">Delete</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -70,14 +86,17 @@
 
                 <div class="col-12 p-0 add-comment">
                     <input class="text-grey form-control" placeholder="Add a comment..." (keydown.enter)="postComment()"
-                        formControlName="comment">
+                        formControlName="comment" maxlength="500" (inputPosition)="inputElement = $event">
 
                     <div *ngIf="galleryImageCommentsFG.get('comment')?.value | emptyComment"
-                        class="text-primary clickable post-load" (click)="postComment()">
+                        class="text-primary clickable post-load me-2 ms-1" (click)="postComment()">
                         <div *ngIf="options.data.isPostingComment" class="loader-bars text-orange" role="status"></div>
 
                         <span *ngIf="!options.data.isPostingComment">Post</span>
                     </div>
+
+                    <emoji-picker [inputElement]="inputElement"
+                        [control]="galleryImageCommentsFG.get('comment')"></emoji-picker>
                 </div>
             </div>
         </div>
