@@ -6,13 +6,11 @@
             </div>
 
             <div class="main">
-                <p>I'd love to hear some feedback.</p>
-                <p>If you encouter any bugs or can think of any imporvements or ideas of cool things to do, don't be shy
-                    to
-                    give some feedback.</p>
-                <div class="feedback mt-5">
+                <p class="m-0 feedback-text">I'd love to hear your feedback about my site.</p>
+                <span class="privacy text-grey">Your feedback will not be see by others.</span>
+                <div class="feedback mt-3">
                     <div class="feedback-form">
-                        <textarea class="form-control" rows="5" placeholder="Type some feedback..." maxlength="1000"
+                        <textarea class="form-control" rows="8" placeholder="Type some feedback..." maxlength="1000"
                             formControlName="feedback"></textarea>
                     </div>
                 </div>
@@ -22,6 +20,7 @@
                         <load-button [type]="'button'" [isLoading]="isLoading" [buttonText]="'Submit'" [debounce]="150"
                             class="mt-2" (click)="postFeedback()"></load-button>
                     </div>
+                   
                 </div>
 
             </div>
