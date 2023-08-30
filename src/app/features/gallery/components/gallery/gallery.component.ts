@@ -170,6 +170,7 @@ export class GalleryComponent
 
     viewComments(image: IImage)
     {
+        //Image blobs are left behind if (opened and closed) twice and then refresh.
         let options = new uploadOptions('Comments');
         options.buttonText = 'Close';
         options.buttonType = 'Button';
