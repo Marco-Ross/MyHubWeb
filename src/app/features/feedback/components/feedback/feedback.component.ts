@@ -5,7 +5,7 @@ import { FeedbackService } from './feedback.service';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { Feedback, FeedbackPost } from './classes/feedback.class';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
-import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import { LoggedInCookie } from 'src/app/global-shared/services/cookies/logged-in.cookie';
 
 
@@ -19,7 +19,7 @@ export class FeedbackComponent
     constructor(private formBuilder: FormBuilder, private hubToast: HubToastService, private feedbackService: FeedbackService,
         private authenticationService: AuthenticationService, private profileImageService: ProfileImageService, private loggedInCookie: LoggedInCookie) { }
 
-    faMinus = faMinus;
+        faX = faX;
 
     //
 

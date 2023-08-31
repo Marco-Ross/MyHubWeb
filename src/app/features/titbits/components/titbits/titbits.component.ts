@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faArrowRight, faAdd, faList, faHeart as faFullHeart, faMinus, faEdit, faCheck, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faAdd, faList, faHeart as faFullHeart, faX, faEdit, faCheck, faCaretRight, faCaretDown, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { PopupService } from 'src/app/global-shared/components/bootstrap-modal/popup.service';
 import { uploadOptions } from 'src/app/global-shared/components/upload-component/upload-options.class';
 import { TitbitService } from '../../services/titbit.service';
@@ -34,11 +34,12 @@ export class TitbitsComponent
     faList = faList
     faHeart = faHeart;
     faFullHeart = faFullHeart;
-    faMinus = faMinus;
+    faX = faX;
     faEdit = faEdit;
     faCheck = faCheck;
     faCaretRight = faCaretRight;
     faCaretDown = faCaretDown;
+    faInfoCircle = faInfoCircle;
 
     //
 
@@ -128,6 +129,7 @@ export class TitbitsComponent
                 {
                     this.hubToast.success('Titbit Added');
                     this.titbits.unshift(titbit);
+                    this.isResourceCollapsed.unshift(true);
                 },
                 error: (error) =>
                 {
@@ -295,6 +297,7 @@ export class TitbitsComponent
             {
                 this.titbits.splice(titbitIndex, 1);
                 this.hubToast.success('Titbit deleted');
+                this.isResourceCollapsed.splice(titbitIndex, 1);
             },
             error: (error) =>
             {
