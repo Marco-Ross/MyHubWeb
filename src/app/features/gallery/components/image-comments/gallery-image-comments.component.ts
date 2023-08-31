@@ -59,6 +59,7 @@ export class GalleryImageCommentsComponent
         return this.profileImageService.GetUserProfileImageById(comment.userId).subscribe({
             next: (image) =>
             {
+                URL.revokeObjectURL(comment.profileImage);
                 comment.profileImage = URL.createObjectURL(image);
             }
         });
