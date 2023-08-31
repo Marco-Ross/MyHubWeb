@@ -241,13 +241,13 @@ body
         {
             &.active
             {
-                background-color: #4169e1;
-                color: white;
+                background-color: $primary-blue;
+                color: $text-white;
             }
 
             &:not(.active)
             {
-                color: #4169e1;
+                color: $primary-blue;
             }
         }
     }
