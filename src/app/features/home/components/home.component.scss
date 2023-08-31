@@ -1,8 +1,215 @@
-.welcome
+@import "/src/styles/media-breakpoints.scss";
+@import "/src/styles/colors.scss";
+@import "/src/styles/colors.scss";
+
+.layout
 {
-    font-size: 7rem;
-    font-family: BebasNeue-Regular;
-    line-height: 6rem;
-    height: 6rem;
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    height: calc(100vh - 61.84px);
+
+    .layout-container
+    {
+        height: 44rem;
+        width: 100%;
+
+        .welcome
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            .heading
+            {
+                font-size: 3.5rem;
+                font-family: BebasNeue-Regular;
+            }
+
+            .description-container
+            {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                margin-top: 3rem;
+                width: 100%;
+
+                .text-purple
+                {
+                    color: #6a44f7;
+                }
+
+                .text-red
+                {
+                    color: #dd1b16;
+                }
+
+                .home-description
+                {
+                    border-radius: 1rem;
+                    max-width: 64rem;
+                    text-align: justify;
+
+                    padding-top: 1.3rem;
+                    padding-bottom: 1.3rem;
+                    padding-left: 3.3rem;
+                    padding-right: 3.3rem;
+                }
+            }
+
+            .home-divider
+            {
+                display: flex;
+                align-items: center;
+                width: 40%;
+
+                hr
+                {
+                    width: 100%;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.main
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.wrap
+{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+
+    transform-style: preserve-3d;
+    transform: perspective(100rem);
+
+    cursor: pointer;
+}
+
+.home-feature-card
+{
+    --rX: 0;
+    --rY: 0;
+    --bX: 50%;
+    --bY: 80%;
+
+    width: 13rem;
+    height: 15rem;
+    border: 1px solid;
+    border-radius: 1.6rem;
+    padding: 2.9rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    transform: rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg));
+
+    background-position: var(--bX) var(--bY);
+    background-size: 40rem auto;
+    box-shadow: 0 0 3rem .5rem hsla(0, 0%, 0%, .1);
+
+    transition: transform .6s 1s;
+
+    .feature-description
+    {
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+.home-feature-card::before,
+.home-feature-card::after
+{
+    content: "";
+
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid;
+
+    position: absolute;
+    z-index: 2;
+
+    opacity: .3;
+    transition: .3s;
+}
+
+.home-feature-card::before
+{
+    top: 2rem;
+    right: 2rem;
+
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.home-feature-card::after
+{
+    bottom: 2rem;
+    left: 2rem;
+
+    border-top-width: 0;
+    border-right-width: 0;
+}
+
+.home-feature-card--active
+{
+    transition: none;
+}
+
+.home-feature-card p
+{
+    font-size: 0.9rem;
+}
+
+.wrap:hover .home-feature-card::before,
+.wrap:hover .home-feature-card::after
+{
+    width: calc(100% - 4rem);
+    height: calc(100% - 4rem);
+}
+
+.bg-green-light
+{
+    border-color: transparentize($color: $primary-green, $amount: .25);
+}
+
+.bg-blue-light
+{
+    border-color: transparentize($color: $primary-blue, $amount: .25);
+}
+
+.bg-orange-light
+{
+    border-color: transparentize($color: $primary-orange, $amount: .25);
+}
+
+.bg-lime-light
+{
+    border-color: transparentize($color: $primary-lime, $amount: .25);
+}
+
+@include media-breakpoint-down(sm)
+{
+    .layout .layout-container .welcome .heading
+    {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-height: 48rem)
+{
+    .layout
+    {
+        align-items: unset;
+    }
 }

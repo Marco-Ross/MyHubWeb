@@ -4,7 +4,7 @@
 
 :root
 {
-    --background-color: $light-color;
+    --background-color: #{$light-color};
     --button-text-color: #{$bg-white};
     --button-focus: #{$black};
     --text-color: #{$black};
@@ -24,6 +24,10 @@
     --scroll-thumb: #{$scroll-dark};
     --emoji-picker: #{$bg-white};
     --emoji-picker-search: #{$emoji-search};
+    --home-feature-card-background: #{$home-feature-card-background-light};
+    --home-feature-card-inner-border: #{$home-feature-card-inner-border-light};
+    --home-description: #{$home-description-light};
+    --home-description-border: #{$home-description-border-light};
 }
 
 .dark-theme
@@ -48,6 +52,10 @@
     --scroll-thumb: #{$scroll-light};
     --emoji-picker: #{$emoji-dark};
     --emoji-picker-search: #{$emoji-search};
+    --home-feature-card-background: #{$home-feature-card-background-dark};
+    --home-feature-card-inner-border: #{$home-feature-card-inner-border-dark};
+    --home-description: #{$home-description-dark};
+    --home-description-border: #{$home-description-border-dark};
 
     nav
     {
@@ -116,7 +124,6 @@ body
             color: $disabled-grey;
         }
     }
-
 
     .card
     {
@@ -287,6 +294,31 @@ body
             --search-focus-background-color: var(--emoji-picker-search);
             --category-name-background-color: var(--emoji-picker);
             --text-color: var(--text-color)
+        }
+    }
+
+    .home-feature-card
+    {
+        background-color: var(--home-feature-card-background);
+
+        &::before,
+        &::after
+        {
+            color: var(--home-feature-card-inner-border);
+        }
+    }
+
+    .home-description
+    {
+        background-color: var(--home-description);
+        border: solid 1px var(--home-description-border);
+    }
+
+    .home-divider
+    {
+        hr
+        {
+            border: solid 0.1px var(--home-description-border);
         }
     }
 }
