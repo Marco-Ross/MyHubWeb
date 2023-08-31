@@ -9,10 +9,6 @@ const routes: Routes = [
         component: NavLayoutComponent,
         children: [
             {
-                path: '',
-                loadChildren: () => import('../../features/home/components/home.module').then(m => m.HomeModule)
-            },
-            {
                 path: 'work-board',
                 loadChildren: () => import('../../features/work-board/components/work-board/work-board.module').then(m => m.WorkBoardModule)
             },
@@ -32,6 +28,18 @@ const routes: Routes = [
             {
                 path: 'gallery',
                 loadChildren: () => import('../../features/gallery/components/gallery/gallery.module').then(m => m.GalleryModule)
+            },
+            {
+                path: 'about',
+                loadChildren: () => import('../../features/about/components/about/about.module').then(m => m.AboutModule)
+            },
+            {
+                path: 'feedback',
+                loadChildren: () => import('../../features/feedback/components/feedback/feedback.module').then(m => m.FeedbackModule)
+            },
+            {
+                path: '',
+                loadChildren: () => import('../../features/home/components/home.module').then(m => m.HomeModule)
             }
         ]
     }

@@ -22,6 +22,8 @@
     --gallery-card-background: #{$gallery-card-background-light};
     --scroll-track: #{$scroll-light};
     --scroll-thumb: #{$scroll-dark};
+    --emoji-picker: #{$bg-white};
+    --emoji-picker-search: #{$emoji-search};
 }
 
 .dark-theme
@@ -44,6 +46,8 @@
     --gallery-card-background: #{$gallery-card-background-dark};
     --scroll-track: #{$scroll-dark};
     --scroll-thumb: #{$scroll-light};
+    --emoji-picker: #{$emoji-dark};
+    --emoji-picker-search: #{$emoji-search};
 
     nav
     {
@@ -237,13 +241,13 @@ body
         {
             &.active
             {
-                background-color: #4169e1;
-                color: white;
+                background-color: $primary-blue;
+                color: $text-white;
             }
 
             &:not(.active)
             {
-                color: #4169e1;
+                color: $primary-blue;
             }
         }
     }
@@ -267,6 +271,22 @@ body
         {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
             background-color: var(--scroll-thumb);
+        }
+    }
+
+    .picmo__popupContainer
+    {
+        z-index: 1056;
+
+        .emoji-picker
+        {
+            --background-color: var(--emoji-picker);
+            --preview-background-color: var(--emoji-picker);
+            --secondary-background-color: var(--emoji-picker);
+            --search-background-color: var(--emoji-picker-search);
+            --search-focus-background-color: var(--emoji-picker-search);
+            --category-name-background-color: var(--emoji-picker);
+            --text-color: var(--text-color)
         }
     }
 }

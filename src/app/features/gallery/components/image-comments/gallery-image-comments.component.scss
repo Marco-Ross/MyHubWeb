@@ -1,8 +1,22 @@
 @import "/src/styles/media-breakpoints.scss";
 
-.comment-date
+.main-image
 {
+    width: 23rem;
+}
+
+.comment-data
+{
+    display: flex;
     font-size: 12px;
+
+    .ellipsis
+    {
+        .dropdown-toggle::after
+        {
+            display: none;
+        }
+    }
 }
 
 .profile-image
@@ -15,7 +29,8 @@
 .comments
 {
     overflow-y: scroll;
-    height: 21.8rem;
+    height: 22.22rem;
+    font-size: 0.875rem;
 }
 
 .comments-seperator

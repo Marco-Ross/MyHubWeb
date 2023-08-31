@@ -1,0 +1,89 @@
+.social-links
+{
+    padding-top: 1rem;
+    padding-right: 1rem;
+    height: 3.3rem;
+
+    .social-links-images
+    {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 0.5rem;
+
+        *
+        {
+            width: 2rem;
+        }
+    }
+}
+
+.main
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 115px);
+    padding-bottom: 6rem;
+
+    .main-content
+    {
+        height: 100%;
+        max-width: 120rem;
+        display: flex;
+        justify-content: center;
+
+        .left
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .profile-image
+            {
+                height: 80%;
+                width: 100%;
+            }
+        }
+
+        .right
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 5%;
+
+            .names
+            {
+                font-size: 7rem;
+                font-family: BebasNeue-Regular;
+                line-height: 6rem;
+                height: 6rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .tech-stack
+            {
+                margin-top: 1.5rem;
+                height: 4.2rem;
+
+                .tech-stack-icons
+                {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, 2.5rem);
+                    align-items: center;
+
+                    img
+                    {
+                        width: 2rem;
+                    }
+
+                    .azure-dev-ops
+                    {
+                        width: 2.5rem;
+                    }
+                }
+            }
+        }
+    }
+}

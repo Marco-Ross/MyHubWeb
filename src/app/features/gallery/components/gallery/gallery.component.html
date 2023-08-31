@@ -16,7 +16,7 @@
     <div class="image-container">
         <div *ngIf="!images.length" class="text-grey mt-5">
             <page-load *ngIf="loadingImages"></page-load>
-            <h3 *ngIf="!loadingImages">No Images To Display.</h3>
+            <h3 *ngIf="loadingImages === false">No Images To Display.</h3>
         </div>
 
         <ng-container *ngIf="images.length">
@@ -44,7 +44,8 @@
 
                             <div class="card-header-content">
                                 <div class="image" [lazyImage]="image" (onImageLoad)="loadImage($event)">
-                                    <img *ngIf="image.imageUrl" [src]="image.imageUrl | safeResourceUrl" (click)="viewComments(image)" class="clickable">
+                                    <img *ngIf="image.imageUrl" [src]="image.imageUrl | safeResourceUrl"
+                                        (click)="viewComments(image)" class="clickable">
                                 </div>
                                 <div *ngIf="!image.imageUrl" class="image-loader">
                                     <div class="loader" role="status"></div>
@@ -95,17 +96,19 @@
                                 <div class="col-12 p-0 add-comment">
                                     <input *ngIf="image.formControl" class="text-grey form-control"
                                         [formControlName]="image.id" placeholder="Add a comment..."
-                                        (keydown.enter)="postComment(image)">
+                                        (keydown.enter)="postComment(image)" maxlength="500"
+                                        (inputPosition)="inputElement = $event">
 
                                     <div *ngIf="image.formControl?.value | emptyComment"
-                                        class="text-primary clickable post-load" (click)="postComment(image)">
+                                        class="text-primary clickable post-load me-2 ms-1" (click)="postComment(image)">
 
-                                        <div *ngIf="image.isPostingComment" class="loader-bars text-orange"
-                                            role="status">
-                                        </div>
+                                        <div *ngIf="image.isPostingComment" class="loader-bars" role="status"></div>
 
                                         <span *ngIf="!image.isPostingComment">Post</span>
                                     </div>
+
+                                    <emoji-picker [inputElement]="inputElement"
+                                        [control]="image.formControl"></emoji-picker>
                                 </div>
                             </div>
                         </div>

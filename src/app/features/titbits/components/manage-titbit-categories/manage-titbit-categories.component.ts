@@ -101,6 +101,7 @@ export class ManageTitbitCategoriesComponent
         return new Promise((resolve, reject) =>
         {
             this.manageTitbitCategoriesSubmitted = true;
+            this.manageTitbitCategoryFG.enable();
 
             if (!this.manageTitbitCategoryFG.valid)
                 return reject();
@@ -120,10 +121,12 @@ export class ManageTitbitCategoriesComponent
         {
             for (let i = this.categoryForms.controls.length - 1; i >= 0; i--)
             {
-                if (this.categories[i]?.id && this.deletedCategories.get(i))
+                let deletedCategory = this.deletedCategories.get(i) ?? -1;
+                
+                if (this.categories[i]?.id && deletedCategory >= 0)
                     titbitCategories.push({ id: this.categories[i]?.id, operation: 'delete' } as ITitbitCategoryChanges);
 
-                else if (this.deletedCategories.get(i))
+                else if (deletedCategory >= 0)
                     this.categoryForms.removeAt(i);
             }
         }
