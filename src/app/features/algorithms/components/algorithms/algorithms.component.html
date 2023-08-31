@@ -23,8 +23,8 @@
                                     <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
                                         [ngClass]="{'selected' : algorithm.id == selected}">
                                         <span class="clickable"
-                                            (click)="onAlgorithmSelect(algorithm); viewAlgorithms = false;"><a
-                                                href="javascript:void(0)">{{algorithm.name}}</a>
+                                            (click)="onAlgorithmSelect(algorithm); viewAlgorithms = false;">
+                                            <span>{{algorithm.name}}</span>
                                         </span>
                                     </li>
                                 </ng-container>
