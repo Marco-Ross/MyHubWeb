@@ -1,3 +1,5 @@
+@import "/src/styles/media-breakpoints.scss";
+
 .social-links
 {
     padding-top: 1rem;
@@ -7,8 +9,13 @@
     .social-links-images
     {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-column-gap: 0.5rem;
+
+        .social-icon
+        {
+            align-self: center;
+        }
 
         *
         {
@@ -38,6 +45,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-left: -2rem;
+            padding-left: 3rem;
 
             .profile-image
             {
@@ -51,7 +60,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-right: 5%;
+            padding-right: 3%;
 
             .names
             {
@@ -59,12 +68,18 @@
                 font-family: BebasNeue-Regular;
                 line-height: 6rem;
                 height: 6rem;
-                margin-bottom: 1.5rem;
+                margin-bottom: 0.7rem;
+            }
+
+            .about-description
+            {
+                padding-right: 10%;
+                text-align: justify;
             }
 
             .tech-stack
             {
-                margin-top: 1.5rem;
+                margin-top: 0.7rem;
                 height: 4.2rem;
 
                 .tech-stack-icons
@@ -82,6 +97,38 @@
                     {
                         width: 2.5rem;
                     }
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(lg)
+{
+    .main
+    {
+        .main-content
+        {
+            .left
+            {
+                margin-left: unset;
+                padding-left: unset;
+            }
+
+            .right
+            {
+                padding-right: 1.5rem;
+
+                .names
+                {
+                    font-size: 3.5rem;
+                    line-height: 3.5rem;
+                    height: 4rem;
+                }
+
+                .about-description
+                {
+                    padding-right: unset;
                 }
             }
         }

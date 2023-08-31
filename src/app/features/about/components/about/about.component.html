@@ -1,18 +1,26 @@
-<ng-particles [id]="id" [options]="particlesOptions" [particlesInit]="particlesInit"
-    (particlesLoaded)="particlesLoaded($event)"></ng-particles>
-
 <form novalidate [formGroup]="aboutFG">
     <div class="d-flex justify-content-end social-links">
         <div class="social-links-images">
-            <a href="https://github.com/Marco-Ross" target="_blank">
+            <fa-icon class="clickable social-icon" [icon]="faEnvelope" size="2x" [ngbPopover]="emailPopover" 
+                triggers="mouseenter:mouseleave" [autoClose]="autoClose" (mouseleave)="revertEmail()" 
+                ngxClipboard [cbContent]="'marcoross37@gmail.com'" (cbOnSuccess)="copyEmail()"></fa-icon>
+
+            <ng-template #emailPopover>
+                {{copyText}}
+            </ng-template>
+
+            <a href="https://github.com/Marco-Ross" target="_blank" ngbPopover="GitHub"
+                triggers="mouseenter:mouseleave" container="body">
                 <span class="clickable" class="github-logo"></span>
             </a>
 
-            <a href="https://www.linkedin.com/in/marco-ross-829676174/" target="_blank">
+            <a href="https://www.linkedin.com/in/marco-ross-829676174/" target="_blank" ngbPopover="LinkedIn"
+                triggers="mouseenter:mouseleave" container="body">
                 <img class="clickable" src="assets/images/about/LinkedIn.png" />
             </a>
 
-            <a href="https://www.codewars.com/users/Marco-Ross" target="_blank">
+            <a href="https://www.codewars.com/users/Marco-Ross" target="_blank" ngbPopover="Codewars"
+                triggers="mouseenter:mouseleave" container="body">
                 <img class="clickable" src="assets/images/about/Codewars.png" />
             </a>
         </div>
@@ -32,26 +40,30 @@
                         Marco Ross
                     </div>
 
-                    <p>
-                        Greetings! I'm Marco, and I'm an avid software developer. With a solid foundation built upon
-                        an advanced diploma in software development, I've had the privilege of working in the field for
-                        3
-                        and a half years. My experience as a full stack developer has allowed me to appreciate the
-                        intricate
-                        balance between front-end and back-end work, as well as the joy of creating seamless user
-                        experiences.
-                    </p>
+                    <div class="about-description">
+                        <p class="mb-4">
+                            Greetings! I'm Marco, and I'm an avid software developer. With a solid foundation built upon
+                            an advanced diploma in software development, I've had the privilege of working in the field
+                            for
+                            3
+                            and a half years. My experience as a full stack developer has allowed me to appreciate the
+                            intricate
+                            balance between front-end and back-end work, as well as the joy of creating seamless user
+                            experiences.
+                        </p>
 
-                    <p>
-                        What truly keeps me engaged in this ever-evolving field is my genuine interest in technology.
-                        The
-                        endless possibilities it offers never cease to amaze me, and I'm constantly excited to learn
-                        about
-                        the latest advancements and trends. Beyond just writing code, I thrive on the challenge of
-                        problem-solving and finding creative ways to tackle complex issues. As I continue on this
-                        journey, I
-                        look forward to sharing my experiences and contributing to the ever-growing tech community.
-                    </p>
+                        <p>
+                            What truly keeps me engaged in this ever-evolving field is my genuine interest in
+                            technology.
+                            The
+                            endless possibilities it offers never cease to amaze me, and I'm constantly excited to learn
+                            about
+                            the latest advancements and trends. Beyond just writing code, I thrive on the challenge of
+                            problem-solving and finding creative ways to tackle complex issues. As I continue on this
+                            journey, I
+                            look forward to sharing my experiences and contributing to the ever-growing tech community.
+                        </p>
+                    </div>
 
                     <div class="tech-stack">
                         <h5>Tech stack:</h5>

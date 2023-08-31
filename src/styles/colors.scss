@@ -31,11 +31,27 @@ $disabled-grey: #616161;
 $error-red: #dc3545;
 
 $primary-white: #eef4ed;
-$primary-blue: #4169e1;
-$primary-orange: rgba(233, 104, 19, 0.884);
+$primary-blue: #0097B2;
+$primary-orange: #e96813;
+$primary-green: #00BF63;
+$primary-lime: #85c516;
+$primary-grey: #79828C;
+
 
 $emoji-dark: rgb(41 42 42);
 $emoji-search: rgba(0, 0, 0, 0.1);
+
+$home-feature-card-background-light: rgb(215 215 215 / .90);
+$home-feature-card-inner-border-light: black;
+
+$home-feature-card-background-dark: rgb(14 14 14 / .83);
+$home-feature-card-inner-border-dark: white;
+
+$home-description-light: rgb(230 230 230 / .9);
+$home-description-border-light: #1f1f1ff0;
+
+$home-description-dark: #1f1f1ff0;
+$home-description-border-dark: rgba(248, 248, 255, .5);
 
 //$dark-color
 .text-dark
@@ -103,6 +119,26 @@ $emoji-search: rgba(0, 0, 0, 0.1);
 .bg-white
 {
     background-color: $primary-white !important;
+}
+
+.text-green
+{
+    color: $primary-green !important;
+}
+
+.bg-green
+{
+    background-color: $primary-green !important;
+}
+
+.text-lime
+{
+    color: $primary-lime !important;
+}
+
+.bg-lime
+{
+    background-color: $primary-lime !important;
 }
 
 .text-error-red
