@@ -27,7 +27,7 @@
                             *ngIf="!isDeleted($index) && !isUpdated(getFormControl(categoryForm.get('description')))"
                             (click)="deleteCategory($index)" class="clickable text-error-red"
                             ngbPopover="Remove category" triggers="mouseenter:mouseleave" container="body"
-                            [icon]="faMinus" size="lg"></fa-icon>
+                            [icon]="faX" size="lg"></fa-icon>
 
                         <fa-icon *ngIf="isDeleted($index)" (click)="restoreDeletedCategory($index)"
                             class="clickable text-success" ngbPopover="Undo delete" triggers="mouseenter:mouseleave"

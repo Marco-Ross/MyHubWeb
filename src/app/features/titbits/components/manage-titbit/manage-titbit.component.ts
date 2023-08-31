@@ -5,7 +5,7 @@ import { ManageTitbit } from './classes/manage-titbit.class';
 import { TitbitService } from '../../services/titbit.service';
 import { ITitbitCategoriesResponse } from './interfaces/titbit-categories-response.interface';
 import { ITitbitCategory } from './interfaces/tibit-category.interface';
-import { faList, faAdd, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faList, faAdd, faX } from '@fortawesome/free-solid-svg-icons';
 import { TitbitLink } from './classes/titbit-link.class';
 
 @Component({
@@ -19,7 +19,7 @@ export class ManageTitbitComponent
 
     faList = faList;
     faAdd = faAdd;
-    faMinus = faMinus;
+    faX = faX;
 
     //
 

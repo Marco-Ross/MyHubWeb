@@ -5,7 +5,7 @@ form
 {
     display: flex;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
 }
 
 .titbits-width
@@ -72,6 +72,11 @@ form
             width: 100%;
             max-width: 65rem;
 
+            .info-icon
+            {
+                padding-top: 0.1rem;
+            }
+
             .no-titbits:not(:only-child)
             {
                 display: none;
@@ -82,9 +87,18 @@ form
                 white-space: nowrap;
             }
 
+            .titbit-header
+            {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+
             .date-posted
             {
                 font-size: 13px;
+                white-space: nowrap;
+                margin-bottom: 0.3rem;
             }
 
             .links

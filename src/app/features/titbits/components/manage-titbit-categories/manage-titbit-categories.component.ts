@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TitbitService } from '../../services/titbit.service';
-import { faList, faAdd, faMinus, faUndo } from '@fortawesome/free-solid-svg-icons';
+import { faList, faAdd, faX, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { ITitbitCategoryChanges } from './interfaces/titbit-category-changes.interface';
 import { ITitbitCategory } from '../manage-titbit/interfaces/tibit-category.interface';
 import { ITitbitCategoriesResponse } from '../manage-titbit/interfaces/titbit-categories-response.interface';
@@ -17,7 +17,7 @@ export class ManageTitbitCategoriesComponent
 
     faList = faList;
     faAdd = faAdd;
-    faMinus = faMinus;
+    faX = faX;
     faUndo = faUndo;
 
     //
