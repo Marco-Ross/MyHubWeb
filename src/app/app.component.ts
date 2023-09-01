@@ -18,7 +18,7 @@ export class AppComponent
 
   ngOnInit()
   {
-    this.SetTheme();
+    this.setTheme();
 
     this.themeRenderer.getIsThemeLoading().subscribe({
       next: (isThemeLoading: any) =>
@@ -28,11 +28,13 @@ export class AppComponent
     });
   }
 
-  private SetTheme()
+  private setTheme()
   {
     let loginDetails = this.loggedInCookie.GetLoggedInCookie();
 
     if (loginDetails?.IsLoggedIn)
-      this.themeRenderer.SetCurrentTheme();
+      this.themeRenderer.setCurrentTheme();
+    else
+      this.themeRenderer.setLoggedOutTheme();
   }
 }

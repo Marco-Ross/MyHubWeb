@@ -45,7 +45,7 @@ export class SettingsComponent
 
   private SetThemeData()
   {
-    this.themeRenderer.OnThemeChange().subscribe({
+    this.themeRenderer.onThemeChange().subscribe({
       next: (theme) =>
       {
         this.settingsFG.get('theme')?.setValue(theme, {
@@ -59,6 +59,6 @@ export class SettingsComponent
 
   private OnThemeChange(theme: string)
   {
-    this.themeRenderer.ChangeTheme(theme);
+    this.themeRenderer.changeTheme(theme);
   }
 }

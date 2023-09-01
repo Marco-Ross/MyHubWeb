@@ -27,31 +27,39 @@
     }
 }
 
-.user-info
+.comment
 {
-    white-space: nowrap;
+    display: flex;
+    width: 97%;
 
-    .profile-image
+    .user-info
     {
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
+        white-space: nowrap;
+
+        .profile-image
+        {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+        }
+
+        .username
+        {
+            font-size: 1.2rem;
+        }
+
+        .comment-date
+        {
+            font-size: 12px;
+        }
     }
 
-    .username
+    .feedback-description
     {
-        font-size: 1.2rem;
+        margin-left: 2rem;
+        overflow-wrap: break-word;
+        width: 85%;
     }
-
-    .comment-date
-    {
-        font-size: 12px;
-    }
-}
-
-.feedback-description
-{
-    margin-left: 2rem;
 }
 
 .feeback-divider

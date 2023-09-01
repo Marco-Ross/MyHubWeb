@@ -37,7 +37,7 @@ export class GithubAccessTokenComponent
             next: _ =>
             {
                 this.loginStatus = true;
-                this.router.navigate(['/']).then(() => { this.themeRenderer.SetCurrentThemeLogin(); }, () => { });
+                this.router.navigate(['/']).then(() => { this.themeRenderer.setCurrentThemeLogin(); }, () => { });
             },
             error: (response) =>
             {

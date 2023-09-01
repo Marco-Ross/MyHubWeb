@@ -38,6 +38,8 @@ $primary-lime: #85c516;
 $primary-grey: #79828C;
 $primary-info: #8888ff;
 
+$secondary-blue: #3c60ff;
+
 
 $emoji-dark: rgb(41 42 42);
 $emoji-search: rgba(0, 0, 0, 0.1);
@@ -89,7 +91,12 @@ $home-description-border-dark: rgba(248, 248, 255, .5);
 
 .text-grey
 {
-    color: grey !important;
+    color: #79828C !important;
+}
+
+.bg-grey
+{
+    background-color: #79828C !important;
 }
 
 .text-orange
@@ -159,5 +166,10 @@ $home-description-border-dark: rgba(248, 248, 255, .5);
 
 .bg-info
 {
-    background-color: $primary-info !important;
+    background-color: $primary-info;
+}
+
+.text-sblue
+{
+    color: $secondary-blue  !important;
 }
