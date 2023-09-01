@@ -7,10 +7,10 @@
         <div class="left-absolute col-4">
           <div class="row">
             <div class="d-flex mt-3">
-              <div class="col-3">
-                <h6 class="header-left">Work Items</h6>
+              <div class="col-4 header-left">
+                <h6><b>Work Items</b></h6>
               </div>
-              <div class="d-flex col-9">
+              <div class="d-flex col-8 header-right">
                 <div class="input-group button-addon align-items-center">
 
                   <input type="search" class="form-control work-item-search" placeholder="Search For Work Items"
@@ -21,7 +21,7 @@
                     [autoClose]="'outside'" [startDate]="fromDate!">
 
                   <button class="button calendar-addon" type="button" (click)="datePicker.toggle()">
-                    <fa-icon *ngIf="toDate" class="position-absolute text-blue filter-dot" [icon]="faCircle"></fa-icon>
+                    <fa-icon *ngIf="toDate" class="position-absolute text-orange filter-dot" [icon]="faCircle"></fa-icon>
                     <img src="assets/icons/calendar.png" />
                   </button>
                   <ng-template #dayTemp let-date let-focused="focused">
@@ -37,7 +37,7 @@
                       <div class="clickable d-flex" (click)="resetDates()">
                         <span>Reset</span>
                         <div class="refresh-date-icon">
-                          <fa-icon class="text-blue ps-1" [icon]="faRefresh" size="xs"></fa-icon>
+                          <fa-icon class="text-orange ps-1" [icon]="faRefresh" size="xs"></fa-icon>
                         </div>
                       </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="state-heading">
                       <span class="clickable" (click)="isCollapsed[items.state] =! isCollapsed[items.state]">
                         <span [ngClass]="{
-                        'text-primary': items.state == 'Doing',
+                        'text-sblue': items.state == 'Doing',
                         'text-grey': items.state == 'To Do',
                         'text-success': items.state == 'Done'
                         }" class="state-title">{{items.state}}</span>
@@ -80,10 +80,10 @@
                         <div [ngClass]="{'card-color-indicator': selectedWorkItem == item}"></div>
 
                         <div class="card" [ngClass]="{'selected-item': selectedWorkItem == item}">
-                          <div class="card-header card-header-md clickable" (click)="selectedWorkItem = item">
+                          <div class="card-header card-header-lg-up clickable" (click)="selectedWorkItem = item">
                             <span><b>Hub-{{item.fields.id}}:</b> {{item.fields.title}}</span>
                           </div>
-                          <div class="card-header card-header-sm clickable"
+                          <div class="card-header card-header-lg-down clickable"
                             (click)="selectedWorkItem = item; open(content)">
 
                             <ng-template #content let-modal>
@@ -124,13 +124,6 @@
                               <div class="col-12">
                                 <div class="item-state col-12 p-0">
                                   <p class="col-11"><b>Type:</b> {{item.fields.workItemType}}</p>
-                                  <div class="item-link col-1 text-end">
-                                    <a [href]="'https://dev.azure.com/marcoshub/MyHub/_boards/board/t/MyHub%20Team/Issues/?workitem=' + item.fields.id"
-                                      target="_blank">
-                                      <fa-icon class="clickable icon-link" [icon]="faExternalLink" size="sm"
-                                        ngbPopover="Open item in DevOps" triggers="mouseenter:mouseleave"></fa-icon>
-                                    </a>
-                                  </div>
                                 </div>
                                 <p><b>Date Created:</b> {{item.fields.createdDate | date}}</p>
                                 <p><b>Date Last Updated:</b> {{item.fields.changedDate | date}}</p>

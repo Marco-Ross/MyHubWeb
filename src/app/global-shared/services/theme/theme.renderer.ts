@@ -12,34 +12,41 @@ export class ThemeRenderer
 
     private currentTheme = new BehaviorSubject('');
     private isThemeLoading = new BehaviorSubject(false);
-   
+
     private darkListener: any;
     private lightListener: any;
 
     constructor(private window: WindowRefService, private themeStorage: ThemeStorageService, private themeService: ThemeService)
     {
-        this.MediaDark = this.MediaDark.bind(this);
-        this.MediaLight = this.MediaLight.bind(this);
+        this.mediaDark = this.mediaDark.bind(this);
+        this.mediaLight = this.mediaLight.bind(this);
     }
 
-    public SetCurrentTheme()
+    public setLoggedOutTheme()
+    {
+        this.window.nativeWindow.document.documentElement.style.cssText = '';
+        this.updateTheme(ThemeConstants.SystemTheme);
+        this.currentTheme.next(ThemeConstants.SystemTheme);
+    }
+
+    public setCurrentTheme()
     {
         return this.themeService.GetTheme().subscribe({
-            next: (themeOptions:any) =>
+            next: (themeOptions: any) =>
             {
                 this.window.nativeWindow.document.documentElement.style.cssText = '';
-                let setTheme = this.UpdateTheme(themeOptions.theme);
+                let setTheme = this.updateTheme(themeOptions.theme);
                 this.themeStorage.UpdateTheme(setTheme);
                 this.currentTheme.next(themeOptions.theme || ThemeConstants.SystemTheme);
             }
         });
     }
 
-    public SetCurrentThemeLogin()
+    public setCurrentThemeLogin()
     {
         this.isThemeLoading.next(true);
 
-        this.SetCurrentTheme().add(() =>
+        this.setCurrentTheme().add(() =>
         {
             this.isThemeLoading.next(false);
         });
@@ -50,113 +57,113 @@ export class ThemeRenderer
         return this.isThemeLoading;
     }
 
-    public ChangeTheme(theme: string)
+    public changeTheme(theme: string)
     {
-        let setTheme = this.UpdateTheme(theme);
+        let setTheme = this.updateTheme(theme);
         this.themeService.UpdateTheme(theme).subscribe();
         this.themeStorage.UpdateTheme(setTheme);
         this.currentTheme.next(theme);
     }
 
-    private UpdateTheme(theme: string | null)
+    private updateTheme(theme: string | null)
     {
         let newTheme = Object.values(ThemeConstants).find(x => x == theme) ?? ThemeConstants.SystemTheme;
 
         if (newTheme == ThemeConstants.SystemTheme)
-            return this.SetSystemTheme();
+            return this.setSystemTheme();
         else
         {
-            this.RemoveSystemListeners();
-            this.UpdateThemeClass(newTheme);
+            this.removeSystemListeners();
+            this.updateThemeClass(newTheme);
         }
 
         return newTheme;
     }
 
-    private UpdateThemeClass(theme: string)
+    private updateThemeClass(theme: string)
     {
-        this.RemoveAllThemeClasses();
-        this.AddThemeClass(theme);
+        this.removeAllThemeClasses();
+        this.addThemeClass(theme);
     }
 
-    private RemoveAllThemeClasses()
+    private removeAllThemeClasses()
     {
         for (let x in ThemeConstants)
-            this.RemoveThemeClass(ThemeConstants[x as keyof typeof ThemeConstants]);
+            this.removeThemeClass(ThemeConstants[x as keyof typeof ThemeConstants]);
     }
 
-    private RemoveThemeClass(theme: string)
+    private removeThemeClass(theme: string)
     {
         this.renderer.selectRootElement('html', true).classList.remove(theme);
     }
 
-    private AddThemeClass(theme: string)
+    private addThemeClass(theme: string)
     {
         this.renderer.selectRootElement('html', true).classList.add(theme);
     }
 
-    public OnThemeChange()
+    public onThemeChange()
     {
         return this.currentTheme;
     }
 
-    public SetSystemTheme()
+    public setSystemTheme()
     {
-        this.RemoveSystemListeners();
-        this.AddWindowListeners();
+        this.removeSystemListeners();
+        this.addWindowListeners();
 
-        return this.SetPreferredTheme();
+        return this.setPreferredTheme();
     }
 
-    private SetPreferredTheme()
+    private setPreferredTheme()
     {
         if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: dark)').matches)
         {
-            this.UpdateThemeClass(ThemeConstants.DarkTheme);
+            this.updateThemeClass(ThemeConstants.DarkTheme);
             return ThemeConstants.DarkTheme;
         }
 
         if (this.window.nativeWindow.matchMedia('(prefers-color-scheme: light)').matches)
         {
-            this.UpdateThemeClass(ThemeConstants.LightTheme);
+            this.updateThemeClass(ThemeConstants.LightTheme);
             return ThemeConstants.LightTheme;
         }
 
         return ThemeConstants.SystemTheme;
     }
 
-    private AddWindowListeners()
+    private addWindowListeners()
     {
         this.darkListener = this.window.nativeWindow.matchMedia('(prefers-color-scheme: dark)');
-        this.darkListener.addEventListener('change', this.MediaDark);
+        this.darkListener.addEventListener('change', this.mediaDark);
 
         this.lightListener = this.window.nativeWindow.matchMedia('(prefers-color-scheme: light)')
-        this.lightListener.addEventListener('change', this.MediaLight);
+        this.lightListener.addEventListener('change', this.mediaLight);
     }
 
-    private MediaDark(mediaQuery: any)
+    private mediaDark(mediaQuery: any)
     {
         if (mediaQuery.matches)
-            this.UpdateThemeClass(ThemeConstants.DarkTheme);
+            this.updateThemeClass(ThemeConstants.DarkTheme);
     }
 
-    private MediaLight(mediaQuery: any)
+    private mediaLight(mediaQuery: any)
     {
         if (mediaQuery.matches)
-            this.UpdateThemeClass(ThemeConstants.LightTheme);
+            this.updateThemeClass(ThemeConstants.LightTheme);
     }
 
-    private RemoveSystemListeners()
+    private removeSystemListeners()
     {
         if (this.darkListener)
-            this.darkListener.removeEventListener('change', this.MediaDark);
+            this.darkListener.removeEventListener('change', this.mediaDark);
 
         if (this.lightListener)
-            this.lightListener.removeEventListener('change', this.MediaLight);
+            this.lightListener.removeEventListener('change', this.mediaLight);
     }
 
     ngOnDestroy(): void
     {
-        this.RemoveAllThemeClasses();
+        this.removeAllThemeClasses();
     }
 }

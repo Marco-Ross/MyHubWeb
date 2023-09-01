@@ -28,8 +28,8 @@
                                     <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
                                         [ngClass]="{'selected' : category.id == selectedCategory}">
                                         <span class="clickable"
-                                            (click)="onCategorySelect(category.id); viewTitbits = false;"><a
-                                                href="javascript:void(0)">{{category.description}}</a>
+                                            (click)="onCategorySelect(category.id); viewTitbits = false;">
+                                            <span>{{category.description}}</span>
                                         </span>
                                     </li>
                                 </ng-container>
@@ -41,7 +41,7 @@
                             <li class="mb-2 me-3 ps-4 pt-1 pb-1 list-unstyled"
                                 [ngClass]="{'selected' : filterOptions.isLiked }">
                                 <span class="clickable" (click)="showFavourites(); viewTitbits = false; ">
-                                    <a href="javascript:void(0)">My Favourites</a>
+                                    <span>My Favourites</span>
                                 </span>
                             </li>
                         </ul>
@@ -50,15 +50,21 @@
 
                 <div class="right col-8 mb-2">
                     <div class="right-inner">
-                        <div class="d-flex mb-2"
-                            [ngClass]="isAdmin ? 'justify-content-between' : 'justify-content-end'">
-                            <div *ngIf="isAdmin" class="d-flex align-items-center">
-                                <fa-icon (click)="addTitbit()" class="ps-3 clickable text-success"
-                                    ngbPopover="Add new titbit" triggers="mouseenter:mouseleave" container="body"
-                                    [icon]="faAdd" size="lg"></fa-icon>
-                                <fa-icon (click)="manageCategories()" class="ps-3 clickable text-success"
-                                    ngbPopover="Manage categories" triggers="mouseenter:mouseleave" container="body"
-                                    [icon]="faList" size="lg"></fa-icon>
+
+                        <div class="d-flex mb-2 align-items-center justify-content-between">
+                            <div class="d-flex">
+                                <h4 class="m-0"><b>Titbits:</b></h4><fa-icon class="ps-2 pe-2 text-info info-icon"
+                                        ngbPopover="Definition: a small and particularly interesting item of information."
+                                        triggers="mouseenter:mouseleave" container="body" [icon]="faInfoCircle"
+                                        size="lg"></fa-icon>
+                                <div *ngIf="isAdmin" class="d-flex align-items-center">
+                                    <fa-icon (click)="addTitbit()" class="pe-1 clickable text-success"
+                                        ngbPopover="Add new titbit" triggers="mouseenter:mouseleave" container="body"
+                                        [icon]="faAdd" size="lg"></fa-icon>
+                                    <fa-icon (click)="manageCategories()" class="clickable text-success"
+                                        ngbPopover="Manage categories" triggers="mouseenter:mouseleave" container="body"
+                                        [icon]="faList" size="lg"></fa-icon>
+                                </div>
                             </div>
 
                             <div class="input-group button-addon w-50">
@@ -79,9 +85,9 @@
                             <ng-container *ngFor="let titbit of titbits; let $index = index">
                                 <ng-container
                                     *ngIf="isFiltered(titbit) || !(filterOptions.isLiked || filterOptions.isCategorized || filterOptions.isSearched)">
-                                    <div class="mb-4">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h4 class="mb-1">{{titbit.title}}</h4>
+                                    <div class="mb-4 position-relative">
+                                        <div class="titbit-header">
+                                            <h4 class="mb-1 pe-2">{{titbit.title}}</h4>
 
                                             <span class="date-posted">Date: {{titbit.dateUploaded | date}}</span>
                                         </div>
@@ -98,7 +104,7 @@
 
                                                 <fa-icon *ngIf="isAdmin" (click)="deleteTitbit(titbit.id, $index)"
                                                     class="clickable text-error-red ps-2" ngbPopover="Remove titbit"
-                                                    triggers="mouseenter:mouseleave" container="body" [icon]="faMinus"
+                                                    triggers="mouseenter:mouseleave" container="body" [icon]="faX"
                                                     size="lg"></fa-icon>
 
                                                 <fa-icon *ngIf="isAdmin" (click)="editTitbit(titbit)"
@@ -112,7 +118,7 @@
                                             <ul class="p-0">
                                                 <div class="d-flex">
                                                     <div (click)="isResourceCollapsed[$index] =! isResourceCollapsed[$index]"
-                                                        class="resource-caret clickable">
+                                                        class="resource-caret clickable text-sblue">
                                                         <fa-icon *ngIf="isResourceCollapsed[$index]"
                                                             [icon]="faCaretRight" size="sm"></fa-icon>
                                                         <fa-icon *ngIf="!isResourceCollapsed[$index]"
@@ -126,7 +132,7 @@
                                                 <div class="ps-3" [(ngbCollapse)]="isResourceCollapsed[$index]">
                                                     <ng-container *ngFor="let titbitLink of titbit.titbitLinks">
                                                         <li class="list-unstyled">
-                                                            <span class="clickable"><a target="_blank" class="text-blue"
+                                                            <span class="clickable"><a target="_blank" class="text-sblue"
                                                                     [href]="titbitLink.link">{{titbitLink.title}}</a>
                                                             </span>
                                                         </li>

@@ -65,7 +65,7 @@ export class NavBarComponent
         this.authenticationService.Logout().subscribe({
             next: _ =>
             {
-                this.themeRenderer.SetSystemTheme();
+                this.themeRenderer.setSystemTheme();
                 this.themeStorage.RemoveTheme();
                 this.checkLoggedIn();
                 this.router.navigate(['/']);
