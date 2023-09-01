@@ -14,7 +14,7 @@
         border-left: 1px solid rgb(128, 128, 128, 0.3);
         height: 100%;
         position: fixed;
-        left: 35.56%;
+        left: 31.56%;
     }
 
     .left
@@ -31,20 +31,21 @@
         .custom-day.range,
         .custom-day:hover
         {
-            background-color: rgb(2, 117, 216);
+            background-color: $primary-orange;
             color: white;
         }
 
         .custom-day.faded
         {
-            background-color: rgba(2, 117, 216, 0.5);
+            background-color: transparentize($primary-orange, 0.5);
         }
-
 
         .header-left
         {
-            margin-top: 0.3em;
-            margin-right: 0.4em;
+            display: flex;
+            align-items: center;
+            margin-top: 0.4rem;
+            margin-right: 0.3rem;
         }
 
         .left-absolute
@@ -54,7 +55,8 @@
             top: 0em;
             padding-right: 2%;
             padding-left: 2%;
-            width: 35.6%;
+            width: 31.6%;
+            min-width: 19rem;
             background-color: rgb(0, 0, 0, 0.04);
 
             .psudo-input
@@ -76,7 +78,7 @@
                 font-size: 10px;
                 margin-left: 1.3rem;
                 margin-top: 1rem;
-                box-shadow: 0 0 5px $primary-blue;
+                box-shadow: 0 0 5px $primary-orange;
                 border-radius: 50%;
                 height: 10px;
                 display: flex;
@@ -99,7 +101,7 @@
             .left-absolute-inner
             {
                 position: absolute;
-                bottom: 4em;
+                bottom: 4.9em;
                 top: 0.5em;
                 padding-right: 0.2%;
                 width: 100%;
@@ -139,6 +141,7 @@
                             display: flex;
                             padding-bottom: 0.5em;
                             padding-top: 0.9em;
+                            padding-left: 1rem;
 
                             .state-title
                             {
@@ -186,18 +189,25 @@
                                     width: 100%;
                                     margin-left: 1em;
                                     margin-right: 1em;
+                                    border-radius: 0.6rem;
 
-                                    .card-header-sm,
-                                    .card-header-md
+                                    .card-header
                                     {
-                                        padding-top: 0.2em;
-                                        padding-bottom: 0.2em;
+                                        border-bottom: 1px solid transparentize($primary-grey, 0.6);
+                                        text-align: center;
+                                    }
+
+                                    .card-header-md,
+                                    .card-header-lg
+                                    {
+                                        padding-top: 0.3em;
+                                        padding-bottom: 0.3em;
                                     }
 
                                     .card-body
                                     {
                                         padding-top: 0em;
-                                        padding-bottom: 0em;
+                                        padding-bottom: 0.1em;
 
                                         p
                                         {
@@ -254,10 +264,9 @@
         .right-absolute
         {
             position: absolute;
-            bottom: 3.5em;
+            bottom: 3.9em;
             top: 0em;
-            right: 1%;
-            width: 62%;
+            width: 66%;
 
             .right-absolute-inner
             {
@@ -268,9 +277,9 @@
         }
     }
 
-    @include media-breakpoint-down(sm)
+    @include media-breakpoint-down(lg)
     {
-        .card-header-md
+        .card-header-lg-up
         {
             display: none;
         }
@@ -287,6 +296,10 @@
 
         .left
         {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
             .left-absolute
             {
                 width: 100%;
@@ -294,9 +307,28 @@
         }
     }
 
-    @include media-breakpoint-up(sm)
+    @media screen and (max-width: 280px)
     {
-        .card-header-sm
+        .left
+        {
+            .left-absolute
+            {
+                .header-left
+                {
+                    margin-left: 1rem;
+                }
+
+                .header-right
+                {
+                    width: 61%;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg)
+    {
+        .card-header-lg-down
         {
             display: none;
         }

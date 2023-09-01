@@ -118,7 +118,7 @@
                                             <ul class="p-0">
                                                 <div class="d-flex">
                                                     <div (click)="isResourceCollapsed[$index] =! isResourceCollapsed[$index]"
-                                                        class="resource-caret clickable text-blue">
+                                                        class="resource-caret clickable text-sblue">
                                                         <fa-icon *ngIf="isResourceCollapsed[$index]"
                                                             [icon]="faCaretRight" size="sm"></fa-icon>
                                                         <fa-icon *ngIf="!isResourceCollapsed[$index]"
@@ -132,7 +132,7 @@
                                                 <div class="ps-3" [(ngbCollapse)]="isResourceCollapsed[$index]">
                                                     <ng-container *ngFor="let titbitLink of titbit.titbitLinks">
                                                         <li class="list-unstyled">
-                                                            <span class="clickable"><a target="_blank" class="text-blue"
+                                                            <span class="clickable"><a target="_blank" class="text-sblue"
                                                                     [href]="titbitLink.link">{{titbitLink.title}}</a>
                                                             </span>
                                                         </li>

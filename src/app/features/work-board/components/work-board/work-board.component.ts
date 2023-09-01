@@ -214,7 +214,7 @@ export class WorkBoardComponent
 
         this.AssignFilterValues();
 
-        this.selectedWorkItem = this.filteredWorkItems[0].stateList[0];
+        this.selectedWorkItem = this.filteredWorkItems[0].stateList[0] ?? this.filteredWorkItems[1].stateList[0] ?? this.filteredWorkItems[2].stateList[0];
     }
 
     private AssignWorkItemValues(states: any)
@@ -314,7 +314,7 @@ export class WorkBoardComponent
 
     open(content: any)
     {
-        this.modalService.open(content, { centered: true });
+        this.modalService.open(content, { centered: true, size: 'md' });
     }
 
     applyFilter(searchValue: string)

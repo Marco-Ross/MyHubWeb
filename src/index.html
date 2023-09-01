@@ -14,7 +14,7 @@
     {
       if (this.window.matchMedia('(prefers-color-scheme: dark)').matches)
       {
-        document.documentElement.style.cssText = 'background-color:#161616';
+        document.documentElement.style.cssText = 'background-color:#161616'; //sets background until angular has loaded. Removed once loaded
         document.documentElement.classList.add('dark-theme');
       }
 
