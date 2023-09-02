@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { faExternalLink, faCaretDown, faCaretUp, faRefresh, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, filter, timer } from 'rxjs';
@@ -38,7 +38,8 @@ export class WorkBoardComponent
         ToDo: 'To Do',
         Done: 'Done'
     };
-    workItems: any = undefined;
+    workItems: WorkItem[] = [];
+    workItemsLoading: boolean = false;
     filteredWorkItems: any = undefined;
     selectedWorkItem: any;
     isCollapsed: boolean[] = [];
@@ -55,8 +56,14 @@ export class WorkBoardComponent
 
         this.initializeWorkBoardHub();
 
+        this.workItemsLoading = true;
+
         this.workBoardService.GetAllWorkItems().subscribe({
-            next: (workItemsQuery) => this.SetWorkItems(workItemsQuery),
+            next: (workItemsQuery) =>
+            {
+                this.workItemsLoading = false;
+                this.SetWorkItems(workItemsQuery)
+            },
             error: () =>
             {
                 this.workItems = [];
@@ -92,7 +99,7 @@ export class WorkBoardComponent
             return;
 
         for (let state of this.workItems)
-            this.filteredWorkItems.find((x: any) => x.state == state.state).stateList = state.stateList.filter((item: any) =>
+            this.filteredWorkItems.find((x: any) => x.state == state.state).stateList = state.stateList?.filter((item: any) =>
             {
                 for (let field in item.fields)
                 {
@@ -180,7 +187,7 @@ export class WorkBoardComponent
 
     private setUpdatedFields(updatedWorkItem: any)
     {
-        let flattenedWorkItems = this.workItems.map((x: any) => x.stateList).flat(1);
+        let flattenedWorkItems = this.workItems.map((x: WorkItem) => x.stateList).flat(1);
 
         let updatedWorkItemIndex = flattenedWorkItems.findIndex((x: any) => x.id === updatedWorkItem.resource.workItemId);
 
@@ -258,6 +265,9 @@ export class WorkBoardComponent
 
     private OnSearchChange(searchValue: any)
     {
+        if (!searchValue)
+            return;
+
         if (!this.workItems.length)
         {
             this.filteredWorkItems = [];
@@ -312,7 +322,7 @@ export class WorkBoardComponent
         return this.selectedWorkItem?.fields?.description;
     }
 
-    open(content: any)
+    open(content: TemplateRef<any>)
     {
         this.modalService.open(content, { centered: true, size: 'md' });
     }

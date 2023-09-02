@@ -216,10 +216,10 @@ export class GalleryComponent
         this.filterOptions.sorting.dateAscending = !this.filterOptions.sorting.dateAscending;
 
         if (this.filterOptions.sorting.dateAscending == true)
-            this.images = this.images.sort((x: any, y: any) => new Date(x.dateUploaded).getTime() - new Date(y.dateUploaded).getTime());
+            this.images = this.images.sort((x: IImage, y: IImage) => new Date(x.dateUploaded).getTime() - new Date(y.dateUploaded).getTime());
 
         else if (this.filterOptions.sorting.dateAscending == false)
-            this.images = this.images.sort((x: any, y: any) => new Date(y.dateUploaded).getTime() - new Date(x.dateUploaded).getTime());
+            this.images = this.images.sort((x: IImage, y: IImage) => new Date(y.dateUploaded).getTime() - new Date(x.dateUploaded).getTime());
     }
 
     filteredItems(image: IImage)
