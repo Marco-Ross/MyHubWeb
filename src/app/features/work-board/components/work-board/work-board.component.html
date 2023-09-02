@@ -51,13 +51,13 @@
           <div class="position-relative h-100">
             <div class="left-absolute-inner">
               <div class="no-item-results">
-                <div *ngIf="workItems === undefined" class="spinner-border text-darkl-contrast spinner-size"
+                <div *ngIf="workItemsLoading" class="spinner-border text-darkl-contrast spinner-size"
                   role="status"></div>
                 <h4 *ngIf="workBoardFG.get('search')?.value && filteredWorkItems && IsEmpty(filteredWorkItems)">No
                   Results
                   Found
                 </h4>
-                <h4 *ngIf="!workBoardFG.get('search')?.value && workItems && IsEmpty(workItems)">No Work Items</h4>
+                <h4 *ngIf="!workBoardFG.get('search')?.value && workItems.length && IsEmpty(workItems)">No Work Items</h4>
               </div>
               <ul>
                 <ng-container *ngFor="let items of filteredWorkItems">

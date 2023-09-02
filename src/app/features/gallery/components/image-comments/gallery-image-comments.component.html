@@ -52,17 +52,20 @@
                             <img class="profile-image" [lazyImage]="this.options.data.comments[$index]"
                                 (onImageLoad)="getProfileImage($event)"
                                 [src]="comment.profileImage | safeResourceUrl" />
-                            <div class="ms-3">
-                                <div class="d-flex">
-                                    <div>
-                                        <b>{{comment.username}}:</b>&nbsp;
-                                        <div class="comment">{{comment.comment}}</div>
-                                    </div>
+                            <div class="ms-3 comment-wrapper">
+                                <div class="">
+                                    <b>{{comment.username}}:</b>&nbsp;
+                                    <span class="comment">{{comment.comment}}</span>
                                 </div>
                                 <div class="comment-data text-grey">
                                     <div class="pe-2">
                                         {{comment.commentDate|date}}
                                     </div>
+
+                                    <div *ngIf="comment.pinned" class="pe-2">
+                                        <fa-icon [icon]="faThumbTack" size="xs"></fa-icon> Pinned
+                                    </div>
+
                                     <div ngbDropdown *ngIf="comment.isMyComment">
                                         <div class="ellipsis">
                                             <fa-icon ngbDropdownToggle class="clickable" [icon]="faEllipsisH"
@@ -72,6 +75,10 @@
                                         <div ngbDropdownMenu>
                                             <button type="button" ngbDropdownItem
                                                 (click)="deleteComment(comment, $index)">Delete</button>
+                                            <button *ngIf="!comment.pinned" type="button" ngbDropdownItem
+                                                (click)="pinComment(comment, $index)">Pin</button>
+                                            <button *ngIf="comment.pinned" type="button" ngbDropdownItem
+                                                (click)="unpinComment(comment, $index)">Unpin</button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +92,7 @@
                 </div>
 
                 <div class="col-12 p-0 add-comment">
-                    <input class="text-grey form-control" placeholder="Add a comment..." (keydown.enter)="postComment()"
+                    <input class="form-control" placeholder="Add a comment..." (keydown.enter)="postComment()"
                         formControlName="comment" maxlength="500" (inputPosition)="inputElement = $event">
 
                     <div *ngIf="galleryImageCommentsFG.get('comment')?.value | emptyComment"

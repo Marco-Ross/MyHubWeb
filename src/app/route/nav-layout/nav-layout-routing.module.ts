@@ -35,6 +35,7 @@ const routes: Routes = [
             },
             {
                 path: 'feedback',
+                canMatch: [(route: Route, segments: UrlSegment[]) => inject(AuthGuard).canMatch(route, segments)],
                 loadChildren: () => import('../../features/feedback/components/feedback/feedback.module').then(m => m.FeedbackModule)
             },
             {

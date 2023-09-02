@@ -39,6 +39,16 @@ export class GalleryImagesService
         return this.http.delete(this.ApiController + '/' + imageId);
     }
 
+    pinComment(commentId: string): Observable<any>
+    {
+        return this.http.post(this.ApiController + '/Comment/Pin', { commentId: commentId });
+    }
+
+    unpinComment(commentId: string): Observable<any>
+    {
+        return this.http.post(this.ApiController + '/Comment/Unpin', { commentId: commentId });
+    }
+
     private likeImageApi(imageId: string): Observable<any>
     {
         return this.http.post(this.ApiController + '/Like', { imageId: imageId });

@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { IComment, IImage, IImageForPopup } from '../gallery/models/gallery-image.interface';
 import { ProfileImageService } from 'src/app/global-shared/services/profile/profile-image.service';
 import { GalleryImagesService } from '../gallery/gallery-service/gallery.service';
-import { faHeart as faFullHeart, faCalendar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faFullHeart, faCalendar, faEllipsisH, faThumbTack } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
@@ -24,6 +24,7 @@ export class GalleryImageCommentsComponent
     faFullHeart = faFullHeart;
     faCalendar = faCalendar;
     faEllipsisH = faEllipsisH;
+    faThumbTack = faThumbTack;
 
     //
 
@@ -98,6 +99,36 @@ export class GalleryImageCommentsComponent
     unlike(image: IImage)
     {
         this.galleryImagesService.unlike(image);
+    }
+
+    pinComment(commentingUser: IComment, index: number)
+    {
+        this.galleryImagesService.pinComment(commentingUser.id).subscribe(
+            {
+                next: () =>
+                {
+                    this.hubToast.success('Comment pinned');
+                },
+                error: (error) =>
+                {
+                    this.hubToast.error(error.error, error);
+                }
+            });
+    }
+
+    unpinComment(commentingUser: IComment, index: number)
+    {
+        this.galleryImagesService.unpinComment(commentingUser.id).subscribe(
+            {
+                next: () =>
+                {
+                    this.hubToast.success('Comment unpinned');
+                },
+                error: (error) =>
+                {
+                    this.hubToast.error(error.error, error);
+                }
+            });
     }
 
     onClose = () =>
