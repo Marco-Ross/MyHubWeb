@@ -66,18 +66,18 @@
                                         <fa-icon [icon]="faThumbTack" size="xs"></fa-icon> Pinned
                                     </div>
 
-                                    <div ngbDropdown *ngIf="comment.isMyComment">
-                                        <div class="ellipsis">
+                                    <div ngbDropdown>
+                                        <div class="ellipsis" *ngIf="comment.isMyComment || isAdmin">
                                             <fa-icon ngbDropdownToggle class="clickable" [icon]="faEllipsisH"
                                                 size="sm"></fa-icon>
                                         </div>
 
                                         <div ngbDropdownMenu>
-                                            <button type="button" ngbDropdownItem
+                                            <button *ngIf="comment.isMyComment" type="button" ngbDropdownItem
                                                 (click)="deleteComment(comment, $index)">Delete</button>
-                                            <button *ngIf="!comment.pinned" type="button" ngbDropdownItem
+                                            <button *ngIf="isAdmin && !comment.pinned" type="button" ngbDropdownItem
                                                 (click)="pinComment(comment, $index)">Pin</button>
-                                            <button *ngIf="comment.pinned" type="button" ngbDropdownItem
+                                            <button *ngIf="isAdmin && comment.pinned" type="button" ngbDropdownItem
                                                 (click)="unpinComment(comment, $index)">Unpin</button>
                                         </div>
                                     </div>

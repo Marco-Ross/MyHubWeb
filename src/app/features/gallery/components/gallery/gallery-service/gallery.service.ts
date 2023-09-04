@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { galleryImage } from '../models/gallery-image.class';
 import { Observable } from 'rxjs';
-import { IImage, IImageForPopup, IImageResponse } from '../models/gallery-image.interface';
+import { IComment, IImage, IImageForPopup, IImageResponse } from '../models/gallery-image.interface';
 import { likedUser } from '../models/liked-user.class';
 import { AbstractControl } from '@angular/forms';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
@@ -111,7 +111,19 @@ export class GalleryImagesService
                 formControl.setValue('');
                 image.commentsCount++;
                 image.isPostingComment = false;
-                (image.comments ||= []).unshift(comment);
+
+                if (!image.comments.length)
+                {
+                    (image.comments ||= []).unshift(comment);
+                    return;
+                }
+
+                let indexToInsert = image.comments.findIndex(x => !x.pinned);
+
+                if (indexToInsert === -1)
+                    image.comments.push(comment);
+                else
+                    image.comments.splice(indexToInsert, 0, comment);
             },
             error: (error) =>
             {
