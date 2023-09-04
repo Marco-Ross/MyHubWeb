@@ -7,6 +7,7 @@ import { faHeart as faFullHeart, faCalendar, faEllipsisH, faThumbTack } from '@f
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { HubToastService } from 'src/app/global-shared/services/hub-toastr/hub-toastr.service';
 import { InputValidator } from 'src/app/global-shared/validators/empty-input.validator';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 
 @Component({
     selector: 'gallery-image-comments',
@@ -16,7 +17,7 @@ import { InputValidator } from 'src/app/global-shared/validators/empty-input.val
 export class GalleryImageCommentsComponent
 {
     constructor(private formBuilder: FormBuilder, private profileImageService: ProfileImageService, private galleryImagesService: GalleryImagesService,
-        private hubToast: HubToastService) { }
+        private hubToast: HubToastService, private authenticationService: AuthenticationService) { }
 
     @Input() options: any;
 
@@ -31,11 +32,19 @@ export class GalleryImageCommentsComponent
     galleryImageCommentsFG!: FormGroup;
     defaultProfileImage = 'assets/icons/user-thin.png';
     inputElement!: HTMLInputElement;
+    isAdmin: boolean = false;
 
     ngOnInit()
     {
         this.galleryImageCommentsFG = this.formBuilder.group({
             comment: ['', [Validators.required, InputValidator.whiteSpace]]
+        });
+
+        this.authenticationService.getIsAdmin().subscribe({
+            next: (response) =>
+            {
+                this.isAdmin = response.isAdmin;
+            }
         });
 
         this.galleryImagesService.getImagePopupData(this.options.data.id).subscribe({
