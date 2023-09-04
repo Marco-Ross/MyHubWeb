@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="col-12 p-0 add-comment">
-                                    <input *ngIf="image.formControl" class="text-grey form-control"
+                                    <input *ngIf="image.formControl" class="form-control"
                                         [formControlName]="image.id" placeholder="Add a comment..."
                                         (keydown.enter)="postComment(image)" maxlength="500"
                                         (inputPosition)="inputElement = $event">

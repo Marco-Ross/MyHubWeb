@@ -52,5 +52,7 @@ export interface IComment
     username: string;
     comment: string;
     commentDate: Date;
+    pinned: boolean;
+    pinnedDate: Date;
     profileImage: string;
 }

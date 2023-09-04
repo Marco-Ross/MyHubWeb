@@ -12,6 +12,8 @@
 
     .ellipsis
     {
+        padding-top: 0.06rem;
+
         .dropdown-toggle::after
         {
             display: none;
@@ -33,11 +35,17 @@
     font-size: 0.875rem;
 }
 
-.comment
+.comment-wrapper
 {
+    width: 82%;
     overflow-wrap: break-word;
-    width: 18.5rem;
+
+    .comment
+    {
+        overflow-wrap: break-word;
+    }
 }
+
 
 .comments-seperator
 {
@@ -136,5 +144,18 @@
     .comments-seperator
     {
         display: block;
+    }
+}
+
+@media screen and (max-width: 400px)
+{
+    .main-image
+    {
+        width: 100%;
+    }
+
+    .comment-wrapper
+    {
+        width: 76%;
     }
 }
