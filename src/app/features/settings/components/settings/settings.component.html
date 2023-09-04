@@ -20,7 +20,7 @@
                 </strong>
               </span>
               <span *ngIf="loginIssuer == 'GH'" [ngClass]="{'github': loginIssuer == 'GH'}">
-                  <span class="github-logo"></span> GitHub
+                <span class="github-logo"></span> GitHub
               </span>
             </h6>
             <div class="text-grey account-disabled">Some account settings disabled</div>
@@ -50,7 +50,7 @@
             </ng-template>
           </li>
           <li [ngbNavItem]="3">
-            <a ngbNavLink>Themes</a>
+            <a ngbNavLink>Other</a>
             <ng-template ngbNavContent>
               <div class="ps-2 pt-1">
                 <form novalidate>
@@ -77,6 +77,26 @@
                             Dark Theme
                           </label>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 mt-4">
+                    <h3>Miscellaneous</h3>
+                    <hr />
+                    <div class="row">
+                      <div class="col-12">
+                        <ul>
+                          <li>
+                            <a href="https://github.com/Marco-Ross/MyHubWeb" target="_blank">
+                              View Front-end Source Code
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://github.com/Marco-Ross/MyHub" target="_blank">
+                              View Back-end Source Code
+                            </a>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>

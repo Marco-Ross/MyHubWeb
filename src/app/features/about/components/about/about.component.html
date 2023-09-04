@@ -1,16 +1,16 @@
 <form novalidate [formGroup]="aboutFG">
     <div class="d-flex justify-content-end social-links">
         <div class="social-links-images">
-            <fa-icon class="clickable social-icon" [icon]="faEnvelope" size="2x" [ngbPopover]="emailPopover" 
-                triggers="mouseenter:mouseleave" [autoClose]="autoClose" (mouseleave)="revertEmail()" 
-                ngxClipboard [cbContent]="'marcoross37@gmail.com'" (cbOnSuccess)="copyEmail()"></fa-icon>
+            <fa-icon class="clickable social-icon" [icon]="faEnvelope" size="2x" [ngbPopover]="emailPopover"
+                triggers="mouseenter:mouseleave" [autoClose]="autoClose" (mouseleave)="revertEmail()" ngxClipboard
+                [cbContent]="'marcoross37@gmail.com'" (cbOnSuccess)="copyEmail()"></fa-icon>
 
             <ng-template #emailPopover>
                 {{copyText}}
             </ng-template>
 
-            <a href="https://github.com/Marco-Ross" target="_blank" ngbPopover="GitHub"
-                triggers="mouseenter:mouseleave" container="body">
+            <a href="https://github.com/Marco-Ross" target="_blank" ngbPopover="GitHub" triggers="mouseenter:mouseleave"
+                container="body">
                 <span class="clickable" class="github-logo"></span>
             </a>
 
@@ -41,27 +41,21 @@
                     </div>
 
                     <div class="about-description">
+                        <p>Greetings!</p>
                         <p class="mb-4">
-                            Greetings! I'm Marco, and I'm an avid software developer. With a solid foundation built upon
-                            an advanced diploma in software development, I've had the privilege of working in the field
-                            for
-                            3
-                            and a half years. My experience as a full stack developer has allowed me to appreciate the
-                            intricate
-                            balance between front-end and back-end work, as well as the joy of creating seamless user
-                            experiences.
+                            I am Marco, an avid software developer with a solid foundation built on an advanced diploma
+                            in software development and I've had the privilege of working in the field
+                            for three and a half years. My experience as a full stack developer has not only allowed me
+                            to appreciate the intricate balance between front-end and back-end work, but also the joy of
+                            creating seamless user experiences.
                         </p>
 
                         <p>
-                            What truly keeps me engaged in this ever-evolving field is my genuine interest in
-                            technology.
-                            The
-                            endless possibilities it offers never cease to amaze me, and I'm constantly excited to learn
-                            about
-                            the latest advancements and trends. Beyond just writing code, I thrive on the challenge of
-                            problem-solving and finding creative ways to tackle complex issues. As I continue on this
-                            journey, I
-                            look forward to sharing my experiences and contributing to the ever-growing tech community.
+                            My genuine interest in technology and the endless possibilities that it offers is what truly
+                            keeps me engaged in this ever evolving field.
+
+                            As I continue on this journey, I look forward to sharing my experiences and
+                            contributing to the ever-growing tech community while working on self-growth.
                         </p>
                     </div>
 
